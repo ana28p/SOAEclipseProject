@@ -22,7 +22,7 @@
     <wsdl:part name="Message" type="xsd:string" />
   </wsdl:message>
 
-  <wsdl:portType name="GetPricePortType">
+  <wsdl:portType name="PricingPortType">
     <wsdl:operation name="GetPrice">
       <wsdl:input message="ps:GetPriceRequestMessage" />
       <wsdl:output message="ps:GetPriceResponseMessage" />
@@ -30,7 +30,7 @@
     </wsdl:operation>
   </wsdl:portType>
 
-  <wsdl:binding name="GetPriceSOAPBinding" type="ps:GetPricePortType">
+  <wsdl:binding name="PricingSOAPBinding" type="ps:PricingPortType">
     <!-- leverage off soapbind:binding synchronous style -->
     <soap:binding style="document"
       transport="http://schemas.xmlsoap.org/soap/http" />
@@ -52,7 +52,7 @@
   </wsdl:binding>
 
   <wsdl:service name="PricingOrderService">
-    <wsdl:port name="PricingOrderPort" binding="ps:GetPriceSOAPBinding">
+    <wsdl:port name="PricingOrderPort" binding="ps:PricingSOAPBinding">
       <!-- give the binding a network endpoint address or URI of service  -->
       <soap:address location="http://localhost:8080/SOAProject/services/PricingOrderService" />
     </wsdl:port>

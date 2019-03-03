@@ -22,7 +22,7 @@
     <wsdl:part name="Message" type="xsd:string" />
   </wsdl:message>
 
-  <wsdl:portType name="GetDistancePortType">
+  <wsdl:portType name="NavigationPortType">
     <wsdl:operation name="GetDistance">
       <wsdl:input message="ps:GetDistanceRequestMessage" />
       <wsdl:output message="ps:GetDistanceResponseMessage" />
@@ -30,7 +30,7 @@
     </wsdl:operation>
   </wsdl:portType>
 
-  <wsdl:binding name="GetDistanceSOAPBinding" type="ps:GetDistancePortType">
+  <wsdl:binding name="NavigationSOAPBinding" type="ps:NavigationPortType">
     <!-- leverage off soapbind:binding synchronous style -->
     <soap:binding style="document"
       transport="http://schemas.xmlsoap.org/soap/http" />
@@ -52,7 +52,7 @@
   </wsdl:binding>
 
   <wsdl:service name="NavigationOrderService">
-    <wsdl:port name="GetDistancePort" binding="ps:GetDistanceSOAPBinding">
+    <wsdl:port name="GetDistancePort" binding="ps:NavigationSOAPBinding">
       <!-- give the binding a network endpoint address or URI of service  -->
       <soap:address location="http://localhost:8080/SOAProject/services/NavigationOrderService" />
     </wsdl:port>
