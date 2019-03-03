@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NavigationOrderService"
+  targetNamespace="http://order.com/NavigationService" xmlns:ps="http://order.com/NavigationService"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://order.com/DataTypes">
+  <wsdl:types>
+	  <xsd:schema>
+	      <xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd" />
+	  </xsd:schema>
+  </wsdl:types>
+
+  <wsdl:message name="GetDistanceRequestMessage">
+    <wsdl:part name="CurrentLocation" type="types:Location" />
+    <wsdl:part name="EndLocation" type="types:Location" />
+  </wsdl:message>
+
+  <wsdl:message name="GetDistanceResponseMessage">
+    <wsdl:part name="Distance" type="xsd:double" />
+  </wsdl:message>
+
+  <wsdl:message name="DistanceNotFoundMessage">
+    <wsdl:part name="Message" type="xsd:string" />
+  </wsdl:message>
+
+  <wsdl:portType name="NavigationPortType">
+    <wsdl:operation name="GetDistance">
+      <wsdl:input message="ps:GetDistanceRequestMessage" />
+      <wsdl:output message="ps:GetDistanceResponseMessage" />
+      <wsdl:fault name="DistanceNotFound" message="ps:DistanceNotFoundMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="NavigationSOAPBinding" type="ps:NavigationPortType">
+    <!-- leverage off soapbind:binding synchronous style -->
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDistance">
+      <!-- again bind to SOAP -->
+      <soap:operation
+        style="document" />
+      <!-- further specify that the messages in the wsdl:operation use SOAP -->
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+        <wsdl:fault name="DistanceNotFound">
+            <soap:fault name="DistanceNotFound" />
+        </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="NavigationOrderService">
+    <wsdl:port name="GetDistancePort" binding="ps:NavigationSOAPBinding">
+      <!-- give the binding a network endpoint address or URI of service  -->
+      <soap:address location="http://localhost:8080/SOAProject/services/NavigationOrderService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

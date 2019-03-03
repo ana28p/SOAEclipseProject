@@ -5,6 +5,7 @@
 
 	<xsd:complexType name="Person">
 		<xsd:sequence>
+			<xsd:element name="Id" type="xsd:int" />
 			<xsd:element name="Name" type="xsd:string" />
 			<xsd:element name="Age" type="xsd:integer" />
 		</xsd:sequence>
@@ -21,8 +22,19 @@
 	</xsd:complexType>
 	
 	<xsd:complexType name="Driver">
+		<xsd:complexContent>
+			<xsd:extension base="dt:Person">
+				<xsd:sequence>
+					<xsd:element name="CarNumber" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Location">
 		<xsd:all>
-			<xsd:element name="CarNumber" type="xsd:string" />
+			<xsd:element name="Longitude" type="xsd:double" />
+			<xsd:element name="Lattitude" type="xsd:double" />
 		</xsd:all>
 	</xsd:complexType>
 </xsd:schema>
