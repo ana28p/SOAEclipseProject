@@ -10,16 +10,16 @@
   </wsdl:types>
 
   <wsdl:message name="RateDriverRequestMessage">
-    <wsdl:part name="Driver" type="types:Driver" />
-    <wsdl:part name="Rating" type="xsd:double" />
+    <wsdl:part name="Driver" element="types:Driver" />
+    <!-- <wsdl:part name="Rating" element="xsd:double" /> -->
   </wsdl:message>
 
   <wsdl:message name="RateDriverResponseMessage">
-    <wsdl:part name="Distance" type="xsd:double" />
+    <wsdl:part name="Distance" element="xsd:double" />
   </wsdl:message>
 
   <wsdl:message name="DriverNotFoundMessage">
-    <wsdl:part name="Message" type="xsd:string" />
+    <wsdl:part name="Message" element="xsd:string" />
   </wsdl:message>
 
   <wsdl:portType name="FeedbackPortType">
