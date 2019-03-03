@@ -2,24 +2,46 @@
 <wsdl:definitions name="FeedbackOrderService"
   targetNamespace="http://order.com/FeedbackService" xmlns:ps="http://order.com/FeedbackService"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://order.com/DataTypes">
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://order.com/DataTypes"
+  xmlns:elements="http://order.com/Elements">
   <wsdl:types>
-	  <xsd:schema>
+	  <xsd:schema targetNamespace="http://order.com/Elements">
 	      <xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd" />
-	  </xsd:schema>
+          <xsd:element name="RateDriverRequest">
+            <xsd:complexType>
+              <xsd:all>
+                <xsd:element name="Driver" type="types:Driver"/>
+                <xsd:element name="Rating" type="xsd:double"/>
+              </xsd:all>
+            </xsd:complexType>
+          </xsd:element>
+        <xsd:element name="RateDriverResponse">
+          <xsd:complexType>
+            <xsd:all>
+              <xsd:element name="Status" type="xsd:string"/>
+            </xsd:all>
+          </xsd:complexType>
+        </xsd:element>
+    <xsd:element name="RateDriverFault">
+      <xsd:complexType>
+        <xsd:all>
+          <xsd:element name="Message" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
   </wsdl:types>
 
   <wsdl:message name="RateDriverRequestMessage">
-    <wsdl:part name="Driver" element="types:Driver" />
-    <!-- <wsdl:part name="Rating" element="xsd:double" /> -->
+    <wsdl:part name="inputParameters" element="elements:RateDriverRequest" />
   </wsdl:message>
 
   <wsdl:message name="RateDriverResponseMessage">
-    <wsdl:part name="Distance" element="xsd:double" />
+    <wsdl:part name="outputParameters" element="elements:RateDriverResponse" />
   </wsdl:message>
 
   <wsdl:message name="DriverNotFoundMessage">
-    <wsdl:part name="Message" element="xsd:string" />
+    <wsdl:part name="fault" element="elements:RateDriverFault" />
   </wsdl:message>
 
   <wsdl:portType name="FeedbackPortType">

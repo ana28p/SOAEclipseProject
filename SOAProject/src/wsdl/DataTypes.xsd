@@ -3,7 +3,7 @@
 			xmlns:dt="http://order.com/DataTypes"
  			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<xsd:complexType name="PersonType">
+	<xsd:complexType name="Person">
 		<xsd:sequence>
 			<xsd:element name="Id" type="xsd:int" />
 			<xsd:element name="Name" type="xsd:string" />
@@ -11,9 +11,9 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="CustomerType">
+	<xsd:complexType name="Customer">
 		<xsd:complexContent>
-			<xsd:extension base="dt:PersonType">
+			<xsd:extension base="dt:Person">
 				<xsd:sequence>
 					<xsd:element name="CardNumer" type="xsd:string" />
 				</xsd:sequence>
@@ -21,9 +21,9 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	
-	<xsd:complexType name="DriverType">
+	<xsd:complexType name="Driver">
 		<xsd:complexContent>
-			<xsd:extension base="dt:PersonType">
+			<xsd:extension base="dt:Person">
 				<xsd:sequence>
 					<xsd:element name="CarNumber" type="xsd:string" />
 				</xsd:sequence>
@@ -31,14 +31,14 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-	<xsd:complexType name="LocationType">
+	<xsd:complexType name="Location">
 		<xsd:all>
 			<xsd:element name="Longitude" type="xsd:double" />
 			<xsd:element name="Lattitude" type="xsd:double" />
 		</xsd:all>
 	</xsd:complexType>
 
-	<xsd:element name="Customer" type="dt:CustomerType"/>
-	<xsd:element name="Driver" type="dt:DriverType"/>
-	<xsd:element name="Location" type="dt:LocationType"/>
+	<!--<xsd:element name="Customer" type="dt:CustomerType"/>-->
+	<!--<xsd:element name="Driver" type="dt:DriverType"/>-->
+	<!--<xsd:element name="Location" type="dt:LocationType"/>-->
 </xsd:schema>
