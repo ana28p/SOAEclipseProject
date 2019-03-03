@@ -2,24 +2,48 @@
 <wsdl:definitions name="PricingOrderService"
   targetNamespace="http://order.com/PricingService" xmlns:ps="http://order.com/PricingService"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://order.com/DataTypes">
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://order.com/DataTypes"
+                  xmlns:elements="http://order.com/Elements">
   <wsdl:types>
-	  <xsd:schema>
-	      <xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd" />
-	  </xsd:schema>
+    <xsd:schema targetNamespace="http://order.com/Elements">
+      <xsd:import namespace="http://order.com/DataTypes"
+                  schemaLocation="DataTypes.xsd" />
+      <xsd:element name="GetPriceRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Location" type="types:Location" />
+            <xsd:element name="Time" type="xsd:string" />
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPriceResponse">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Price" type="xsd:double" />
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPriceFault">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Message" type="xsd:string" />
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
   </wsdl:types>
 
+
   <wsdl:message name="GetPriceRequestMessage">
-    <wsdl:part name="Location" type="types:Location" />
-    <wsdl:part name="Time" type="xsd:string" />
+    <wsdl:part name="inputParameters" element="elements:GetPriceRequest" />
   </wsdl:message>
 
   <wsdl:message name="GetPriceResponseMessage">
-    <wsdl:part name="Price" type="xsd:double" />
+    <wsdl:part name="outputParameters" element="elements:GetPriceResponse" />
   </wsdl:message>
 
   <wsdl:message name="PriceNotFoundMessage">
-    <wsdl:part name="Message" type="xsd:string" />
+    <wsdl:part name="fault" element="elements:GetPriceFault" />
   </wsdl:message>
 
   <wsdl:portType name="PricingPortType">
