@@ -7,6 +7,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:types="http://order.com/DataTypes"
 	xmlns:elements="http://order.com/Elements">
+	
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://order.com/Elements">
 			<xsd:import namespace="http://order.com/DataTypes"
@@ -61,13 +62,10 @@
 
 	<wsdl:binding name="FeedbackSOAPBinding"
 		type="ps:FeedbackPortType">
-		<!-- leverage off soapbind:binding synchronous style -->
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="RateDriver">
-			<!-- again bind to SOAP -->
 			<soap:operation style="document" />
-			<!-- further specify that the messages in the wsdl:operation use SOAP -->
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -83,7 +81,6 @@
 	<wsdl:service name="FeedbackOrderService">
 		<wsdl:port name="RateDriverPort"
 			binding="ps:FeedbackSOAPBinding">
-			<!-- give the binding a network endpoint address or URI of service -->
 			<soap:address
 				location="http://localhost:8080/SOAProject/services/FeedbackOrderService" />
 		</wsdl:port>
