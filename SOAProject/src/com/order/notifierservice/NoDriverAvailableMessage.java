@@ -10,7 +10,7 @@ package com.order.notifierservice;
 
 public class NoDriverAvailableMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1551653726442L;
+    private static final long serialVersionUID = 1551727397543L;
     
     private com.order.elements.FindDriverFault faultMessage;
 

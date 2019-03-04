@@ -10,7 +10,7 @@ package com.order.feedbackservice;
 
 public class PersonNotFoundMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1551725682824L;
+    private static final long serialVersionUID = 1551727373508L;
     
     private com.order.elements.RatePersonFault faultMessage;
 

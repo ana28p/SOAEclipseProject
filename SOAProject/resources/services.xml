@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
-    <service name="FeedbackOrderService">
+    <service name="NotifierOrderService">
         <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.order.feedbackservice.FeedbackOrderServiceMessageReceiverInOut"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.order.notifierservice.NotifierOrderServiceMessageReceiverInOut"/>
         </messageReceivers>
-        <parameter name="ServiceClass">com.order.feedbackservice.FeedbackOrderServiceSkeleton</parameter>
+        <parameter name="ServiceClass">com.order.notifierservice.NotifierOrderServiceSkeleton</parameter>
         <parameter name="useOriginalwsdl">true</parameter>
         <parameter name="modifyUserWSDLPortAddress">true</parameter>
-        <operation name="RatePerson" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://order.com/FeedbackService">
-            <actionMapping>http://order.com/FeedbackService/FeedbackPortType/RatePersonRequest</actionMapping>
-            <outputActionMapping>http://order.com/FeedbackService/FeedbackPortType/RatePersonResponse</outputActionMapping>
-            <faultActionMapping faultName="PersonNotFound">http://order.com/FeedbackService/FeedbackPortType/RatePerson/Fault/PersonNotFound</faultActionMapping>
-            <faultActionMapping faultName="PersonNotFoundMessage">http://order.com/FeedbackService/FeedbackPortType/RatePerson/Fault/PersonNotFound</faultActionMapping>
-            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://order.com/FeedbackService/FeedbackPortType/RatePerson/Fault/PersonNotFound</faultActionMapping>
+        <operation name="FindDriver" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://order.com/NotifierService">
+            <actionMapping>http://order.com/NotifierService/NotifierPortType/FindDriverRequest</actionMapping>
+            <outputActionMapping>http://order.com/NotifierService/NotifierPortType/FindDriverResponse</outputActionMapping>
+            <faultActionMapping faultName="NoDriverAvailable">http://order.com/NotifierService/NotifierPortType/FindDriver/Fault/NoDriverAvailable</faultActionMapping>
+            <faultActionMapping faultName="NoDriverAvailableMessage">http://order.com/NotifierService/NotifierPortType/FindDriver/Fault/NoDriverAvailable</faultActionMapping>
+            <faultActionMapping faultName="NoDriverAvailableMessage_Exception">http://order.com/NotifierService/NotifierPortType/FindDriver/Fault/NoDriverAvailable</faultActionMapping>
         </operation>
     </service>
 </serviceGroup>
