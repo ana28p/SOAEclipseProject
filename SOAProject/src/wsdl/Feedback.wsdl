@@ -20,20 +20,6 @@
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="RatePersonResponse">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Status" type="xsd:string" />
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="RatePersonFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string" />
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -42,21 +28,9 @@
 			element="elements:RatePersonRequest" />
 	</wsdl:message>
 
-	<wsdl:message name="RatePersonResponseMessage">
-		<wsdl:part name="outputParameters"
-			element="elements:RatePersonResponse" />
-	</wsdl:message>
-
-	<wsdl:message name="PersonNotFoundMessage">
-		<wsdl:part name="fault" element="elements:RatePersonFault" />
-	</wsdl:message>
-
 	<wsdl:portType name="FeedbackPortType">
 		<wsdl:operation name="RatePerson">
 			<wsdl:input message="ps:RatePersonRequestMessage" />
-			<wsdl:output message="ps:RatePersonResponseMessage" />
-			<wsdl:fault name="PersonNotFound"
-				message="ps:PersonNotFoundMessage" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -69,12 +43,6 @@
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-			<wsdl:fault name="PersonNotFound">
-				<soap:fault name="PersonNotFound" />
-			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
 
