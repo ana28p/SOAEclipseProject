@@ -1,42 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PricingOrderService" targetNamespace="http://order.com/PricingService" xmlns:types="http://order.com/DataTypes" xmlns:ps="http://order.com/PricingService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions name="PricingOrderService" targetNamespace="http://order.com/PricingService" xmlns:types="http://order.com/DataTypes" xmlns:ps="http://order.com/PricingService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:elements="http://order.com/Elements" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
-    <xsd:schema>
-	      <xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd"/>             
-	  </xsd:schema>
+    <xsd:schema targetNamespace="http://order.com/Elements">
+			<xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+			<xsd:element name="GetPriceRequest">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="Location" type="types:Location"/>
+						<xsd:element name="Time" type="xsd:string"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetPriceResponse">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="Price" type="xsd:double"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetPriceFault">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="Message" type="xsd:string"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
   </wsdl:types>
-  <wsdl:message name="PriceMessage">
-    <wsdl:part name="Price" type="xsd:integer">
+  <wsdl:message name="GetPriceResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:GetPriceResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="GetPriceMessage">
-    <wsdl:part name="Location" type="xsd:string">
-    </wsdl:part>
-    <wsdl:part name="CustomerInfo" type="types:Customer">
+  <wsdl:message name="GetPriceRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:GetPriceRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="RequestPricePortType">
-    <wsdl:operation name="RequestPrice">
-      <wsdl:input message="ps:GetPriceMessage">
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="elements:GetPriceFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PricingPortType">
+    <wsdl:operation name="GetPrice">
+      <wsdl:input message="ps:GetPriceRequestMessage">
     </wsdl:input>
-      <wsdl:output message="ps:PriceMessage">
+      <wsdl:output message="ps:GetPriceResponseMessage">
     </wsdl:output>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage">
+    </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="RequestPriceSOAPBinding" type="ps:RequestPricePortType">
+  <wsdl:binding name="PricingSOAPBinding" type="ps:PricingPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="RequestPrice">
-      <soap:operation soapAction="http://supply.com/PurchaseService/wsdl/SendPurchase" style="rpc"/>
+    <wsdl:operation name="GetPrice">
+      <soap:operation style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PricingOrderService">
-    <wsdl:port name="PricingOrderPort" binding="ps:RequestPriceSOAPBinding">
+    <wsdl:port name="PricingOrderPort" binding="ps:PricingSOAPBinding">
       <soap:address location="http://localhost:8080/SOAProject/services/PricingOrderService"/>
     </wsdl:port>
   </wsdl:service>

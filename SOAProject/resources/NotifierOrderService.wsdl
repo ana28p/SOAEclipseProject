@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NotifierOrderService" targetNamespace="http://order.com/NotifierService" xmlns:types="http://order.com/DataTypes" xmlns:ps="http://order.com/NotifierService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:elements="http://order.com/Elements" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://order.com/Elements">
+			<xsd:import namespace="http://order.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+			<xsd:element name="FindDriverRequest">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="StartLocation" type="types:Location"/>
+						<xsd:element name="EndLocation" type="types:Location"/>
+						<xsd:element name="Price" type="xsd:string"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="FindDriverResponse">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="Driver" type="types:Driver"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="FindDriverFault">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="Message" type="xsd:string"/>
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NoDriverAvailableMessage">
+    <wsdl:part name="fault" element="elements:FindDriverFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="FindDriverResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:FindDriverResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="FindDriverRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:FindDriverRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="NotifierPortType">
+    <wsdl:operation name="FindDriver">
+      <wsdl:input message="ps:FindDriverRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:FindDriverResponseMessage">
+    </wsdl:output>
+      <wsdl:fault name="NoDriverAvailable" message="ps:NoDriverAvailableMessage">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotifierSOAPBinding" type="ps:NotifierPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FindDriver">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NoDriverAvailable">
+        <soap:fault name="NoDriverAvailable"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NotifierOrderService">
+    <wsdl:port name="FindDriverPort" binding="ps:NotifierSOAPBinding">
+      <soap:address location="http://localhost:8080/SOAProject/services/NotifierOrderService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

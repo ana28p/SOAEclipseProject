@@ -15,15 +15,16 @@
         /**
          * Auto generated method signature
          * 
-                                    * @param requestPrice
+                                    * @param getPriceRequest
+             * @throws PriceNotFoundMessage : 
          */
 
         
-                public com.order.pricingservice.RequestPriceResponse requestPrice
+                public com.order.elements.GetPriceResponse getPrice
                 (
-                  com.order.pricingservice.RequestPrice requestPrice
+                  com.order.elements.GetPriceRequest getPriceRequest
                  )
-            ;
+            throws PriceNotFoundMessage;
         
          }
     

@@ -15,17 +15,18 @@
         /**
          * Auto generated method signature
          * 
-                                     * @param requestPrice0 
-             * @return requestPriceResponse1 
+                                     * @param getPriceRequest0 
+             * @return getPriceResponse1 
+             * @throws PriceNotFoundMessage 
          */
         
-                 public com.order.pricingservice.RequestPriceResponse requestPrice
+                 public com.order.elements.GetPriceResponse getPrice
                   (
-                  com.order.pricingservice.RequestPrice requestPrice0
+                  com.order.elements.GetPriceRequest getPriceRequest0
                   )
-            {
+            throws PriceNotFoundMessage{
                 //TODO : fill this with the necessary business logic
-                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#requestPrice");
+                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#getPrice");
         }
      
     }

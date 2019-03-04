@@ -1,6 +1,6 @@
 
 /**
- * Person.java
+ * Driver.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -11,104 +11,44 @@
             
 
             /**
-            *  Person bean class
+            *  Driver bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class Person
+        public  class Driver extends com.order.datatypes.Person
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
-                name = Person
+                name = Driver
                 Namespace URI = http://order.com/DataTypes
                 Namespace Prefix = ns1
                 */
             
 
                         /**
-                        * field for Id
+                        * field for CarNumber
                         */
 
                         
-                                    protected int localId ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getId(){
-                               return localId;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Id
-                               */
-                               public void setId(int param){
-                            
-                                            this.localId=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for Name
-                        */
-
-                        
-                                    protected java.lang.String localName ;
+                                    protected java.lang.String localCarNumber ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getName(){
-                               return localName;
+                           public  java.lang.String getCarNumber(){
+                               return localCarNumber;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Name
+                               * @param param CarNumber
                                */
-                               public void setName(java.lang.String param){
+                               public void setCarNumber(java.lang.String param){
                             
-                                            this.localName=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for Age
-                        */
-
-                        
-                                    protected java.math.BigInteger localAge ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.math.BigInteger
-                           */
-                           public  java.math.BigInteger getAge(){
-                               return localAge;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Age
-                               */
-                               public void setAge(java.math.BigInteger param){
-                            
-                                            this.localAge=param;
+                                            this.localCarNumber=param;
                                        
 
                                }
@@ -156,22 +96,18 @@
                     namespace = parentQName.getNamespaceURI();
                     writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
                 
-                  if (serializeType){
-               
 
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/DataTypes");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":Person",
+                           namespacePrefix+":Driver",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "Person",
+                           "Driver",
                            xmlWriter);
                    }
 
-               
-                   }
                
                                     namespace = "";
                                     writeStartElement(null, namespace, "Id", xmlWriter);
@@ -217,6 +153,24 @@
 
                                         
                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
+                                    namespace = "";
+                                    writeStartElement(null, namespace, "CarNumber", xmlWriter);
+                             
+
+                                          if (localCarNumber==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("CarNumber cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localCarNumber);
                                             
                                           }
                                     
@@ -407,6 +361,9 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                 
+                    attribList.add(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema-instance","type"));
+                    attribList.add(new javax.xml.namespace.QName("http://order.com/DataTypes","Driver"));
+                
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Id"));
                                  
@@ -429,6 +386,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
+                                        }
+                                    
+                                      elementList.add(new javax.xml.namespace.QName("",
+                                                                      "CarNumber"));
+                                 
+                                        if (localCarNumber != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCarNumber));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("CarNumber cannot be null!!");
                                         }
                                     
 
@@ -455,9 +421,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static Person parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            Person object =
-                new Person();
+        public static Driver parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            Driver object =
+                new Driver();
 
             int event;
             java.lang.String nillableValue = null;
@@ -481,10 +447,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"Person".equals(type)){
+                            if (!"Driver".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Person)com.order.elements.ExtensionMapper.getTypeObject(
+                                return (Driver)com.order.elements.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -571,6 +537,31 @@
                                     
                                               object.setAge(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","CarNumber").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CarNumber" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setCarNumber(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

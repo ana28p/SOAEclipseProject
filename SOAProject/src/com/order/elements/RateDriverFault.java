@@ -1,114 +1,55 @@
 
 /**
- * Person.java
+ * RateDriverFault.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
  */
 
             
-                package com.order.datatypes;
+                package com.order.elements;
             
 
             /**
-            *  Person bean class
+            *  RateDriverFault bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class Person
+        public  class RateDriverFault
         implements org.apache.axis2.databinding.ADBBean{
-        /* This type was generated from the piece of schema that had
-                name = Person
-                Namespace URI = http://order.com/DataTypes
-                Namespace Prefix = ns1
-                */
+        
+                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
+                "http://order.com/Elements",
+                "RateDriverFault",
+                "ns2");
+
             
 
                         /**
-                        * field for Id
+                        * field for Message
                         */
 
                         
-                                    protected int localId ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getId(){
-                               return localId;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Id
-                               */
-                               public void setId(int param){
-                            
-                                            this.localId=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for Name
-                        */
-
-                        
-                                    protected java.lang.String localName ;
+                                    protected java.lang.String localMessage ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getName(){
-                               return localName;
+                           public  java.lang.String getMessage(){
+                               return localMessage;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Name
+                               * @param param Message
                                */
-                               public void setName(java.lang.String param){
+                               public void setMessage(java.lang.String param){
                             
-                                            this.localName=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for Age
-                        */
-
-                        
-                                    protected java.math.BigInteger localAge ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.math.BigInteger
-                           */
-                           public  java.math.BigInteger getAge(){
-                               return localAge;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Age
-                               */
-                               public void setAge(java.math.BigInteger param){
-                            
-                                            this.localAge=param;
+                                            this.localMessage=param;
                                        
 
                                }
@@ -129,8 +70,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
-               return factory.createOMElement(dataSource,parentQName);
+                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
+               return factory.createOMElement(dataSource,MY_QNAME);
             
         }
 
@@ -159,14 +100,14 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/DataTypes");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/Elements");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":Person",
+                           namespacePrefix+":RateDriverFault",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "Person",
+                           "RateDriverFault",
                            xmlWriter);
                    }
 
@@ -174,49 +115,18 @@
                    }
                
                                     namespace = "";
-                                    writeStartElement(null, namespace, "Id", xmlWriter);
-                             
-                                               if (localId==java.lang.Integer.MIN_VALUE) {
-                                           
-                                                         throw new org.apache.axis2.databinding.ADBException("Id cannot be null!!");
-                                                      
-                                               } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
-                                               }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "";
-                                    writeStartElement(null, namespace, "Name", xmlWriter);
+                                    writeStartElement(null, namespace, "Message", xmlWriter);
                              
 
-                                          if (localName==null){
+                                          if (localMessage==null){
                                               // write the nil attribute
                                               
-                                                     throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
+                                                     throw new org.apache.axis2.databinding.ADBException("Message cannot be null!!");
                                                   
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localName);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "";
-                                    writeStartElement(null, namespace, "Age", xmlWriter);
-                             
-
-                                          if (localAge==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                                                   xmlWriter.writeCharacters(localMessage);
                                             
                                           }
                                     
@@ -228,8 +138,8 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://order.com/DataTypes")){
-                return "ns1";
+            if(namespace.equals("http://order.com/Elements")){
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -408,27 +318,12 @@
 
                 
                                       elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Id"));
+                                                                      "Message"));
                                  
-                                elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
-                            
-                                      elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Name"));
-                                 
-                                        if (localName != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localName));
+                                        if (localMessage != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMessage));
                                         } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
-                                        }
-                                    
-                                      elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Age"));
-                                 
-                                        if (localAge != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
+                                           throw new org.apache.axis2.databinding.ADBException("Message cannot be null!!");
                                         }
                                     
 
@@ -455,9 +350,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static Person parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            Person object =
-                new Person();
+        public static RateDriverFault parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            RateDriverFault object =
+                new RateDriverFault();
 
             int event;
             java.lang.String nillableValue = null;
@@ -481,10 +376,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"Person".equals(type)){
+                            if (!"RateDriverFault".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Person)com.order.elements.ExtensionMapper.getTypeObject(
+                                return (RateDriverFault)com.order.elements.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -505,89 +400,37 @@
                 
                     
                     reader.next();
+                   
+                while(!reader.isEndElement()) {
+                    if (reader.isStartElement() ){
                 
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Id").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Message").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Id" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Message" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setId(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Name").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Name" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setName(
+                                              object.setMessage(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Age").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Age" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setAge(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
-                            while (!reader.isStartElement() && !reader.isEndElement())
+                             else{
+                                        // A start element we are not expecting indicates an invalid parameter was passed
+                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                             }
+                          
+                             } else {
                                 reader.next();
-                            
-                                if (reader.isStartElement())
-                                // A start element we are not expecting indicates a trailing invalid property
-                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                            
+                             }  
+                           }  // end of while loop
+                        
 
 
 

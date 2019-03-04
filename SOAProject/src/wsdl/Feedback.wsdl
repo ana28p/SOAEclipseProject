@@ -12,22 +12,22 @@
 		<xsd:schema targetNamespace="http://order.com/Elements">
 			<xsd:import namespace="http://order.com/DataTypes"
 				schemaLocation="DataTypes.xsd" />
-			<xsd:element name="RateDriverRequest">
+			<xsd:element name="RatePersonRequest">
 				<xsd:complexType>
 					<xsd:all>
-						<xsd:element name="Driver" type="types:Driver" />
+						<xsd:element name="Person" type="types:Person" />
 						<xsd:element name="Rating" type="xsd:double" />
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="RateDriverResponse">
+			<xsd:element name="RatePersonResponse">
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Status" type="xsd:string" />
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="RateDriverFault">
+			<xsd:element name="RatePersonFault">
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Message" type="xsd:string" />
@@ -37,26 +37,26 @@
 		</xsd:schema>
 	</wsdl:types>
 
-	<wsdl:message name="RateDriverRequestMessage">
+	<wsdl:message name="RatePersonRequestMessage">
 		<wsdl:part name="inputParameters"
-			element="elements:RateDriverRequest" />
+			element="elements:RatePersonRequest" />
 	</wsdl:message>
 
-	<wsdl:message name="RateDriverResponseMessage">
+	<wsdl:message name="RatePersonResponseMessage">
 		<wsdl:part name="outputParameters"
-			element="elements:RateDriverResponse" />
+			element="elements:RatePersonResponse" />
 	</wsdl:message>
 
-	<wsdl:message name="DriverNotFoundMessage">
-		<wsdl:part name="fault" element="elements:RateDriverFault" />
+	<wsdl:message name="PersonNotFoundMessage">
+		<wsdl:part name="fault" element="elements:RatePersonFault" />
 	</wsdl:message>
 
 	<wsdl:portType name="FeedbackPortType">
-		<wsdl:operation name="RateDriver">
-			<wsdl:input message="ps:RateDriverRequestMessage" />
-			<wsdl:output message="ps:RateDriverResponseMessage" />
-			<wsdl:fault name="DriverNotFound"
-				message="ps:DriverNotFoundMessage" />
+		<wsdl:operation name="RatePerson">
+			<wsdl:input message="ps:RatePersonRequestMessage" />
+			<wsdl:output message="ps:RatePersonResponseMessage" />
+			<wsdl:fault name="PersonNotFound"
+				message="ps:PersonNotFoundMessage" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -64,7 +64,7 @@
 		type="ps:FeedbackPortType">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsdl:operation name="RateDriver">
+		<wsdl:operation name="RatePerson">
 			<soap:operation style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
@@ -72,14 +72,14 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="DriverNotFound">
-				<soap:fault name="DriverNotFound" />
+			<wsdl:fault name="PersonNotFound">
+				<soap:fault name="PersonNotFound" />
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
 
 	<wsdl:service name="FeedbackOrderService">
-		<wsdl:port name="RateDriverPort"
+		<wsdl:port name="RatePersonPort"
 			binding="ps:FeedbackSOAPBinding">
 			<soap:address
 				location="http://localhost:8080/SOAProject/services/FeedbackOrderService" />

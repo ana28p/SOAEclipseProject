@@ -1,17 +1,17 @@
 
 /**
- * PricingOrderServiceMessageReceiverInOut.java
+ * NotifierOrderServiceMessageReceiverInOut.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
-        package com.order.pricingservice;
+        package com.order.notifierservice;
 
         /**
-        *  PricingOrderServiceMessageReceiverInOut message receiver
+        *  NotifierOrderServiceMessageReceiverInOut message receiver
         */
 
-        public class PricingOrderServiceMessageReceiverInOut extends org.apache.axis2.receivers.AbstractInOutMessageReceiver{
+        public class NotifierOrderServiceMessageReceiverInOut extends org.apache.axis2.receivers.AbstractInOutMessageReceiver{
 
 
         public void invokeBusinessLogic(org.apache.axis2.context.MessageContext msgContext, org.apache.axis2.context.MessageContext newMsgContext)
@@ -22,7 +22,7 @@
         // get the implementation class for the Web Service
         Object obj = getTheImplementationObject(msgContext);
 
-        PricingOrderServiceSkeletonInterface skel = (PricingOrderServiceSkeletonInterface)obj;
+        NotifierOrderServiceSkeletonInterface skel = (NotifierOrderServiceSkeletonInterface)obj;
         //Out Envelop
         org.apache.axiom.soap.SOAPEnvelope envelope = null;
         //Find the axisOperation that has been set by the Dispatch phase.
@@ -37,23 +37,23 @@
 
         
 
-            if("getPrice".equals(methodName)){
+            if("findDriver".equals(methodName)){
                 
-                com.order.elements.GetPriceResponse getPriceResponse7 = null;
-	                        com.order.elements.GetPriceRequest wrappedParam =
-                                                             (com.order.elements.GetPriceRequest)fromOM(
+                com.order.elements.FindDriverResponse findDriverResponse7 = null;
+	                        com.order.elements.FindDriverRequest wrappedParam =
+                                                             (com.order.elements.FindDriverRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
-                                    com.order.elements.GetPriceRequest.class,
+                                    com.order.elements.FindDriverRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getPriceResponse7 =
+                                               findDriverResponse7 =
                                                    
                                                    
-                                                         skel.getPrice(wrappedParam)
+                                                         skel.findDriver(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getPriceResponse7, false, new javax.xml.namespace.QName("http://order.com/PricingService",
-                                                    "getPrice"));
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), findDriverResponse7, false, new javax.xml.namespace.QName("http://order.com/NotifierService",
+                                                    "findDriver"));
                                     
             } else {
               throw new java.lang.RuntimeException("method not found");
@@ -62,9 +62,9 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (PriceNotFoundMessage e) {
+        } catch (NoDriverAvailableMessage e) {
 
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"GetPriceFault");
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FindDriverFault");
             org.apache.axis2.AxisFault f = createAxisFault(e);
             if (e.getFaultMessage() != null){
                 f.setDetail(toOM(e.getFaultMessage(),false));
@@ -78,12 +78,12 @@
         }
         
         //
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.GetPriceRequest param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.FindDriverRequest param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.GetPriceRequest.MY_QNAME,
+                             return param.getOMElement(com.order.elements.FindDriverRequest.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -92,12 +92,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.GetPriceResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.FindDriverResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.GetPriceResponse.MY_QNAME,
+                             return param.getOMElement(com.order.elements.FindDriverResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -106,12 +106,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.GetPriceFault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.FindDriverFault param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.GetPriceFault.MY_QNAME,
+                             return param.getOMElement(com.order.elements.FindDriverFault.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -120,12 +120,12 @@
 
             }
         
-                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.elements.GetPriceResponse param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
+                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.elements.FindDriverResponse param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
                         throws org.apache.axis2.AxisFault{
                       try{
                           org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                            
-                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.elements.GetPriceResponse.MY_QNAME,factory));
+                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.elements.FindDriverResponse.MY_QNAME,factory));
                                 
 
                          return emptyEnvelope;
@@ -134,8 +134,8 @@
                     }
                     }
                     
-                         private com.order.elements.GetPriceResponse wrapGetPrice(){
-                                com.order.elements.GetPriceResponse wrappedElement = new com.order.elements.GetPriceResponse();
+                         private com.order.elements.FindDriverResponse wrapFindDriver(){
+                                com.order.elements.FindDriverResponse wrappedElement = new com.order.elements.FindDriverResponse();
                                 return wrappedElement;
                          }
                     
@@ -156,23 +156,23 @@
 
         try {
         
-                if (com.order.elements.GetPriceFault.class.equals(type)){
+                if (com.order.elements.FindDriverFault.class.equals(type)){
                 
-                        return com.order.elements.GetPriceFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.elements.FindDriverFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
             
-                if (com.order.elements.GetPriceRequest.class.equals(type)){
+                if (com.order.elements.FindDriverRequest.class.equals(type)){
                 
-                        return com.order.elements.GetPriceRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.elements.FindDriverRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
             
-                if (com.order.elements.GetPriceResponse.class.equals(type)){
+                if (com.order.elements.FindDriverResponse.class.equals(type)){
                 
-                        return com.order.elements.GetPriceResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.elements.FindDriverResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

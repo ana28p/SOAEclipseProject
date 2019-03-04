@@ -1,6 +1,6 @@
 
 /**
- * Person.java
+ * Location.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -11,104 +11,74 @@
             
 
             /**
-            *  Person bean class
+            *  Location bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class Person
+        public  class Location
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
-                name = Person
+                name = Location
                 Namespace URI = http://order.com/DataTypes
                 Namespace Prefix = ns1
                 */
             
 
                         /**
-                        * field for Id
+                        * field for Longitude
                         */
 
                         
-                                    protected int localId ;
+                                    protected double localLongitude ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return int
+                           * @return double
                            */
-                           public  int getId(){
-                               return localId;
+                           public  double getLongitude(){
+                               return localLongitude;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Id
+                               * @param param Longitude
                                */
-                               public void setId(int param){
+                               public void setLongitude(double param){
                             
-                                            this.localId=param;
+                                            this.localLongitude=param;
                                        
 
                                }
                             
 
                         /**
-                        * field for Name
+                        * field for Lattitude
                         */
 
                         
-                                    protected java.lang.String localName ;
+                                    protected double localLattitude ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return double
                            */
-                           public  java.lang.String getName(){
-                               return localName;
+                           public  double getLattitude(){
+                               return localLattitude;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Name
+                               * @param param Lattitude
                                */
-                               public void setName(java.lang.String param){
+                               public void setLattitude(double param){
                             
-                                            this.localName=param;
-                                       
-
-                               }
-                            
-
-                        /**
-                        * field for Age
-                        */
-
-                        
-                                    protected java.math.BigInteger localAge ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.math.BigInteger
-                           */
-                           public  java.math.BigInteger getAge(){
-                               return localAge;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Age
-                               */
-                               public void setAge(java.math.BigInteger param){
-                            
-                                            this.localAge=param;
+                                            this.localLattitude=param;
                                        
 
                                }
@@ -162,11 +132,11 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/DataTypes");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":Person",
+                           namespacePrefix+":Location",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "Person",
+                           "Location",
                            xmlWriter);
                    }
 
@@ -174,51 +144,28 @@
                    }
                
                                     namespace = "";
-                                    writeStartElement(null, namespace, "Id", xmlWriter);
+                                    writeStartElement(null, namespace, "Longitude", xmlWriter);
                              
-                                               if (localId==java.lang.Integer.MIN_VALUE) {
+                                               if (java.lang.Double.isNaN(localLongitude)) {
                                            
-                                                         throw new org.apache.axis2.databinding.ADBException("Id cannot be null!!");
+                                                         throw new org.apache.axis2.databinding.ADBException("Longitude cannot be null!!");
                                                       
                                                } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLongitude));
                                                }
                                     
                                    xmlWriter.writeEndElement();
                              
                                     namespace = "";
-                                    writeStartElement(null, namespace, "Name", xmlWriter);
+                                    writeStartElement(null, namespace, "Lattitude", xmlWriter);
                              
-
-                                          if (localName==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localName);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "";
-                                    writeStartElement(null, namespace, "Age", xmlWriter);
-                             
-
-                                          if (localAge==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                            
-                                          }
+                                               if (java.lang.Double.isNaN(localLattitude)) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Lattitude cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLattitude));
+                                               }
                                     
                                    xmlWriter.writeEndElement();
                              
@@ -408,29 +355,17 @@
 
                 
                                       elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Id"));
+                                                                      "Longitude"));
                                  
                                 elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLongitude));
                             
                                       elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Name"));
+                                                                      "Lattitude"));
                                  
-                                        if (localName != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localName));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
-                                        }
-                                    
-                                      elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Age"));
-                                 
-                                        if (localAge != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                        }
-                                    
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLattitude));
+                            
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -455,9 +390,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static Person parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            Person object =
-                new Person();
+        public static Location parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            Location object =
+                new Location();
 
             int event;
             java.lang.String nillableValue = null;
@@ -481,10 +416,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"Person".equals(type)){
+                            if (!"Location".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Person)com.order.elements.ExtensionMapper.getTypeObject(
+                                return (Location)com.order.elements.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -509,18 +444,18 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Id").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Longitude").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Id" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Longitude" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setId(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              object.setLongitude(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();
                                     
@@ -534,43 +469,18 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Name").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Lattitude").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Name" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Lattitude" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setName(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Age").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Age" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setAge(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+                                              object.setLattitude(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();
                                     
