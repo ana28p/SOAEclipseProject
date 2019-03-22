@@ -8,7 +8,7 @@
 
             
                 package com.order.datatypes;
-
+            
 
             /**
             *  Location bean class

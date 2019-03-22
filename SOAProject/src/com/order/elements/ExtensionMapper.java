@@ -8,7 +8,7 @@
 
         
             package com.order.elements;
-
+        
             /**
             *  ExtensionMapper class
             */
@@ -26,26 +26,6 @@
                   "Location".equals(typeName)){
                    
                             return  com.order.datatypes.Location.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://order.com/DataTypes".equals(namespaceURI) &&
-                  "Person".equals(typeName)){
-                   
-                            return  com.order.datatypes.Person.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://order.com/DataTypes".equals(namespaceURI) &&
-                  "Driver".equals(typeName)){
-                   
-                            return  com.order.datatypes.Driver.Factory.parse(reader);
                         
 
                   }

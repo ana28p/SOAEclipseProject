@@ -17,6 +17,8 @@
          * 
                                     * @param getPriceRequest
              * @throws PriceNotFoundMessage : 
+             * @throws InvalidTimeMessage : 
+             * @throws InvalidLocationMessage : 
          */
 
         
@@ -24,7 +26,7 @@
                 (
                   com.order.elements.GetPriceRequest getPriceRequest
                  )
-            throws PriceNotFoundMessage;
+            throws PriceNotFoundMessage,InvalidTimeMessage,InvalidLocationMessage;
         
          }
     

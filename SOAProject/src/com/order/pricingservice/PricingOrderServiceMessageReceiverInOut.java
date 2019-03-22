@@ -62,9 +62,27 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (PriceNotFoundMessage e) {
+        } catch (InvalidTimeMessage e) {
 
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"GetPriceFault");
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (PriceNotFoundMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidLocationMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
             org.apache.axis2.AxisFault f = createAxisFault(e);
             if (e.getFaultMessage() != null){
                 f.setDetail(toOM(e.getFaultMessage(),false));
@@ -106,12 +124,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.GetPriceFault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.FaultMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.GetPriceFault.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.FaultMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -156,9 +174,9 @@
 
         try {
         
-                if (com.order.elements.GetPriceFault.class.equals(type)){
+                if (com.order.datatypes.FaultMessage.class.equals(type)){
                 
-                        return com.order.elements.GetPriceFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.datatypes.FaultMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
