@@ -10,7 +10,7 @@ package com.order.pricingservice;
 
 public class InvalidTimeMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553287514574L;
+    private static final long serialVersionUID = 1553291164914L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 

@@ -10,7 +10,7 @@ package com.order.pricingservice;
 
 public class InvalidLocationMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553287514588L;
+    private static final long serialVersionUID = 1553291164927L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 

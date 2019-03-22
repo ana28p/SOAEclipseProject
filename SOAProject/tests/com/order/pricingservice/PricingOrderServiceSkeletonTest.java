@@ -8,20 +8,26 @@ import com.order.elements.GetPriceResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 class PricingOrderServiceSkeletonTest {
 
     private Location location;
+    private Calendar time;
     private GetPriceRequest request;
     private PricingOrderServiceSkeleton skeleton;
 
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach() throws ParseException {
         this.location = new Location();
         this.location.setLattitude(52.238507);
         this.location.setLongitude(6.854814);
 
         this.request = new GetPriceRequest();
-        this.request.setTime("2019-01-01T12:00Z");
+        this.request.setTime(this.getDateTime("2019-01-01T12:00Z"));
         this.request.setLocation(this.location);
 
         this.skeleton = new PricingOrderServiceSkeleton();
@@ -37,9 +43,9 @@ class PricingOrderServiceSkeletonTest {
     }
 
     @Test
-    void testGetPriceHigherAtNight() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
+    void testGetPriceHigherAtNight() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage, ParseException {
 
-        this.request.setTime("2019-01-01T0:00Z");
+        this.request.setTime(this.getDateTime("2019-01-01T0:00Z"));
         GetPriceResponse response = skeleton.getPrice(request);
 
         assertNotNull(response);
@@ -122,11 +128,11 @@ class PricingOrderServiceSkeletonTest {
         assertThrows(InvalidTimeMessage.class, ()->this.skeleton.getPrice(request));
     }
 
-    @Test
-    void testGetPriceTimeInvalid() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
-
-        this.request.setTime("invalid time");
-
-        assertThrows(InvalidTimeMessage.class, ()->this.skeleton.getPrice(request));
+    private Calendar getDateTime(String dateTimeStr) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        Date date = sdf.parse(dateTimeStr);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
     }
 }

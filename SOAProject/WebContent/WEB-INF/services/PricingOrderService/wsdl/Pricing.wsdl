@@ -16,7 +16,7 @@
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Location" type="types:Location" />
-						<xsd:element name="Time" type="xsd:string" />
+						<xsd:element name="Time" type="xsd:dateTime" />
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>

@@ -8,6 +8,11 @@
 package com.order.pricingservice;
 
 import com.order.datatypes.Location;
+import com.order.elements.GetPriceRequest;
+import com.order.elements.GetPriceResponse;
+
+import javax.ws.rs.core.Response;
+import java.util.Calendar;
 
 /**
  *  PricingOrderServiceSkeleton java skeleton for the axisService
@@ -33,7 +38,9 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
 
         this.validateLocation(getPriceRequest0.getLocation());
 
-        return null;
+        GetPriceResponse response = new GetPriceResponse();
+        response.setPrice(this.calculatePrice(getPriceRequest0.getTime()));
+        return response;
     }
 
     private void validateLocation(Location location) throws InvalidLocationMessage {
@@ -44,6 +51,30 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
         if(location.getLongitude() < 180.0 || location.getLongitude() > 180.0){
             throw new InvalidLocationMessage();
         }
+    }
+
+    private double calculatePrice(Calendar calendar){
+        Calendar start = this.getCalendarSameDay(calendar);
+        start.set(Calendar.HOUR_OF_DAY, 9);
+
+        Calendar end = this.getCalendarSameDay(calendar);
+        end.set(Calendar.HOUR_OF_DAY, 21);
+
+        if(calendar.before(start.getTime()) || calendar.after(calendar.getTime())){
+            return 1.5;
+        }
+
+        return 1.0;
+    }
+
+    private Calendar getCalendarSameDay(Calendar calendar){
+        Calendar sameDay = (Calendar) calendar.clone();
+        sameDay.set(Calendar.HOUR_OF_DAY, 0);
+        sameDay.set(Calendar.MINUTE, 0);
+        sameDay.set(Calendar.SECOND, 0);
+        sameDay.set(Calendar.MILLISECOND, 0);
+
+        return sameDay;
     }
 
 
