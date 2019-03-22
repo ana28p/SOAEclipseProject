@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import com.order.datatypes.Customer;
+import com.order.datatypes.Driver;
 
 public class DBCreator {
 
@@ -89,16 +93,28 @@ public class DBCreator {
 				insert(DBTable.CUSTOMER.getInsertSql(), i+1, cardNo[i]);
 			}
 		}
-
 	}
 
 	public static void main(String[] args) {
 		initializeDB();
-		//		System.out.println(DBQuery.selectAll(DBTable.PERSON));
-		System.out.println("rating of person with id 3: " + DBQuery.getRatingOf(3));
-		System.out.println("rating of person with id 4: " + DBQuery.getRatingOf(4));
+		System.out.println("rating of person with id 3: " + String.format( "%.2f",DBQuery.getRatingOf(3)));
+		System.out.println("rating of person with id 4: " + String.format( "%.2f",DBQuery.getRatingOf(4)));
 		DBQuery.updateFeedback(3, 4.5);
-		System.out.println("new rating of person with id 3: " + DBQuery.getRatingOf(3));
-		//		System.out.println(DBTable.CUSTOMER.getInsertSql());
+		System.out.println("new rating of person with id 3: " + String.format( "%.2f",DBQuery.getRatingOf(3)));
+
+		List<Driver> drivers = DBQuery.selectAllDrivers();
+		drivers.forEach(d -> System.out.println("id: " + d.getId()
+											+ ", name: " + d.getName()
+											+ ", age: " + d.getAge()
+											+ ", carNo: " + d.getCarNumber()
+											+ ", rating: " + String.format( "%.2f", d.getRating())
+											));
+		List<Customer> customers = DBQuery.selectAllCustomers();
+		customers.forEach(c -> System.out.println("id: " + c.getId()
+											+ ", name: " + c.getName()
+											+ ", age: " + c.getAge()
+											+ ", cardNo: " + c.getCardNumer()
+											+ ", rating: " + String.format( "%.2f", c.getRating())
+											));
 	}
 }

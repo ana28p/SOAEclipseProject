@@ -9,6 +9,7 @@
 						<xsd:element name="StartLocation" type="types:Location"/>
 						<xsd:element name="EndLocation" type="types:Location"/>
 						<xsd:element name="Price" type="xsd:string"/>
+						<xsd:element name="Customer" type="types:Customer"/>
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>

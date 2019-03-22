@@ -10,7 +10,7 @@ package com.order.pricingservice;
 
 public class PriceNotFoundMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1551653794468L;
+    private static final long serialVersionUID = 1553284400416L;
     
     private com.order.elements.GetPriceFault faultMessage;
 

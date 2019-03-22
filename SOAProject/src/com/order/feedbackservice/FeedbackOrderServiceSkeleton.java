@@ -16,17 +16,16 @@
          * Auto generated method signature
          * 
                                      * @param ratePersonRequest0 
-             * @return ratePersonResponse1 
-             * @throws PersonNotFoundMessage 
+             * @return  
          */
         
-                 public com.order.elements.RatePersonResponse ratePerson
+                 public void ratePerson
                   (
                   com.order.elements.RatePersonRequest ratePersonRequest0
                   )
-            throws PersonNotFoundMessage{
+            {
                 //TODO : fill this with the necessary business logic
-                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#ratePerson");
+                
         }
      
     }
