@@ -39,7 +39,7 @@ class PricingOrderServiceSkeletonTest {
         GetPriceResponse response = this.skeleton.getPrice(this.request);
 
         assertNotNull(response);
-        assertEquals(response.getPrice(), 1.0);
+        assertEquals(1.0, response.getPrice());
     }
 
     @Test
@@ -49,13 +49,13 @@ class PricingOrderServiceSkeletonTest {
         GetPriceResponse response = skeleton.getPrice(request);
 
         assertNotNull(response);
-        assertEquals(response.getPrice(), 1.5);
+        assertEquals(1.5, response.getPrice());
     }
 
     @Test
     void testGetPriceLatitudeLowBoundary() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
 
-        this.request.getLocation().setLongitude(-90.0);
+        this.request.getLocation().setLattitude(-90.0);
         GetPriceResponse response = this.skeleton.getPrice(this.request);
 
         assertNotNull(response);
@@ -64,7 +64,7 @@ class PricingOrderServiceSkeletonTest {
     @Test
     void testGetPriceLatitudeHighBoundary() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
 
-        this.request.getLocation().setLongitude(90.0);
+        this.request.getLocation().setLattitude(90.0);
         GetPriceResponse response = this.skeleton.getPrice(this.request);
 
         assertNotNull(response);
@@ -73,7 +73,7 @@ class PricingOrderServiceSkeletonTest {
     @Test
     void testGetPriceLatitudeToSmall() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
 
-        this.request.getLocation().setLongitude(Math.nextDown(-90.0));
+        this.request.getLocation().setLattitude(Math.nextDown(-90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.getPrice(request));
     }
@@ -81,7 +81,7 @@ class PricingOrderServiceSkeletonTest {
     @Test
     void testGetPriceLatitudeToBig() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
 
-        this.request.getLocation().setLongitude(Math.nextUp(90.0));
+        this.request.getLocation().setLattitude(Math.nextUp(90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.getPrice(request));
     }

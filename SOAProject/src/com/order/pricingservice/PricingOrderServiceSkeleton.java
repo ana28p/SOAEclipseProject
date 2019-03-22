@@ -44,11 +44,11 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
     }
 
     private void validateLocation(Location location) throws InvalidLocationMessage {
-        if(location.getLattitude() < 90.0 || location.getLattitude() > 90.0){
+        if(location.getLattitude() < -90.0 || location.getLattitude() > 90.0){
             throw new InvalidLocationMessage();
         }
 
-        if(location.getLongitude() < 180.0 || location.getLongitude() > 180.0){
+        if(location.getLongitude() < -180.0 || location.getLongitude() > 180.0){
             throw new InvalidLocationMessage();
         }
     }
