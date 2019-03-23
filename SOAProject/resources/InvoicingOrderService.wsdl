@@ -13,24 +13,14 @@
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="PayForRideResponse">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Status" type="xsd:string"/>
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="PayForRideFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string"/>
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
   </wsdl:types>
+  <wsdl:message name="InvalidDriverMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="PaymentFailedMessage">
-    <wsdl:part name="fault" element="elements:PayForRideFault">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="PayForRideRequestMessage">
@@ -38,7 +28,15 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="PayForRideResponseMessage">
-    <wsdl:part name="outputParameters" element="elements:PayForRideResponse">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="InvoicingPortType">
@@ -47,7 +45,13 @@
     </wsdl:input>
       <wsdl:output message="ps:PayForRideResponseMessage">
     </wsdl:output>
+      <wsdl:fault name="InvalidDriver" message="ps:InvalidDriverMessage">
+    </wsdl:fault>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage">
+    </wsdl:fault>
       <wsdl:fault name="PaymentFailed" message="ps:PaymentFailedMessage">
+    </wsdl:fault>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage">
     </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
@@ -61,8 +65,17 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="InvalidDriver">
+        <soap:fault name="InvalidDriver"/>
+      </wsdl:fault>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
       <wsdl:fault name="PaymentFailed">
         <soap:fault name="PaymentFailed"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>

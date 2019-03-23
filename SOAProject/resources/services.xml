@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
-    <service name="PricingOrderService">
+    <service name="InvoicingOrderService">
         <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.order.pricingservice.PricingOrderServiceMessageReceiverInOut"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.order.invoicingservice.InvoicingOrderServiceMessageReceiverInOut"/>
         </messageReceivers>
-        <parameter name="ServiceClass">com.order.pricingservice.PricingOrderServiceSkeleton</parameter>
+        <parameter name="ServiceClass">com.order.invoicingservice.InvoicingOrderServiceSkeleton</parameter>
         <parameter name="useOriginalwsdl">true</parameter>
         <parameter name="modifyUserWSDLPortAddress">true</parameter>
-        <operation name="GetPrice" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://order.com/PricingService">
-            <actionMapping>http://order.com/PricingService/PricingPortType/GetPriceRequest</actionMapping>
-            <outputActionMapping>http://order.com/PricingService/PricingPortType/GetPriceResponse</outputActionMapping>
-            <faultActionMapping faultName="PriceNotFound">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
-            <faultActionMapping faultName="PriceNotFoundMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
-            <faultActionMapping faultName="PriceNotFoundMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
-            <faultActionMapping faultName="InvalidTime">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
-            <faultActionMapping faultName="InvalidTimeMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
-            <faultActionMapping faultName="InvalidTimeMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
-            <faultActionMapping faultName="InvalidLocation">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
-            <faultActionMapping faultName="InvalidLocationMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
-            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+        <operation name="PayForRide" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://order.com/InvoicingService">
+            <actionMapping>http://order.com/InvoicingService/InvoicingPortType/PayForRideRequest</actionMapping>
+            <outputActionMapping>http://order.com/InvoicingService/InvoicingPortType/PayForRideResponse</outputActionMapping>
+            <faultActionMapping faultName="InvalidDriver">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>
+            <faultActionMapping faultName="InvalidDriverMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>
+            <faultActionMapping faultName="InvalidDriverMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>
+            <faultActionMapping faultName="PriceNotFound">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="PriceNotFoundMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="PriceNotFoundMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="PaymentFailed">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PaymentFailed</faultActionMapping>
+            <faultActionMapping faultName="PaymentFailedMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PaymentFailed</faultActionMapping>
+            <faultActionMapping faultName="PaymentFailedMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/PaymentFailed</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocation">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidLocation</faultActionMapping>
         </operation>
     </service>
 </serviceGroup>
