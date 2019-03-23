@@ -115,6 +115,36 @@
                                }
                             
 
+                        /**
+                        * field for Customer
+                        */
+
+                        
+                                    protected com.order.datatypes.Customer localCustomer ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.order.datatypes.Customer
+                           */
+                           public  com.order.datatypes.Customer getCustomer(){
+                               return localCustomer;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Customer
+                               */
+                               public void setCustomer(com.order.datatypes.Customer param){
+                            
+                                            this.localCustomer=param;
+                                       
+
+                               }
+                            
+
      
      
         /**
@@ -204,6 +234,12 @@
                                     
                                    xmlWriter.writeEndElement();
                              
+                                            if (localCustomer==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                            }
+                                           localCustomer.serialize(new javax.xml.namespace.QName("","Customer"),
+                                               xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -416,6 +452,15 @@
                                            throw new org.apache.axis2.databinding.ADBException("Price cannot be null!!");
                                         }
                                     
+                            elementList.add(new javax.xml.namespace.QName("",
+                                                                      "Customer"));
+                            
+                            
+                                    if (localCustomer==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                    }
+                                    elementList.add(localCustomer);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -526,6 +571,16 @@
                                     
                                               object.setPrice(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Customer").equals(reader.getName())){
+                                
+                                                object.setCustomer(com.order.datatypes.Customer.Factory.parse(reader));
                                               
                                         reader.next();
                                     

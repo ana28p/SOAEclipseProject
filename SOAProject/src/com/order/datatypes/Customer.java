@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Customer
                 Namespace URI = http://order.com/DataTypes
-                Namespace Prefix = ns3
+                Namespace Prefix = ns1
                 */
             
 
@@ -110,6 +110,19 @@
 
                
                                     namespace = "";
+                                    writeStartElement(null, namespace, "Id", xmlWriter);
+                             
+                                               if (localId==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Id cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
+                                    namespace = "";
                                     writeStartElement(null, namespace, "Name", xmlWriter);
                              
 
@@ -130,18 +143,26 @@
                                     namespace = "";
                                     writeStartElement(null, namespace, "Age", xmlWriter);
                              
-
-                                          if (localAge==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                            
-                                          }
+                                               if (localAge==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
+                                    namespace = "";
+                                    writeStartElement(null, namespace, "Rating", xmlWriter);
+                             
+                                               if (java.lang.Double.isNaN(localRating)) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Rating cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
+                                               }
                                     
                                    xmlWriter.writeEndElement();
                              
@@ -170,7 +191,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://order.com/DataTypes")){
-                return "ns3";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -352,6 +373,12 @@
                     attribList.add(new javax.xml.namespace.QName("http://order.com/DataTypes","Customer"));
                 
                                       elementList.add(new javax.xml.namespace.QName("",
+                                                                      "Id"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
+                            
+                                      elementList.add(new javax.xml.namespace.QName("",
                                                                       "Name"));
                                  
                                         if (localName != null){
@@ -363,12 +390,15 @@
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Age"));
                                  
-                                        if (localAge != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                        }
-                                    
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                            
+                                      elementList.add(new javax.xml.namespace.QName("",
+                                                                      "Rating"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
+                            
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "CardNumer"));
                                  
@@ -431,7 +461,7 @@
                             if (!"Customer".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Customer)com.order.pricingservice.ExtensionMapper.getTypeObject(
+                                return (Customer)com.order.elements.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -453,6 +483,31 @@
                     
                     reader.next();
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Id").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Id" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setId(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -492,7 +547,32 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setAge(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Rating").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Rating" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setRating(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();
                                     

@@ -10,7 +10,7 @@ package com.order.navigationservice;
 
 public class DistanceNotFoundMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1551647154262L;
+    private static final long serialVersionUID = 1553284356318L;
     
     private com.order.elements.GetDistanceFault faultMessage;
 

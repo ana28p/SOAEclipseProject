@@ -89,14 +89,14 @@
                         */
 
                         
-                                    protected java.math.BigInteger localAge ;
+                                    protected int localAge ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return java.math.BigInteger
+                           * @return int
                            */
-                           public  java.math.BigInteger getAge(){
+                           public  int getAge(){
                                return localAge;
                            }
 
@@ -106,9 +106,39 @@
                                * Auto generated setter method
                                * @param param Age
                                */
-                               public void setAge(java.math.BigInteger param){
+                               public void setAge(int param){
                             
                                             this.localAge=param;
+                                       
+
+                               }
+                            
+
+                        /**
+                        * field for Rating
+                        */
+
+                        
+                                    protected double localRating ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return double
+                           */
+                           public  double getRating(){
+                               return localRating;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Rating
+                               */
+                               public void setRating(double param){
+                            
+                                            this.localRating=param;
                                        
 
                                }
@@ -207,18 +237,26 @@
                                     namespace = "";
                                     writeStartElement(null, namespace, "Age", xmlWriter);
                              
-
-                                          if (localAge==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                            
-                                          }
+                                               if (localAge==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
+                                    namespace = "";
+                                    writeStartElement(null, namespace, "Rating", xmlWriter);
+                             
+                                               if (java.lang.Double.isNaN(localRating)) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Rating cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
+                                               }
                                     
                                    xmlWriter.writeEndElement();
                              
@@ -425,12 +463,15 @@
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Age"));
                                  
-                                        if (localAge != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-                                        }
-                                    
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
+                            
+                                      elementList.add(new javax.xml.namespace.QName("",
+                                                                      "Rating"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
+                            
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -570,7 +611,32 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setAge(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Rating").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Rating" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setRating(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();
                                     
