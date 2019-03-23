@@ -7,8 +7,8 @@
  */
 package com.order.pricingservice;
 
-import com.order.datatypes.Location;
 import com.order.elements.GetPriceResponse;
+import com.order.utils.Validation;
 
 import java.util.Calendar;
 
@@ -34,21 +34,11 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
     )
             throws PriceNotFoundMessage, InvalidTimeMessage, InvalidLocationMessage {
 
-        this.validateLocation(getPriceRequest0.getLocation());
+        Validation.validateLocation(getPriceRequest0.getLocation());
 
         GetPriceResponse response = new GetPriceResponse();
         response.setPrice(this.calculatePrice(getPriceRequest0.getTime()));
         return response;
-    }
-
-    private void validateLocation(Location location) throws InvalidLocationMessage {
-        if(location.getLattitude() < -90.0 || location.getLattitude() > 90.0){
-            throw new InvalidLocationMessage();
-        }
-
-        if(location.getLongitude() < -180.0 || location.getLongitude() > 180.0){
-            throw new InvalidLocationMessage();
-        }
     }
 
     private double calculatePrice(Calendar calendar) throws InvalidTimeMessage {
