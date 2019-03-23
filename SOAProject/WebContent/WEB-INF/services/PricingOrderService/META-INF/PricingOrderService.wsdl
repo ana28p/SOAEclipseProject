@@ -7,7 +7,7 @@
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Location" type="types:Location"/>
-						<xsd:element name="Time" type="xsd:string"/>
+						<xsd:element name="Time" type="xsd:dateTime"/>
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
@@ -15,13 +15,6 @@
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Price" type="xsd:double"/>
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="GetPriceFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string"/>
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
@@ -35,8 +28,16 @@
     <wsdl:part name="inputParameters" element="elements:GetPriceRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="InvalidTimeMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="PriceNotFoundMessage">
-    <wsdl:part name="fault" element="elements:GetPriceFault">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="PricingPortType">
@@ -46,6 +47,10 @@
       <wsdl:output message="ps:GetPriceResponseMessage">
     </wsdl:output>
       <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage">
+    </wsdl:fault>
+      <wsdl:fault name="InvalidTime" message="ps:InvalidTimeMessage">
+    </wsdl:fault>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage">
     </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
@@ -61,6 +66,12 @@
       </wsdl:output>
       <wsdl:fault name="PriceNotFound">
         <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTime">
+        <soap:fault name="InvalidTime"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>

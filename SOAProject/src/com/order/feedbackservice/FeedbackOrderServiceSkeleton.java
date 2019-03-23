@@ -16,7 +16,7 @@
          * Auto generated method signature
          * 
                                      * @param ratePersonRequest0 
-             * @return  
+             * @return
          */
         
                  public void ratePerson
@@ -25,7 +25,7 @@
                   )
             {
                 //TODO : fill this with the necessary business logic
-                
+
         }
      
     }

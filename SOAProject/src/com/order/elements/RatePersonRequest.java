@@ -8,7 +8,7 @@
 
             
                 package com.order.elements;
-            
+
 
             /**
             *  RatePersonRequest bean class

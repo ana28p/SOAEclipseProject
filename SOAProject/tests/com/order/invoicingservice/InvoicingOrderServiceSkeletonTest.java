@@ -1,20 +1,17 @@
-package tests;
+package com.order.invoicingservice;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 import com.order.elements.PayForRideRequest;
 import com.order.elements.PayForRideResponse;
-import com.order.invoicingservice.InvoicingOrderServiceSkeleton;
-import com.order.invoicingservice.PaymentFailedMessage;
 
 class InvoicingOrderServiceSkeletonTest {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
 		PayForRideRequest request = new PayForRideRequest();
 //		request.setCurrentLocation(param);
 		InvoicingOrderServiceSkeleton order = new InvoicingOrderServiceSkeleton();

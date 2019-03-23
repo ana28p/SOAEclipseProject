@@ -60,14 +60,14 @@
                         */
 
                         
-                                    protected java.lang.String localTime ;
+                                    protected java.util.Calendar localTime ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return java.util.Calendar
                            */
-                           public  java.lang.String getTime(){
+                           public  java.util.Calendar getTime(){
                                return localTime;
                            }
 
@@ -77,7 +77,7 @@
                                * Auto generated setter method
                                * @param param Time
                                */
-                               public void setTime(java.lang.String param){
+                               public void setTime(java.util.Calendar param){
                             
                                             this.localTime=param;
                                        
@@ -162,7 +162,7 @@
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localTime);
+                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTime));
                                             
                                           }
                                     
@@ -470,7 +470,7 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setTime(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
                                               
                                         reader.next();
                                     

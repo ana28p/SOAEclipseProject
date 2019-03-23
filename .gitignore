@@ -3,3 +3,4 @@
 *.class
 WEB-INF/
 *.db
+.metadata/

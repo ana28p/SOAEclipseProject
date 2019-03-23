@@ -8,7 +8,7 @@
 
             
                 package com.order.elements;
-            
+
 
             /**
             *  FindDriverRequest bean class
@@ -119,9 +119,9 @@
                         * field for Customer
                         */
 
-                        
+
                                     protected com.order.datatypes.Customer localCustomer ;
-                                
+
 
                            /**
                            * Auto generated getter method
@@ -131,21 +131,21 @@
                                return localCustomer;
                            }
 
-                           
-                        
+
+
                             /**
                                * Auto generated setter method
                                * @param param Customer
                                */
                                public void setCustomer(com.order.datatypes.Customer param){
-                            
+
                                             this.localCustomer=param;
-                                       
+
 
                                }
-                            
 
-     
+
+
      
         /**
         *
@@ -239,7 +239,7 @@
                                             }
                                            localCustomer.serialize(new javax.xml.namespace.QName("","Customer"),
                                                xmlWriter);
-                                        
+
                     xmlWriter.writeEndElement();
                
 
@@ -454,13 +454,13 @@
                                     
                             elementList.add(new javax.xml.namespace.QName("",
                                                                       "Customer"));
-                            
-                            
+
+
                                     if (localCustomer==null){
                                          throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
                                     }
                                     elementList.add(localCustomer);
-                                
+
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -573,15 +573,15 @@
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
-                                    
+
                               }  // End of if for expected property start element
-                                
+
                                         else
-                                    
+
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("","Customer").equals(reader.getName())){
-                                
+
                                                 object.setCustomer(com.order.datatypes.Customer.Factory.parse(reader));
-                                              
+
                                         reader.next();
                                     
                               }  // End of if for expected property start element

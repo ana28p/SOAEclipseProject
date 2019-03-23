@@ -1,55 +1,55 @@
 
 /**
- * GetPriceFault.java
+ * FaultMessage.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
  */
 
             
-                package com.order.elements;
+                package com.order.datatypes;
             
 
             /**
-            *  GetPriceFault bean class
+            *  FaultMessage bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class GetPriceFault
+        public  class FaultMessage
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://order.com/Elements",
-                "GetPriceFault",
-                "ns2");
+                "http://order.com/DataTypes",
+                "FaultMessage",
+                "ns1");
 
             
 
                         /**
-                        * field for Message
+                        * field for FaultMessage
                         */
 
                         
-                                    protected java.lang.String localMessage ;
+                                    protected java.lang.String localFaultMessage ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getMessage(){
-                               return localMessage;
+                           public  java.lang.String getFaultMessage(){
+                               return localFaultMessage;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Message
+                               * @param param FaultMessage
                                */
-                               public void setMessage(java.lang.String param){
+                               public void setFaultMessage(java.lang.String param){
                             
-                                            this.localMessage=param;
+                                            this.localFaultMessage=param;
                                        
 
                                }
@@ -87,59 +87,45 @@
             throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
             
                 
-
-
-                java.lang.String prefix = null;
-                java.lang.String namespace = null;
+                //We can safely assume an element has only one type associated with it
                 
+                            java.lang.String namespace = "http://order.com/DataTypes";
+                            java.lang.String _localName = "FaultMessage";
+                        
+                            writeStartElement(null, namespace, _localName, xmlWriter);
 
-                    prefix = parentQName.getPrefix();
-                    namespace = parentQName.getNamespaceURI();
-                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
-                
-                  if (serializeType){
-               
-
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/Elements");
-                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":GetPriceFault",
-                           xmlWriter);
-                   } else {
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "GetPriceFault",
-                           xmlWriter);
-                   }
-
-               
-                   }
-               
-                                    namespace = "";
-                                    writeStartElement(null, namespace, "Message", xmlWriter);
-                             
-
-                                          if (localMessage==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Message cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localMessage);
+                            // add the type details if this is used in a simple type
+                               if (serializeType){
+                                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://order.com/DataTypes");
+                                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
+                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                                           namespacePrefix+":FaultMessage",
+                                           xmlWriter);
+                                   } else {
+                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                                           "FaultMessage",
+                                           xmlWriter);
+                                   }
+                               }
+                            
+                                          if (localFaultMessage==null){
                                             
-                                          }
+                                                     throw new org.apache.axis2.databinding.ADBException("FaultMessage cannot be null !!");
+                                                
+                                         }else{
+                                        
+                                                       xmlWriter.writeCharacters(localFaultMessage);
+                                            
+                                         }
                                     
-                                   xmlWriter.writeEndElement();
-                             
-                    xmlWriter.writeEndElement();
-               
+                            xmlWriter.writeEndElement();
+                    
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://order.com/Elements")){
-                return "ns2";
+            if(namespace.equals("http://order.com/DataTypes")){
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -313,23 +299,14 @@
 
 
         
-                 java.util.ArrayList elementList = new java.util.ArrayList();
-                 java.util.ArrayList attribList = new java.util.ArrayList();
-
                 
-                                      elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Message"));
-                                 
-                                        if (localMessage != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMessage));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Message cannot be null!!");
-                                        }
-                                    
-
-                return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
-            
-            
+                //We can safely assume an element has only one type associated with it
+                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(MY_QNAME,
+                            new java.lang.Object[]{
+                            org.apache.axis2.databinding.utils.reader.ADBXMLStreamReader.ELEMENT_TEXT,
+                            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFaultMessage)
+                            },
+                            null);
 
         }
 
@@ -350,9 +327,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static GetPriceFault parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            GetPriceFault object =
-                new GetPriceFault();
+        public static FaultMessage parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            FaultMessage object =
+                new FaultMessage();
 
             int event;
             java.lang.String nillableValue = null;
@@ -364,32 +341,6 @@
                     reader.next();
 
                 
-                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
-                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                        "type");
-                  if (fullTypeName!=null){
-                    java.lang.String nsPrefix = null;
-                    if (fullTypeName.indexOf(":") > -1){
-                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
-                    }
-                    nsPrefix = nsPrefix==null?"":nsPrefix;
-
-                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
-                    
-                            if (!"GetPriceFault".equals(type)){
-                                //find namespace for the prefix
-                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (GetPriceFault)com.order.elements.ExtensionMapper.getTypeObject(
-                                     nsUri,type,reader);
-                              }
-                        
-
-                  }
-                
-
-                }
-
-                
 
                 
                 // Note all attributes that were handled. Used to differ normal attributes
@@ -397,28 +348,23 @@
                 java.util.Vector handledAttributes = new java.util.Vector();
                 
 
-                
-                    
-                    reader.next();
                    
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Message").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://order.com/DataTypes","FaultMessage").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Message" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"FaultMessage" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setMessage(
+                                              object.setFaultMessage(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
+                                            
                               }  // End of if for expected property start element
                                 
                              else{

@@ -12,6 +12,12 @@
             <faultActionMapping faultName="PriceNotFound">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
             <faultActionMapping faultName="PriceNotFoundMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
             <faultActionMapping faultName="PriceNotFoundMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="InvalidTime">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidTimeMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidTimeMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocation">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://order.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
         </operation>
     </service>
 </serviceGroup>
