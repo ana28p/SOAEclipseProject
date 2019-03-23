@@ -9,20 +9,20 @@
     /**
      *  NavigationOrderServiceSkeleton java skeleton for the axisService
      */
-    public class NavigationOrderServiceSkeleton implements NavigationOrderServiceSkeletonInterface{
+    public class NavigationOrderServiceSkeleton{
         
          
         /**
          * Auto generated method signature
          * 
-                                     * @param getDistanceRequest0 
-             * @return getDistanceResponse1 
+                                     * @param getDistanceRequest 
+             * @return getDistanceResponse 
              * @throws DistanceNotFoundMessage 
          */
         
                  public com.order.elements.GetDistanceResponse getDistance
                   (
-                  com.order.elements.GetDistanceRequest getDistanceRequest0
+                  com.order.elements.GetDistanceRequest getDistanceRequest
                   )
             throws DistanceNotFoundMessage{
                 //TODO : fill this with the necessary business logic

@@ -22,7 +22,7 @@
         // get the implementation class for the Web Service
         Object obj = getTheImplementationObject(msgContext);
 
-        NavigationOrderServiceSkeletonInterface skel = (NavigationOrderServiceSkeletonInterface)obj;
+        NavigationOrderServiceSkeleton skel = (NavigationOrderServiceSkeleton)obj;
         //Out Envelop
         org.apache.axiom.soap.SOAPEnvelope envelope = null;
         //Find the axisOperation that has been set by the Dispatch phase.
@@ -39,20 +39,20 @@
 
             if("getDistance".equals(methodName)){
                 
-                com.order.elements.GetDistanceResponse getDistanceResponse7 = null;
+                com.order.elements.GetDistanceResponse getDistanceResponse5 = null;
 	                        com.order.elements.GetDistanceRequest wrappedParam =
                                                              (com.order.elements.GetDistanceRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.order.elements.GetDistanceRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getDistanceResponse7 =
+                                               getDistanceResponse5 =
                                                    
                                                    
                                                          skel.getDistance(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDistanceResponse7, false, new javax.xml.namespace.QName("http://order.com/NavigationService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDistanceResponse5, false, new javax.xml.namespace.QName("http://order.com/NavigationService",
                                                     "getDistance"));
                                     
             } else {

@@ -16,15 +16,14 @@
          * Auto generated method signature
          * 
                                     * @param ratePersonRequest
-             * @throws PersonNotFoundMessage : 
          */
 
         
-                public com.order.elements.RatePersonResponse ratePerson
+                public void ratePerson
                 (
                   com.order.elements.RatePersonRequest ratePersonRequest
                  )
-            throws PersonNotFoundMessage;
+            ;
         
          }
     

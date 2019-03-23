@@ -9,7 +9,7 @@
 		<xsd:sequence>
 			<xsd:element name="Id" type="xsd:int" />
 			<xsd:element name="Name" type="xsd:string" />
-			<xsd:element name="Age" type="xsd:integer" />
+			<xsd:element name="Age" type="xsd:int" />
 			<xsd:element name="Rating" type="xsd:double" />
 		</xsd:sequence>
 	</xsd:complexType>
