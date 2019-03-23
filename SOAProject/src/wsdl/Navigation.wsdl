@@ -66,8 +66,8 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="DistanceNotFound">
-				<soap:fault name="DistanceNotFound" />
+			<wsdl:fault name="InvalidLocation">
+				<soap:fault name="InvalidLocation" />
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
