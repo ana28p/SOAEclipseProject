@@ -28,13 +28,6 @@
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="GetDistanceFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string" />
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -48,16 +41,16 @@
 			element="elements:GetDistanceResponse" />
 	</wsdl:message>
 
-	<wsdl:message name="DistanceNotFoundMessage">
-		<wsdl:part name="fault" element="elements:GetDistanceFault" />
+	<wsdl:message name="InvalidLocationMessage">
+		<wsdl:part name="fault" element="types:FaultMessage" />
 	</wsdl:message>
 
 	<wsdl:portType name="NavigationPortType">
 		<wsdl:operation name="GetDistance">
 			<wsdl:input message="ps:GetDistanceRequestMessage" />
 			<wsdl:output message="ps:GetDistanceResponseMessage" />
-			<wsdl:fault name="DistanceNotFound"
-				message="ps:DistanceNotFoundMessage" />
+			<wsdl:fault name="InvalidLocation"
+				message="ps:InvalidLocationMessage" />
 		</wsdl:operation>
 	</wsdl:portType>
 
