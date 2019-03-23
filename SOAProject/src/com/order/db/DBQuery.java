@@ -48,7 +48,7 @@ public class DBQuery {
 			pstmt.setInt(1, driverID);
 
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.first()) {
+			if (rs.next()) {
 				driver = new Driver();
 				driver.setId(rs.getInt("id"));
 				driver.setAge(rs.getInt("age"));
@@ -99,7 +99,7 @@ public class DBQuery {
 
 			ResultSet rs = pstmt.executeQuery();
 
-			if(rs.first()) {
+			if (rs.next()) {
 				customer = new Customer();
 				customer.setId(rs.getInt("id"));
 				customer.setAge(rs.getInt("age"));
@@ -123,7 +123,7 @@ public class DBQuery {
 
 			ResultSet rs = pstmt.executeQuery();
 			// should be just one..
-			if(rs.first()) {
+			if (rs.next()) {
 				rating = rs.getDouble("rating_sum") / rs.getInt("count");
 			} else {
 				throw new IllegalArgumentException();
@@ -145,7 +145,7 @@ public class DBQuery {
 			pstmt.setInt(1, personID);
 
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.first()) {
+			if (rs.next()) {
 				ratingID = rs.getInt("id");
 				count = rs.getInt("count");
 				rating_sum = rs.getDouble("rating_sum");
@@ -182,7 +182,7 @@ public class DBQuery {
 
 			ResultSet rs = pstmt.executeQuery();
 			// should be just one..
-			if(rs.first()) {
+			if (rs.next()) {
 				System.out.println(rs.getInt("count") +  "\t" + 
 						rs.getDouble("rating_sum"));
 				rating = rs.getDouble("rating_sum") / rs.getInt("count");
