@@ -8,10 +8,8 @@
 package com.order.pricingservice;
 
 import com.order.datatypes.Location;
-import com.order.elements.GetPriceRequest;
 import com.order.elements.GetPriceResponse;
 
-import javax.ws.rs.core.Response;
 import java.util.Calendar;
 
 /**
@@ -53,14 +51,17 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
         }
     }
 
-    private double calculatePrice(Calendar calendar){
+    private double calculatePrice(Calendar calendar) throws InvalidTimeMessage {
+        if(calendar == null){
+            throw new InvalidTimeMessage();
+        }
         Calendar start = this.getCalendarSameDay(calendar);
         start.set(Calendar.HOUR_OF_DAY, 9);
 
         Calendar end = this.getCalendarSameDay(calendar);
         end.set(Calendar.HOUR_OF_DAY, 21);
 
-        if(calendar.before(start.getTime()) || calendar.after(calendar.getTime())){
+        if(calendar.before(start) || calendar.after(end)){
             return 1.5;
         }
 
