@@ -23,39 +23,9 @@
               
                   if (
                   "http://order.com/DataTypes".equals(namespaceURI) &&
-                  "Customer".equals(typeName)){
-
-                            return  com.order.datatypes.Customer.Factory.parse(reader);
-
-
-                  }
-
-
-                  if (
-                  "http://order.com/DataTypes".equals(namespaceURI) &&
                   "Location".equals(typeName)){
                    
                             return  com.order.datatypes.Location.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://order.com/DataTypes".equals(namespaceURI) &&
-                  "Person".equals(typeName)){
-                   
-                            return  com.order.datatypes.Person.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://order.com/DataTypes".equals(namespaceURI) &&
-                  "Driver".equals(typeName)){
-                   
-                            return  com.order.datatypes.Driver.Factory.parse(reader);
                         
 
                   }

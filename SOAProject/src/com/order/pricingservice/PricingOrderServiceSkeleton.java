@@ -8,6 +8,7 @@
 package com.order.pricingservice;
 
 import com.order.elements.GetPriceResponse;
+import com.order.messages.InvalidLocationMessage;
 import com.order.utils.Validation;
 
 import java.util.Calendar;

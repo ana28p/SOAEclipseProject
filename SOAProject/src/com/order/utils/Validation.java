@@ -1,7 +1,7 @@
 package com.order.utils;
 
 import com.order.datatypes.Location;
-import com.order.pricingservice.InvalidLocationMessage;
+import com.order.messages.InvalidLocationMessage;
 
 public class Validation {
     public static void validateLocation(Location location) throws InvalidLocationMessage {
