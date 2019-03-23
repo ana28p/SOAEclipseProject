@@ -34,7 +34,7 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
     )
             throws PriceNotFoundMessage, InvalidTimeMessage, InvalidLocationMessage {
 
-        Validation.validateLocation(getPriceRequest0.getLocation());
+        Validation.validateLocation(getPriceRequest0.getLocation(), new InvalidLocationMessage());
 
         GetPriceResponse response = new GetPriceResponse();
         response.setPrice(this.calculatePrice(getPriceRequest0.getTime()));
