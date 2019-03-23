@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.order.datatypes.Location;
 import com.order.elements.GetPriceRequest;
 import com.order.elements.GetPriceResponse;
+import com.order.messages.InvalidLocationMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

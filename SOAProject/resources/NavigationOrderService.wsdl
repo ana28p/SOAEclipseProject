@@ -18,21 +18,14 @@
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="GetDistanceFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string"/>
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
   </wsdl:types>
   <wsdl:message name="GetDistanceRequestMessage">
     <wsdl:part name="inputParameters" element="elements:GetDistanceRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="DistanceNotFoundMessage">
-    <wsdl:part name="fault" element="elements:GetDistanceFault">
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="GetDistanceResponseMessage">
@@ -45,7 +38,7 @@
     </wsdl:input>
       <wsdl:output message="ps:GetDistanceResponseMessage">
     </wsdl:output>
-      <wsdl:fault name="DistanceNotFound" message="ps:DistanceNotFoundMessage">
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage">
     </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
@@ -59,8 +52,8 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
-      <wsdl:fault name="DistanceNotFound">
-        <soap:fault name="DistanceNotFound"/>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>

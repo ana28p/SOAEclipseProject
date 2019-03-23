@@ -7,7 +7,9 @@
  */
         package com.order.navigationservice;
 
-        /**
+import com.order.messages.InvalidLocationMessage;
+
+/**
         *  NavigationOrderServiceMessageReceiverInOut message receiver
         */
 
@@ -22,7 +24,7 @@
         // get the implementation class for the Web Service
         Object obj = getTheImplementationObject(msgContext);
 
-        NavigationOrderServiceSkeleton skel = (NavigationOrderServiceSkeleton)obj;
+        NavigationOrderServiceSkeletonInterface skel = (NavigationOrderServiceSkeletonInterface)obj;
         //Out Envelop
         org.apache.axiom.soap.SOAPEnvelope envelope = null;
         //Find the axisOperation that has been set by the Dispatch phase.
@@ -39,20 +41,20 @@
 
             if("getDistance".equals(methodName)){
                 
-                com.order.elements.GetDistanceResponse getDistanceResponse5 = null;
+                com.order.elements.GetDistanceResponse getDistanceResponse7 = null;
 	                        com.order.elements.GetDistanceRequest wrappedParam =
                                                              (com.order.elements.GetDistanceRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.order.elements.GetDistanceRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getDistanceResponse5 =
+                                               getDistanceResponse7 =
                                                    
                                                    
                                                          skel.getDistance(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDistanceResponse5, false, new javax.xml.namespace.QName("http://order.com/NavigationService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDistanceResponse7, false, new javax.xml.namespace.QName("http://order.com/NavigationService",
                                                     "getDistance"));
                                     
             } else {
@@ -62,9 +64,9 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (DistanceNotFoundMessage e) {
+        } catch (InvalidLocationMessage e) {
 
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"GetDistanceFault");
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
             org.apache.axis2.AxisFault f = createAxisFault(e);
             if (e.getFaultMessage() != null){
                 f.setDetail(toOM(e.getFaultMessage(),false));
@@ -106,12 +108,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.GetDistanceFault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.FaultMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.GetDistanceFault.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.FaultMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -156,9 +158,9 @@
 
         try {
         
-                if (com.order.elements.GetDistanceFault.class.equals(type)){
+                if (com.order.datatypes.FaultMessage.class.equals(type)){
                 
-                        return com.order.elements.GetDistanceFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.datatypes.FaultMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

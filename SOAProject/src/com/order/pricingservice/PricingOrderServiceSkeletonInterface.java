@@ -6,7 +6,10 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
     package com.order.pricingservice;
-    /**
+
+import com.order.messages.InvalidLocationMessage;
+
+/**
      *  PricingOrderServiceSkeletonInterface java skeleton interface for the axisService
      */
     public interface PricingOrderServiceSkeletonInterface {
@@ -18,7 +21,7 @@
                                     * @param getPriceRequest
              * @throws PriceNotFoundMessage : 
              * @throws InvalidTimeMessage : 
-             * @throws InvalidLocationMessage : 
+             * @throws InvalidLocationMessage :
          */
 
         
