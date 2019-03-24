@@ -21,6 +21,7 @@ public class InvoicingOrderServiceSkeleton implements InvoicingOrderServiceSkele
 	 * 
 	 * @param payForRideRequest0 
 	 * @return successMessage1 
+	 * @throws InvalidCustomerMessage 
 	 * @throws InvalidDriverMessage 
 	 * @throws PriceNotFoundMessage 
 	 * @throws PaymentFailedMessage 
@@ -31,13 +32,17 @@ public class InvoicingOrderServiceSkeleton implements InvoicingOrderServiceSkele
 	(
 			com.order.elements.PayForRideRequest payForRideRequest0
 			)
-					throws InvalidDriverMessage,PriceNotFoundMessage,PaymentFailedMessage,InvalidLocationMessage{
+					throws InvalidCustomerMessage,InvalidDriverMessage,PriceNotFoundMessage,PaymentFailedMessage,InvalidLocationMessage{
+		
 		Validation.validateLocation(payForRideRequest0.getCurrentLocation(), new InvalidLocationMessage());
 		Validation.validateLocation(payForRideRequest0.getEndLocation(), new InvalidLocationMessage());
 
+		Validation.validateCustomer(payForRideRequest0.getCustomer(), new InvalidCustomerMessage());
 		Validation.validateDriver(payForRideRequest0.getDriver(), new InvalidDriverMessage());
 		
 		Validation.validatePrice(payForRideRequest0.getPrice(), new PriceNotFoundMessage());
+		
+		Validation.validateCardNumber(payForRideRequest0.getCustomer().getCardNumer(), new PaymentFailedMessage());
 
 		SuccessMessage successMessage = new SuccessMessage();
 		successMessage.setSuccessMessage("Invoicing created.");

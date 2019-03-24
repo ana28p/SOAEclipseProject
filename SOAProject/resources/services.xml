@@ -9,6 +9,9 @@
         <operation name="PayForRide" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://order.com/InvoicingService">
             <actionMapping>http://order.com/InvoicingService/InvoicingPortType/PayForRideRequest</actionMapping>
             <outputActionMapping>http://order.com/InvoicingService/InvoicingPortType/PayForRideResponse</outputActionMapping>
+            <faultActionMapping faultName="InvalidCustomer">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidCustomer</faultActionMapping>
+            <faultActionMapping faultName="InvalidCustomerMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidCustomer</faultActionMapping>
+            <faultActionMapping faultName="InvalidCustomerMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidCustomer</faultActionMapping>
             <faultActionMapping faultName="InvalidDriver">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>
             <faultActionMapping faultName="InvalidDriverMessage">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>
             <faultActionMapping faultName="InvalidDriverMessage_Exception">http://order.com/InvoicingService/InvoicingPortType/PayForRide/Fault/InvalidDriver</faultActionMapping>

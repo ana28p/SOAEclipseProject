@@ -62,7 +62,16 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (InvalidDriverMessage e) {
+        } catch (InvalidCustomerMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidDriverMessage e) {
 
             msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
             org.apache.axis2.AxisFault f = createAxisFault(e);

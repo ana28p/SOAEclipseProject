@@ -9,6 +9,7 @@
 						<xsd:element name="CurrentLocation" type="types:Location"/>
 						<xsd:element name="EndLocation" type="types:Location"/>
 						<xsd:element name="Price" type="xsd:double"/>
+						<xsd:element name="Customer" type="types:Customer"/>
 						<xsd:element name="Driver" type="types:Driver"/>
 					</xsd:all>
 				</xsd:complexType>
@@ -20,6 +21,10 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="PaymentFailedMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
     <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
@@ -45,6 +50,8 @@
     </wsdl:input>
       <wsdl:output message="ps:PayForRideResponseMessage">
     </wsdl:output>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage">
+    </wsdl:fault>
       <wsdl:fault name="InvalidDriver" message="ps:InvalidDriverMessage">
     </wsdl:fault>
       <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage">
@@ -65,6 +72,9 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
       <wsdl:fault name="InvalidDriver">
         <soap:fault name="InvalidDriver"/>
       </wsdl:fault>

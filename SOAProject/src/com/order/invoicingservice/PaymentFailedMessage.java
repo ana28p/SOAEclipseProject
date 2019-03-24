@@ -10,7 +10,7 @@ package com.order.invoicingservice;
 
 public class PaymentFailedMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553382176738L;
+    private static final long serialVersionUID = 1553427790311L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 

@@ -10,7 +10,7 @@ package com.order.invoicingservice;
 
 public class InvalidDriverMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553382176712L;
+    private static final long serialVersionUID = 1553427790287L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 
