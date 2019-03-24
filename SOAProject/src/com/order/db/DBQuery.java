@@ -20,7 +20,7 @@ public class DBQuery {
 
 		try (Connection conn = DBCreator.connect();
 				Statement stmt  = conn.createStatement();
-				ResultSet rs    = stmt.executeQuery(sql)){
+				ResultSet rs    = stmt.executeQuery(sql)) {
 
 			while (rs.next()) {
 				Driver driver = new Driver();
@@ -44,17 +44,18 @@ public class DBQuery {
 		String sql = "SELECT id, name, age, car_number, rating_id FROM person, driver WHERE person.id = driver.person_id AND person.id = ?";
 
 		try (Connection conn = DBCreator.connect();
-				PreparedStatement pstmt  = conn.prepareStatement(sql)){
+				PreparedStatement pstmt  = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, driverID);
 
 			ResultSet rs = pstmt.executeQuery();
-
-			driver = new Driver();
-			driver.setId(rs.getInt("id"));
-			driver.setAge(rs.getInt("age"));
-			driver.setName(rs.getString("name"));
-			driver.setCarNumber(rs.getString("car_number"));
-			driver.setRating(getRating(rs.getInt("rating_id")));
+			if (rs.next()) {
+				driver = new Driver();
+				driver.setId(rs.getInt("id"));
+				driver.setAge(rs.getInt("age"));
+				driver.setName(rs.getString("name"));
+				driver.setCarNumber(rs.getString("car_number"));
+				driver.setRating(getRating(rs.getInt("rating_id")));
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -68,7 +69,7 @@ public class DBQuery {
 
 		try (Connection conn = DBCreator.connect();
 				Statement stmt  = conn.createStatement();
-				ResultSet rs    = stmt.executeQuery(sql)){
+				ResultSet rs    = stmt.executeQuery(sql)) {
 
 			while (rs.next()) {
 				Customer customer = new Customer();
@@ -93,17 +94,19 @@ public class DBQuery {
 		String sql = "SELECT id, name, age, card_number, rating_id FROM person, customer WHERE person.id = customer.person_id AND person.id = ?";
 
 		try (Connection conn = DBCreator.connect();
-				PreparedStatement pstmt  = conn.prepareStatement(sql)){
+				PreparedStatement pstmt  = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, customerID);
 
 			ResultSet rs = pstmt.executeQuery();
 
-			customer = new Customer();
-			customer.setId(rs.getInt("id"));
-			customer.setAge(rs.getInt("age"));
-			customer.setName(rs.getString("name"));
-			customer.setCardNumer(rs.getString("card_number"));
-			customer.setRating(getRating(rs.getInt("rating_id")));
+			if (rs.next()) {
+				customer = new Customer();
+				customer.setId(rs.getInt("id"));
+				customer.setAge(rs.getInt("age"));
+				customer.setName(rs.getString("name"));
+				customer.setCardNumer(rs.getString("card_number"));
+				customer.setRating(getRating(rs.getInt("rating_id")));
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -115,13 +118,16 @@ public class DBQuery {
 
 		double rating = 0;
 		try (Connection conn = DBCreator.connect();
-				PreparedStatement pstmt  = conn.prepareStatement(sql)){
+				PreparedStatement pstmt  = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ratingID);
 
 			ResultSet rs = pstmt.executeQuery();
 			// should be just one..
-			rating = rs.getDouble("rating_sum") / rs.getInt("count");
-
+			if (rs.next()) {
+				rating = rs.getDouble("rating_sum") / rs.getInt("count");
+			} else {
+				throw new IllegalArgumentException();
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -135,14 +141,17 @@ public class DBQuery {
 		String sql = "SELECT feedback.id, count, rating_sum FROM feedback JOIN person ON person.rating_id = feedback.id WHERE person.id = ?";
 
 		try (Connection conn = DBCreator.connect();
-				PreparedStatement pstmt  = conn.prepareStatement(sql)){
+				PreparedStatement pstmt  = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, personID);
 
 			ResultSet rs = pstmt.executeQuery();
-			ratingID = rs.getInt("id");
-			count = rs.getInt("count");
-			rating_sum = rs.getDouble("rating_sum");
-
+			if (rs.next()) {
+				ratingID = rs.getInt("id");
+				count = rs.getInt("count");
+				rating_sum = rs.getDouble("rating_sum");
+			} else {
+				throw new IllegalArgumentException();
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -168,15 +177,18 @@ public class DBQuery {
 
 		double rating = 0;
 		try (Connection conn = DBCreator.connect();
-				PreparedStatement pstmt  = conn.prepareStatement(sql)){
+				PreparedStatement pstmt  = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, personID);
 
 			ResultSet rs = pstmt.executeQuery();
 			// should be just one..
-			System.out.println(rs.getInt("count") +  "\t" + 
-					rs.getDouble("rating_sum"));
-			rating = rs.getDouble("rating_sum") / rs.getInt("count");
-
+			if (rs.next()) {
+				System.out.println(rs.getInt("count") +  "\t" + 
+						rs.getDouble("rating_sum"));
+				rating = rs.getDouble("rating_sum") / rs.getInt("count");
+			} else {
+				throw new IllegalArgumentException();
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
