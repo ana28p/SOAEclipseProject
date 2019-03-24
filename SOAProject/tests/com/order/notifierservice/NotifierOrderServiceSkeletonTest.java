@@ -55,42 +55,42 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @Test
-    void findDriver() throws InvalidCustomerMessage, InvalidPriceMessage, InvalidLocationMessage {
+    void testFindDriver() throws InvalidCustomerMessage, InvalidPriceMessage, InvalidLocationMessage {
         SuccessMessage response = this.skeleton.findDriver(this.request);
 
         assertNotNull(response);
     }
 
     @Test
-    void findDriverInvalidStartLocation() {
+    void testFindDriverInvalidStartLocation() {
         this.request.getStartLocation().setLattitude(Math.nextDown(-90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.findDriver(this.request));
     }
 
     @Test
-    void findDriverInvalidEndLocation() {
+    void testFindDriverInvalidEndLocation() {
         this.request.getEndLocation().setLattitude(Math.nextDown(-90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.findDriver(this.request));
     }
 
     @Test
-    void findDriverInvalidPrice() {
+    void testFindDriverInvalidPrice() {
         this.request.setPrice(Double.NaN);
 
         assertThrows(InvalidPriceMessage.class, ()->this.skeleton.findDriver(this.request));
     }
 
     @Test
-    void findDriverInvalidCustomerNull() {
+    void testFindDriverInvalidCustomerNull() {
         this.request.setCustomer(null);
 
         assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
     }
 
     @Test
-    void findDriverInvalidCustomerNotFound() {
+    void testFindDriverInvalidCustomerNotFound() {
         this.request.getCustomer().setId(-1);
 
         assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
