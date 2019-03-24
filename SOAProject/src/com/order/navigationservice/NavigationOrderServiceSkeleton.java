@@ -9,7 +9,7 @@ package com.order.navigationservice;
 
 import com.order.datatypes.Location;
 import com.order.elements.GetDistanceResponse;
-import com.order.messages.InvalidLocationMessage;
+import com.order.pricingservice.InvalidLocationMessage;
 import com.order.utils.Validation;
 
 /**

@@ -6,7 +6,7 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
 
-package com.order.messages;
+package com.order.pricingservice;
 
 public class InvalidLocationMessage extends java.lang.Exception{
 

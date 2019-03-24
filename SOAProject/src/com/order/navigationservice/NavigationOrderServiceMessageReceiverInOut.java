@@ -7,7 +7,7 @@
  */
         package com.order.navigationservice;
 
-import com.order.messages.InvalidLocationMessage;
+import com.order.pricingservice.InvalidLocationMessage;
 
 /**
         *  NavigationOrderServiceMessageReceiverInOut message receiver

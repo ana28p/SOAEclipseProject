@@ -7,7 +7,7 @@
  */
     package com.order.navigationservice;
 
-import com.order.messages.InvalidLocationMessage;
+import com.order.pricingservice.InvalidLocationMessage;
 
 /**
      *  NavigationOrderServiceSkeletonInterface java skeleton interface for the axisService
@@ -19,7 +19,7 @@ import com.order.messages.InvalidLocationMessage;
          * Auto generated method signature
          * 
                                     * @param getDistanceRequest
-             * @throws com.order.messages.InvalidLocationMessage :
+             * @throws InvalidLocationMessage :
          */
 
         
