@@ -8,7 +8,7 @@
 
             
                 package com.order.datatypes;
-
+            
 
             /**
             *  Driver bean class
@@ -144,9 +144,9 @@
                                     writeStartElement(null, namespace, "Age", xmlWriter);
                              
                                                if (localAge==java.lang.Integer.MIN_VALUE) {
-
+                                           
                                                          throw new org.apache.axis2.databinding.ADBException("Age cannot be null!!");
-
+                                                      
                                                } else {
                                                     xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
                                                }
@@ -155,17 +155,17 @@
                              
                                     namespace = "";
                                     writeStartElement(null, namespace, "Rating", xmlWriter);
-
+                             
                                                if (java.lang.Double.isNaN(localRating)) {
-
+                                           
                                                          throw new org.apache.axis2.databinding.ADBException("Rating cannot be null!!");
-
+                                                      
                                                } else {
                                                     xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
                                                }
-
+                                    
                                    xmlWriter.writeEndElement();
-
+                             
                                     namespace = "";
                                     writeStartElement(null, namespace, "CarNumber", xmlWriter);
                              
@@ -392,13 +392,13 @@
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
-
+                            
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Rating"));
-
+                                 
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRating));
-
+                            
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "CarNumber"));
                                  
@@ -548,29 +548,29 @@
                                     
                                               object.setAge(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
-
+                                              
                                         reader.next();
-
+                                    
                               }  // End of if for expected property start element
-
+                                
                                 else{
                                     // A start element we are not expecting indicates an invalid parameter was passed
                                     throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
                                 }
-
-
+                            
+                                    
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("","Rating").equals(reader.getName())){
-
+                                
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
                                         throw new org.apache.axis2.databinding.ADBException("The element: "+"Rating" +"  cannot be null");
                                     }
-
+                                    
 
                                     java.lang.String content = reader.getElementText();
-
+                                    
                                               object.setRating(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               

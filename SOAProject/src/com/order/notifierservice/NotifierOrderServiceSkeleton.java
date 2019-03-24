@@ -16,15 +16,17 @@
          * Auto generated method signature
          * 
                                      * @param findDriverRequest0 
-             * @return findDriverResponse1 
-             * @throws NoDriverAvailableMessage 
+             * @return successMessage1 
+             * @throws InvalidPriceMessage 
+             * @throws InvalidCustomerMessage 
+             * @throws InvalidLocationMessage 
          */
         
-                 public com.order.elements.FindDriverResponse findDriver
+                 public com.order.datatypes.SuccessMessage findDriver
                   (
                   com.order.elements.FindDriverRequest findDriverRequest0
                   )
-            throws NoDriverAvailableMessage{
+            throws InvalidPriceMessage,InvalidCustomerMessage,InvalidLocationMessage{
                 //TODO : fill this with the necessary business logic
                 throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#findDriver");
         }

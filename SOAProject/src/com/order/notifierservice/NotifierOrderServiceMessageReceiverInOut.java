@@ -39,20 +39,20 @@
 
             if("findDriver".equals(methodName)){
                 
-                com.order.elements.FindDriverResponse findDriverResponse7 = null;
+                com.order.datatypes.SuccessMessage successMessage7 = null;
 	                        com.order.elements.FindDriverRequest wrappedParam =
                                                              (com.order.elements.FindDriverRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.order.elements.FindDriverRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               findDriverResponse7 =
+                                               successMessage7 =
                                                    
                                                    
                                                          skel.findDriver(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), findDriverResponse7, false, new javax.xml.namespace.QName("http://order.com/NotifierService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), successMessage7, false, new javax.xml.namespace.QName("http://order.com/NotifierService",
                                                     "findDriver"));
                                     
             } else {
@@ -62,9 +62,27 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (NoDriverAvailableMessage e) {
+        } catch (InvalidCustomerMessage e) {
 
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FindDriverFault");
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidLocationMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidPriceMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
             org.apache.axis2.AxisFault f = createAxisFault(e);
             if (e.getFaultMessage() != null){
                 f.setDetail(toOM(e.getFaultMessage(),false));
@@ -92,12 +110,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.FindDriverResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.SuccessMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.FindDriverResponse.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.SuccessMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -106,12 +124,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.FindDriverFault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.FaultMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.FindDriverFault.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.FaultMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -120,12 +138,12 @@
 
             }
         
-                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.elements.FindDriverResponse param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
+                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.datatypes.SuccessMessage param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
                         throws org.apache.axis2.AxisFault{
                       try{
                           org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                            
-                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.elements.FindDriverResponse.MY_QNAME,factory));
+                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.datatypes.SuccessMessage.MY_QNAME,factory));
                                 
 
                          return emptyEnvelope;
@@ -134,8 +152,8 @@
                     }
                     }
                     
-                         private com.order.elements.FindDriverResponse wrapFindDriver(){
-                                com.order.elements.FindDriverResponse wrappedElement = new com.order.elements.FindDriverResponse();
+                         private com.order.datatypes.SuccessMessage wrapFindDriver(){
+                                com.order.datatypes.SuccessMessage wrappedElement = new com.order.datatypes.SuccessMessage();
                                 return wrappedElement;
                          }
                     
@@ -156,9 +174,16 @@
 
         try {
         
-                if (com.order.elements.FindDriverFault.class.equals(type)){
+                if (com.order.datatypes.FaultMessage.class.equals(type)){
                 
-                        return com.order.elements.FindDriverFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.datatypes.FaultMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                    
+
+                }
+            
+                if (com.order.datatypes.SuccessMessage.class.equals(type)){
+                
+                        return com.order.datatypes.SuccessMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
@@ -166,13 +191,6 @@
                 if (com.order.elements.FindDriverRequest.class.equals(type)){
                 
                         return com.order.elements.FindDriverRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
-                    
-
-                }
-            
-                if (com.order.elements.FindDriverResponse.class.equals(type)){
-                
-                        return com.order.elements.FindDriverResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
