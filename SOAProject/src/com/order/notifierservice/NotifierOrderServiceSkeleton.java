@@ -33,6 +33,7 @@ import com.order.utils.Validation;
                      Validation.validateLocation(findDriverRequest0.getStartLocation(), new InvalidLocationMessage());
                      Validation.validateLocation(findDriverRequest0.getEndLocation(), new InvalidLocationMessage());
                      Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
+                     Validation.validateCustomer(findDriverRequest0.getCustomer(), new InvalidCustomerMessage());
                 //TODO : fill this with the necessary business logic
                 throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#findDriver");
         }
