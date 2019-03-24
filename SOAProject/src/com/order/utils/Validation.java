@@ -48,4 +48,3 @@ public class Validation {
 		}
 	}
 }
->>>>>>>>> Temporary merge branch 2
