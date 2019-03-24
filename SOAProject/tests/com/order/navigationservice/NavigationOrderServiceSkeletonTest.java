@@ -34,21 +34,21 @@ class NavigationOrderServiceSkeletonTest {
     }
 
     @Test
-    void getDistance() throws InvalidLocationMessage {
+    void testGetDistance() throws InvalidLocationMessage {
         GetDistanceResponse response = this.skeleton.getDistance(this.request);
         assertNotNull(response);
         assertEquals(555.0, response.getDistance(), 1);
     }
 
     @Test
-    void getDistanceInvalidStartPoint() {
+    void testGetDistanceInvalidStartPoint() {
         this.request.getCurrentLocation().setLattitude(Math.nextDown(-90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.getDistance(this.request));
     }
 
     @Test
-    void getDistanceInvalidEndPoint() {
+    void testGetDistanceInvalidEndPoint() {
         this.request.getEndLocation().setLattitude(Math.nextDown(-90.0));
 
         assertThrows(InvalidLocationMessage.class, ()->this.skeleton.getDistance(this.request));
