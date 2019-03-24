@@ -6,7 +6,10 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
     package com.order.notifierservice;
-    /**
+
+import com.order.utils.Validation;
+
+/**
      *  NotifierOrderServiceSkeleton java skeleton for the axisService
      */
     public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeletonInterface{
@@ -27,6 +30,9 @@
                   com.order.elements.FindDriverRequest findDriverRequest0
                   )
             throws InvalidPriceMessage,InvalidCustomerMessage,InvalidLocationMessage{
+                     Validation.validateLocation(findDriverRequest0.getStartLocation(), new InvalidLocationMessage());
+                     Validation.validateLocation(findDriverRequest0.getEndLocation(), new InvalidLocationMessage());
+                     Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
                 //TODO : fill this with the necessary business logic
                 throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#findDriver");
         }
