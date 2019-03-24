@@ -7,6 +7,8 @@
  */
 package com.order.pricingservice;
 
+import com.order.datatypes.Location;
+import com.order.elements.GetPriceRequest;
 import com.order.elements.GetPriceResponse;
 import com.order.utils.Validation;
 
@@ -37,11 +39,17 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
         Validation.validateLocation(getPriceRequest0.getLocation(), new InvalidLocationMessage());
 
         GetPriceResponse response = new GetPriceResponse();
-        response.setPrice(this.calculatePrice(getPriceRequest0.getTime()));
+        response.setPrice(this.calculatePrice(getPriceRequest0));
         return response;
     }
 
-    private double calculatePrice(Calendar calendar) throws InvalidTimeMessage {
+    private double calculatePrice(GetPriceRequest request) throws InvalidLocationMessage, InvalidTimeMessage {
+        double basePrice = 1.0;
+
+        return basePrice * this.getTimeOfDayMultiplier(request.getTime()) * this.getLocationMultiplier(request.getLocation());
+    }
+
+    private double getTimeOfDayMultiplier(Calendar calendar) throws InvalidTimeMessage {
         if(calendar == null){
             throw new InvalidTimeMessage();
         }
@@ -53,6 +61,21 @@ public class PricingOrderServiceSkeleton implements PricingOrderServiceSkeletonI
 
         if(calendar.before(start) || calendar.after(end)){
             return 1.5;
+        }
+
+        return 1.0;
+    }
+
+    private double getLocationMultiplier(Location location) throws InvalidLocationMessage {
+        if(location == null){
+            throw new InvalidLocationMessage();
+        }
+
+        double lon = location.getLongitude();
+        double lat = location.getLattitude();
+
+        if((lon > 0 && lon < 2) && (lat > 0 && lat< 2)){
+            return 2.0;
         }
 
         return 1.0;

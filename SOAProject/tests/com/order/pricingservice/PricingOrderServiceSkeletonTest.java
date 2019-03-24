@@ -53,6 +53,29 @@ class PricingOrderServiceSkeletonTest {
     }
 
     @Test
+    void testGetPriceHigherAtLocation() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage, ParseException {
+
+        this.request.getLocation().setLattitude(1);
+        this.request.getLocation().setLongitude(1);
+        GetPriceResponse response = skeleton.getPrice(request);
+
+        assertNotNull(response);
+        assertEquals(2, response.getPrice());
+    }
+
+    @Test
+    void testGetPriceHigherAtNightAndLocation() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage, ParseException {
+
+        this.request.getLocation().setLattitude(1);
+        this.request.getLocation().setLongitude(1);
+        this.request.setTime(this.getDateTime("2019-01-01T0:00Z"));
+        GetPriceResponse response = skeleton.getPrice(request);
+
+        assertNotNull(response);
+        assertEquals(3, response.getPrice());
+    }
+
+    @Test
     void testGetPriceLatitudeLowBoundary() throws InvalidTimeMessage, InvalidLocationMessage, PriceNotFoundMessage {
 
         this.request.getLocation().setLattitude(-90.0);
