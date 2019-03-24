@@ -6,28 +6,28 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
 
-package com.order.navigationservice;
+package com.order.notifierservice;
 
-public class InvalidLocationMessage extends Exception{
+public class InvalidLocationMessage extends java.lang.Exception{
 
     private static final long serialVersionUID = 1553433708547L;
-
+    
     private com.order.datatypes.FaultMessage faultMessage;
 
-
+    
         public InvalidLocationMessage() {
             super("InvalidLocationMessage");
         }
 
-        public InvalidLocationMessage(String s) {
+        public InvalidLocationMessage(java.lang.String s) {
            super(s);
         }
 
-        public InvalidLocationMessage(String s, Throwable ex) {
+        public InvalidLocationMessage(java.lang.String s, java.lang.Throwable ex) {
           super(s, ex);
         }
 
-        public InvalidLocationMessage(Throwable cause) {
+        public InvalidLocationMessage(java.lang.Throwable cause) {
             super(cause);
         }
     

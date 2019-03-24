@@ -8,7 +8,7 @@
 					<xsd:all>
 						<xsd:element name="StartLocation" type="types:Location"/>
 						<xsd:element name="EndLocation" type="types:Location"/>
-						<xsd:element name="Price" type="xsd:string"/>
+						<xsd:element name="Price" type="xsd:double"/>
 						<xsd:element name="Customer" type="types:Customer"/>
 					</xsd:all>
 				</xsd:complexType>
@@ -20,21 +20,22 @@
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="FindDriverFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string"/>
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
   </wsdl:types>
-  <wsdl:message name="NoDriverAvailableMessage">
-    <wsdl:part name="fault" element="elements:FindDriverFault">
+  <wsdl:message name="InvalidPriceMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="FindDriverResponseMessage">
-    <wsdl:part name="outputParameters" element="elements:FindDriverResponse">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="FindDriverRequestMessage">
@@ -47,7 +48,11 @@
     </wsdl:input>
       <wsdl:output message="ps:FindDriverResponseMessage">
     </wsdl:output>
-      <wsdl:fault name="NoDriverAvailable" message="ps:NoDriverAvailableMessage">
+      <wsdl:fault name="InvalidPrice" message="ps:InvalidPriceMessage">
+    </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage">
+    </wsdl:fault>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage">
     </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
@@ -61,8 +66,14 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
-      <wsdl:fault name="NoDriverAvailable">
-        <soap:fault name="NoDriverAvailable"/>
+      <wsdl:fault name="InvalidPrice">
+        <soap:fault name="InvalidPrice"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>

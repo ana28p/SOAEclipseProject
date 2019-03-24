@@ -16,15 +16,17 @@
          * Auto generated method signature
          * 
                                     * @param findDriverRequest
-             * @throws NoDriverAvailableMessage : 
+             * @throws InvalidPriceMessage : 
+             * @throws InvalidCustomerMessage : 
+             * @throws InvalidLocationMessage : 
          */
 
         
-                public com.order.elements.FindDriverResponse findDriver
+                public com.order.datatypes.SuccessMessage findDriver
                 (
                   com.order.elements.FindDriverRequest findDriverRequest
                  )
-            throws NoDriverAvailableMessage;
+            throws InvalidPriceMessage,InvalidCustomerMessage,InvalidLocationMessage;
         
          }
     
