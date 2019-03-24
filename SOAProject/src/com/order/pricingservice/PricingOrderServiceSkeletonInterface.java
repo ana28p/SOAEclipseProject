@@ -7,8 +7,6 @@
  */
     package com.order.pricingservice;
 
-import com.order.messages.InvalidLocationMessage;
-
 /**
      *  PricingOrderServiceSkeletonInterface java skeleton interface for the axisService
      */

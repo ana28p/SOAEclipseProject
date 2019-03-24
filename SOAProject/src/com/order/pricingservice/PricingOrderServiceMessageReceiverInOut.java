@@ -7,8 +7,6 @@
  */
         package com.order.pricingservice;
 
-import com.order.messages.InvalidLocationMessage;
-
 /**
         *  PricingOrderServiceMessageReceiverInOut message receiver
         */

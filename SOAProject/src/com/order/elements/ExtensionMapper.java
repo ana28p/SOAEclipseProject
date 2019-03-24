@@ -20,7 +20,7 @@
                                                        java.lang.String typeName,
                                                        javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
 
-              
+
                   if (
                   "http://order.com/DataTypes".equals(namespaceURI) &&
                   "Location".equals(typeName)){
@@ -30,7 +30,7 @@
 
                   }
 
-              
+
              throw new org.apache.axis2.databinding.ADBException("Unsupported type " + namespaceURI + " " + typeName);
           }
 
