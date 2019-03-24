@@ -20,6 +20,10 @@ public class Validation {
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validateDriver(Driver driver, Exception ex) throws T {
+		if(driver == null) {
+			throw (T) ex;
+		}
+
 		Driver dbDriver = DBQuery.selectDriver(driver.getId());
 		if (dbDriver == null) {
 			throw (T) ex;
@@ -28,6 +32,10 @@ public class Validation {
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validateCustomer(Customer customer, Exception ex) throws T {
+		if(customer == null) {
+			throw (T) ex;
+		}
+
 		Customer dbCustomer = DBQuery.selectCustomer(customer.getId());
 		if (dbCustomer == null) {
 			throw (T) ex;
@@ -47,15 +55,4 @@ public class Validation {
 			throw (T) ex;
 		}
 	}
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Exception> void validateCustomer(Customer customer, Exception ex) throws T {
-	    if(customer == null){
-	        throw (T) ex;
-        }
-//        Driver dbCustomer = DBQuery.selectDriver(customer.getId());
-//        if (dbCustomer == null) {
-//            throw (T) ex;
-//        }
-    }
 }

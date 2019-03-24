@@ -3,8 +3,11 @@ package com.order.notifierservice;
 import com.order.datatypes.Customer;
 import com.order.datatypes.Location;
 import com.order.datatypes.SuccessMessage;
+import com.order.db.DBCreator;
 import com.order.elements.FindDriverRequest;
 import com.order.elements.FindDriverResponse;
+import com.order.utils.CleaningDB;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +21,11 @@ class NotifierOrderServiceSkeletonTest {
     private Location startPoint;
     private Location endPoint;
 
+    @BeforeAll
+    static void beforeAll(){
+        CleaningDB.deleteDB();
+        DBCreator.initializeDB();
+    }
 
     @BeforeEach
     void beforeEach(){
@@ -27,6 +35,7 @@ class NotifierOrderServiceSkeletonTest {
         this.customer.setAge(25);
         this.customer.setName("Uber");
         this.customer.setRating(5d);
+        this.customer.setId(2);
 
         this.startPoint = new Location();
         this.startPoint.setLattitude(0);
@@ -74,8 +83,15 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @Test
-    void findDriverInvalidCustomer() {
+    void findDriverInvalidCustomerNull() {
         this.request.setCustomer(null);
+
+        assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
+    }
+
+    @Test
+    void findDriverInvalidCustomerNotFound() {
+        this.request.getCustomer().setId(-1);
 
         assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
     }
