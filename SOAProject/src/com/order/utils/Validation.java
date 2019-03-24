@@ -6,7 +6,7 @@ import com.order.datatypes.Location;
 import com.order.db.DBQuery;
 
 public class Validation {
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validateLocation(Location location, Exception ex) throws T {
 		if (location.getLattitude() < -90.0 || location.getLattitude() > 90.0) {
@@ -17,7 +17,7 @@ public class Validation {
 			throw (T) ex;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validateDriver(Driver driver, Exception ex) throws T {
 		Driver dbDriver = DBQuery.selectDriver(driver.getId());
@@ -25,7 +25,7 @@ public class Validation {
 			throw (T) ex;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validateCustomer(Customer customer, Exception ex) throws T {
 		Customer dbCustomer = DBQuery.selectCustomer(customer.getId());

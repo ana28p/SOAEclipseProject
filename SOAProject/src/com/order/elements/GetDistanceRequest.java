@@ -8,7 +8,7 @@
 
             
                 package com.order.elements;
-
+            
 
             /**
             *  GetDistanceRequest bean class

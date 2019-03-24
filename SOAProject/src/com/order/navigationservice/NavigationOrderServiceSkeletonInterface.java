@@ -6,7 +6,10 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
     package com.order.navigationservice;
-    /**
+
+import com.order.messages.InvalidLocationMessage;
+
+/**
      *  NavigationOrderServiceSkeletonInterface java skeleton interface for the axisService
      */
     public interface NavigationOrderServiceSkeletonInterface {
@@ -16,7 +19,7 @@
          * Auto generated method signature
          * 
                                     * @param getDistanceRequest
-             * @throws DistanceNotFoundMessage : 
+             * @throws com.order.messages.InvalidLocationMessage :
          */
 
         
@@ -24,7 +27,7 @@
                 (
                   com.order.elements.GetDistanceRequest getDistanceRequest
                  )
-            throws DistanceNotFoundMessage;
+            throws InvalidLocationMessage;
         
          }
     
