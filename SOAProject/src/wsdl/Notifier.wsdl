@@ -47,19 +47,31 @@
 
 	<wsdl:message name="FindDriverResponseMessage">
 		<wsdl:part name="outputParameters"
-			element="elements:FindDriverResponse" />
+			element="types:SuccessMessage" />
 	</wsdl:message>
 
-	<wsdl:message name="NoDriverAvailableMessage">
-		<wsdl:part name="fault" element="elements:FindDriverFault" />
+	<wsdl:message name="InvalidLocationMessage">
+		<wsdl:part name="fault" element="types:FaultMessage" />
+	</wsdl:message>
+
+	<wsdl:message name="InvalidPriceMessage">
+		<wsdl:part name="fault" element="types:FaultMessage" />
+	</wsdl:message>
+
+	<wsdl:message name="InvalidCustomerMessage">
+		<wsdl:part name="fault" element="types:FaultMessage" />
 	</wsdl:message>
 
 	<wsdl:portType name="NotifierPortType">
 		<wsdl:operation name="FindDriver">
 			<wsdl:input message="ps:FindDriverRequestMessage" />
 			<wsdl:output message="ps:FindDriverResponseMessage" />
-			<wsdl:fault name="NoDriverAvailable"
-				message="ps:NoDriverAvailableMessage" />
+			<wsdl:fault name="InvalidLocation"
+				message="ps:InvalidLocationMessage" />
+			<wsdl:fault name="InvalidPrice"
+						message="ps:InvalidPriceMessage" />
+			<wsdl:fault name="InvalidCustomer"
+						message="ps:InvalidCustomerMessage" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -75,8 +87,14 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="NoDriverAvailable">
-				<soap:fault name="NoDriverAvailable" />
+			<wsdl:fault name="InvalidLocation">
+				<soap:fault name="InvalidLocation" />
+			</wsdl:fault>
+			<wsdl:fault name="InvalidPrice">
+				<soap:fault name="InvalidPrice" />
+			</wsdl:fault>
+			<wsdl:fault name="InvalidCustomer">
+				<soap:fault name="InvalidCustomer" />
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
