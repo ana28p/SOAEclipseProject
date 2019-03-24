@@ -8,7 +8,7 @@
 
             
                 package com.order.elements;
-
+            
 
             /**
             *  PayForRideRequest bean class
@@ -110,6 +110,36 @@
                                public void setPrice(double param){
                             
                                             this.localPrice=param;
+                                       
+
+                               }
+                            
+
+                        /**
+                        * field for Customer
+                        */
+
+                        
+                                    protected com.order.datatypes.Customer localCustomer ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.order.datatypes.Customer
+                           */
+                           public  com.order.datatypes.Customer getCustomer(){
+                               return localCustomer;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Customer
+                               */
+                               public void setCustomer(com.order.datatypes.Customer param){
+                            
+                                            this.localCustomer=param;
                                        
 
                                }
@@ -229,6 +259,12 @@
                                     
                                    xmlWriter.writeEndElement();
                              
+                                            if (localCustomer==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                            }
+                                           localCustomer.serialize(new javax.xml.namespace.QName("","Customer"),
+                                               xmlWriter);
+                                        
                                             if (localDriver==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Driver cannot be null!!");
                                             }
@@ -445,6 +481,15 @@
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrice));
                             
                             elementList.add(new javax.xml.namespace.QName("",
+                                                                      "Customer"));
+                            
+                            
+                                    if (localCustomer==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                    }
+                                    elementList.add(localCustomer);
+                                
+                            elementList.add(new javax.xml.namespace.QName("",
                                                                       "Driver"));
                             
                             
@@ -563,6 +608,16 @@
                                     
                                               object.setPrice(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Customer").equals(reader.getName())){
+                                
+                                                object.setCustomer(com.order.datatypes.Customer.Factory.parse(reader));
                                               
                                         reader.next();
                                     

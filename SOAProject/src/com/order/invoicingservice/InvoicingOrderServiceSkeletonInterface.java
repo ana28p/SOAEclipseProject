@@ -16,15 +16,19 @@
          * Auto generated method signature
          * 
                                     * @param payForRideRequest
+             * @throws InvalidCustomerMessage : 
+             * @throws InvalidDriverMessage : 
+             * @throws PriceNotFoundMessage : 
              * @throws PaymentFailedMessage : 
+             * @throws InvalidLocationMessage : 
          */
 
         
-                public com.order.elements.PayForRideResponse payForRide
+                public com.order.datatypes.SuccessMessage payForRide
                 (
                   com.order.elements.PayForRideRequest payForRideRequest
                  )
-            throws PaymentFailedMessage;
+            throws InvalidCustomerMessage,InvalidDriverMessage,PriceNotFoundMessage,PaymentFailedMessage,InvalidLocationMessage;
         
          }
     

@@ -39,20 +39,20 @@
 
             if("payForRide".equals(methodName)){
                 
-                com.order.elements.PayForRideResponse payForRideResponse7 = null;
+                com.order.datatypes.SuccessMessage successMessage7 = null;
 	                        com.order.elements.PayForRideRequest wrappedParam =
                                                              (com.order.elements.PayForRideRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.order.elements.PayForRideRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               payForRideResponse7 =
+                                               successMessage7 =
                                                    
                                                    
                                                          skel.payForRide(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), payForRideResponse7, false, new javax.xml.namespace.QName("http://order.com/InvoicingService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), successMessage7, false, new javax.xml.namespace.QName("http://order.com/InvoicingService",
                                                     "payForRide"));
                                     
             } else {
@@ -62,9 +62,45 @@
 
         newMsgContext.setEnvelope(envelope);
         }
-        } catch (PaymentFailedMessage e) {
+        } catch (InvalidCustomerMessage e) {
 
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"PayForRideFault");
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidDriverMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (PaymentFailedMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (PriceNotFoundMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
+            org.apache.axis2.AxisFault f = createAxisFault(e);
+            if (e.getFaultMessage() != null){
+                f.setDetail(toOM(e.getFaultMessage(),false));
+            }
+            throw f;
+            }
+         catch (InvalidLocationMessage e) {
+
+            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"FaultMessage");
             org.apache.axis2.AxisFault f = createAxisFault(e);
             if (e.getFaultMessage() != null){
                 f.setDetail(toOM(e.getFaultMessage(),false));
@@ -92,12 +128,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.PayForRideResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.SuccessMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.PayForRideResponse.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.SuccessMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -106,12 +142,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.order.elements.PayForRideFault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.order.datatypes.FaultMessage param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.order.elements.PayForRideFault.MY_QNAME,
+                             return param.getOMElement(com.order.datatypes.FaultMessage.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -120,12 +156,12 @@
 
             }
         
-                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.elements.PayForRideResponse param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
+                    private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, com.order.datatypes.SuccessMessage param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
                         throws org.apache.axis2.AxisFault{
                       try{
                           org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                            
-                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.elements.PayForRideResponse.MY_QNAME,factory));
+                                    emptyEnvelope.getBody().addChild(param.getOMElement(com.order.datatypes.SuccessMessage.MY_QNAME,factory));
                                 
 
                          return emptyEnvelope;
@@ -134,8 +170,8 @@
                     }
                     }
                     
-                         private com.order.elements.PayForRideResponse wrapPayForRide(){
-                                com.order.elements.PayForRideResponse wrappedElement = new com.order.elements.PayForRideResponse();
+                         private com.order.datatypes.SuccessMessage wrapPayForRide(){
+                                com.order.datatypes.SuccessMessage wrappedElement = new com.order.datatypes.SuccessMessage();
                                 return wrappedElement;
                          }
                     
@@ -156,9 +192,16 @@
 
         try {
         
-                if (com.order.elements.PayForRideFault.class.equals(type)){
+                if (com.order.datatypes.FaultMessage.class.equals(type)){
                 
-                        return com.order.elements.PayForRideFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                        return com.order.datatypes.FaultMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                    
+
+                }
+            
+                if (com.order.datatypes.SuccessMessage.class.equals(type)){
+                
+                        return com.order.datatypes.SuccessMessage.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
@@ -166,13 +209,6 @@
                 if (com.order.elements.PayForRideRequest.class.equals(type)){
                 
                         return com.order.elements.PayForRideRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
-                    
-
-                }
-            
-                if (com.order.elements.PayForRideResponse.class.equals(type)){
-                
-                        return com.order.elements.PayForRideResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
