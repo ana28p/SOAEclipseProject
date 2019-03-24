@@ -32,8 +32,8 @@ public class NavigationOrderServiceSkeleton implements NavigationOrderServiceSke
     )
             throws InvalidLocationMessage {
 
-        Validation.validateLocation(getDistanceRequest0.getCurrentLocation());
-        Validation.validateLocation(getDistanceRequest0.getEndLocation());
+        Validation.validateLocation(getDistanceRequest0.getCurrentLocation(), new InvalidLocationMessage());
+        Validation.validateLocation(getDistanceRequest0.getEndLocation(), new InvalidLocationMessage());
 
         GetDistanceResponse response = new GetDistanceResponse();
         response.setDistance(this.calculateDistance(getDistanceRequest0.getCurrentLocation(), getDistanceRequest0.getEndLocation()));

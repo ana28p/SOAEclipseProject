@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.ParseException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +17,8 @@ import com.order.db.DBCreator;
 import com.order.db.DBQuery;
 import com.order.elements.PayForRideRequest;
 import com.order.utils.CleaningDB;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class InvoicingOrderServiceSkeletonTest {
 
@@ -42,8 +43,8 @@ class InvoicingOrderServiceSkeletonTest {
 		this.driver = DBQuery.selectDriver(5);
 	}
 
-	@BeforeClass
-	public void beforeClass() {
+	@BeforeAll
+	static public void beforeClass() {
 		CleaningDB.deleteDB();
 		DBCreator.initializeDB();
 	}
@@ -62,7 +63,7 @@ class InvoicingOrderServiceSkeletonTest {
 		SuccessMessage response = this.skeleton.payForRide(this.request);
 
 		assertNotNull(response);
-		Assert.assertEquals("Invoicing created.", response.getSuccessMessage());
+		assertEquals("Invoicing created.", response.getSuccessMessage());
 	}
 
 	@Test
