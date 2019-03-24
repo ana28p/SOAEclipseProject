@@ -90,14 +90,14 @@
                         */
 
                         
-                                    protected java.lang.String localPrice ;
+                                    protected double localPrice ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return double
                            */
-                           public  java.lang.String getPrice(){
+                           public  double getPrice(){
                                return localPrice;
                            }
 
@@ -107,7 +107,7 @@
                                * Auto generated setter method
                                * @param param Price
                                */
-                               public void setPrice(java.lang.String param){
+                               public void setPrice(double param){
                             
                                             this.localPrice=param;
                                        
@@ -219,18 +219,13 @@
                                     namespace = "";
                                     writeStartElement(null, namespace, "Price", xmlWriter);
                              
-
-                                          if (localPrice==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Price cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localPrice);
-                                            
-                                          }
+                                               if (java.lang.Double.isNaN(localPrice)) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("Price cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrice));
+                                               }
                                     
                                    xmlWriter.writeEndElement();
                              
@@ -446,12 +441,9 @@
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Price"));
                                  
-                                        if (localPrice != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrice));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Price cannot be null!!");
-                                        }
-                                    
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrice));
+                            
                             elementList.add(new javax.xml.namespace.QName("",
                                                                       "Customer"));
                             
@@ -570,7 +562,7 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setPrice(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();
                                     

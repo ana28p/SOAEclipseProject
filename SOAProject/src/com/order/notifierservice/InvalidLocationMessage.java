@@ -10,7 +10,7 @@ package com.order.notifierservice;
 
 public class InvalidLocationMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553432361387L;
+    private static final long serialVersionUID = 1553433708547L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 

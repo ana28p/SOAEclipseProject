@@ -10,7 +10,7 @@ package com.order.notifierservice;
 
 public class InvalidCustomerMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1553432361378L;
+    private static final long serialVersionUID = 1553433708540L;
     
     private com.order.datatypes.FaultMessage faultMessage;
 
