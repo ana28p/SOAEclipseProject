@@ -18,7 +18,7 @@
 						<xsd:element name="StartLocation"
 							type="types:Location" />
 						<xsd:element name="EndLocation" type="types:Location" />
-						<xsd:element name="Price" type="xsd:string" />
+						<xsd:element name="Price" type="xsd:double" />
 						<xsd:element name="Customer" type="types:Customer" />
 					</xsd:all>
 				</xsd:complexType>
@@ -27,13 +27,6 @@
 				<xsd:complexType>
 					<xsd:all>
 						<xsd:element name="Driver" type="types:Driver" />
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="FindDriverFault">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Message" type="xsd:string" />
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>
