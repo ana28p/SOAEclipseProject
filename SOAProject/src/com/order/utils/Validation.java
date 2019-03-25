@@ -44,7 +44,7 @@ public class Validation {
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Exception> void validatePrice(double price, Exception ex) throws T {
-		if (Double.isNaN(price) || price == 0) {
+		if (Double.isNaN(price) || price <= 0) {
 			throw (T) ex;
 		}
 	}
