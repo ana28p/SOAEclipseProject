@@ -16,7 +16,6 @@ import java.util.Date;
 class PricingOrderServiceSkeletonTest {
 
     private Location location;
-    private Calendar time;
     private GetPriceRequest request;
     private PricingOrderServiceSkeleton skeleton;
 
