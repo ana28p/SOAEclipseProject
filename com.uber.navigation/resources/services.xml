@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
+    <service name="NavigationService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.navigationservice.NavigationServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.uber.navigationservice.NavigationServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="GetDistance" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/NavigationService">
+            <actionMapping>http://uber.com/NavigationService/NavigationPortType/GetDistanceRequest</actionMapping>
+            <outputActionMapping>http://uber.com/NavigationService/NavigationPortType/GetDistanceResponse</outputActionMapping>
+            <faultActionMapping faultName="InvalidLocation">http://uber.com/NavigationService/NavigationPortType/GetDistance/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage">http://uber.com/NavigationService/NavigationPortType/GetDistance/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://uber.com/NavigationService/NavigationPortType/GetDistance/Fault/InvalidLocation</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>
