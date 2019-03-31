@@ -29,6 +29,36 @@
                         
 
                   }
+                  
+
+                  if (
+                  "http://uber.com/DataTypes".equals(namespaceURI) &&
+                  "Person".equals(typeName)){
+                   
+                            return  com.uber.datatypes.Person.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://uber.com/DataTypes".equals(namespaceURI) &&
+                  "Driver".equals(typeName)){
+                   
+                            return  com.uber.datatypes.Driver.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://uber.com/DataTypes".equals(namespaceURI) &&
+                  "Customer".equals(typeName)){
+                   
+                            return  com.uber.datatypes.Customer.Factory.parse(reader);
+                        
+
+                  }
 
               
              throw new org.apache.axis2.databinding.ADBException("Unsupported type " + namespaceURI + " " + typeName);

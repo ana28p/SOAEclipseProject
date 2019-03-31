@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
+    <service name="NotifierOrderService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.notifierservice.NotifierOrderServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.uber.notifierservice.NotifierOrderServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="FindDriver" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/NotifierService">
+            <actionMapping>http://uber.com/NotifierService/NotifierPortType/FindDriverRequest</actionMapping>
+            <outputActionMapping>http://uber.com/NotifierService/NotifierPortType/FindDriverResponse</outputActionMapping>
+            <faultActionMapping faultName="InvalidPrice">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidPrice</faultActionMapping>
+            <faultActionMapping faultName="InvalidPriceMessage">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidPrice</faultActionMapping>
+            <faultActionMapping faultName="InvalidPriceMessage_Exception">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidPrice</faultActionMapping>
+            <faultActionMapping faultName="InvalidCustomer">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidCustomer</faultActionMapping>
+            <faultActionMapping faultName="InvalidCustomerMessage">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidCustomer</faultActionMapping>
+            <faultActionMapping faultName="InvalidCustomerMessage_Exception">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidCustomer</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocation">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://uber.com/NotifierService/NotifierPortType/FindDriver/Fault/InvalidLocation</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>
