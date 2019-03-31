@@ -13,7 +13,7 @@ import com.uber.datatypes.Driver;
 
 public class DBCreator {
 
-	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:SOAProject/resources/database.db"; // the file is created in the project root
+	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:/Users/joha/projects/study/soa/SOAEclipseProject/com.uber/database.db"; // the file is created in the project root
 
 	public static void initializeDB() {
 		createNewDatabase();
