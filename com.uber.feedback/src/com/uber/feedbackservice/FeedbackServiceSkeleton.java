@@ -8,6 +8,7 @@
     package com.uber.feedbackservice;
 
 import com.uber.datatypes.Person;
+import com.uber.db.DBQuery;
 
 /**
      *  FeedbackServiceSkeleton java skeleton for the axisService
