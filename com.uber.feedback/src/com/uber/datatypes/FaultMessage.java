@@ -30,33 +30,33 @@
                         */
 
                         
-                                    protected String localFaultMessage ;
-
+                                    protected java.lang.String localFaultMessage ;
+                                
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  String getFaultMessage(){
+                           public  java.lang.String getFaultMessage(){
                                return localFaultMessage;
                            }
 
-
-
+                           
+                        
                             /**
                                * Auto generated setter method
                                * @param param FaultMessage
                                */
-                               public void setFaultMessage(String param){
-
+                               public void setFaultMessage(java.lang.String param){
+                            
                                             this.localFaultMessage=param;
-
+                                       
 
                                }
+                            
 
-
-
-
+     
+     
         /**
         *
         * @param parentQName
@@ -68,11 +68,11 @@
                final org.apache.axiom.om.OMFactory factory) throws org.apache.axis2.databinding.ADBException{
 
 
-
+        
                org.apache.axiom.om.OMDataSource dataSource =
                        new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
                return factory.createOMElement(dataSource,MY_QNAME);
-
+            
         }
 
          public void serialize(final javax.xml.namespace.QName parentQName,
@@ -85,18 +85,18 @@
                                javax.xml.stream.XMLStreamWriter xmlWriter,
                                boolean serializeType)
             throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
-
-
+            
+                
                 //We can safely assume an element has only one type associated with it
-
-                            String namespace = "http://uber.com/DataTypes";
-                            String _localName = "FaultMessage";
-
+                
+                            java.lang.String namespace = "http://uber.com/DataTypes";
+                            java.lang.String _localName = "FaultMessage";
+                        
                             writeStartElement(null, namespace, _localName, xmlWriter);
 
                             // add the type details if this is used in a simple type
                                if (serializeType){
-                                   String namespacePrefix = registerPrefix(xmlWriter,"http://uber.com/DataTypes");
+                                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://uber.com/DataTypes");
                                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                                            namespacePrefix+":FaultMessage",
@@ -107,23 +107,23 @@
                                            xmlWriter);
                                    }
                                }
-
+                            
                                           if (localFaultMessage==null){
-
+                                            
                                                      throw new org.apache.axis2.databinding.ADBException("FaultMessage cannot be null !!");
-
+                                                
                                          }else{
-
+                                        
                                                        xmlWriter.writeCharacters(localFaultMessage);
-
+                                            
                                          }
-
+                                    
                             xmlWriter.writeEndElement();
-
+                    
 
         }
 
-        private static String generatePrefix(String namespace) {
+        private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://uber.com/DataTypes")){
                 return "ns1";
             }
@@ -133,9 +133,9 @@
         /**
          * Utility method to write an element start tag.
          */
-        private void writeStartElement(String prefix, String namespace, String localPart,
+        private void writeStartElement(java.lang.String prefix, java.lang.String namespace, java.lang.String localPart,
                                        javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-            String writerPrefix = xmlWriter.getPrefix(namespace);
+            java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
             if (writerPrefix != null) {
                 xmlWriter.writeStartElement(namespace, localPart);
             } else {
@@ -150,12 +150,12 @@
                 xmlWriter.setPrefix(prefix, namespace);
             }
         }
-
+        
         /**
          * Util method to write an attribute with the ns prefix
          */
-        private void writeAttribute(String prefix, String namespace, String attName,
-                                    String attValue, javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
+        private void writeAttribute(java.lang.String prefix,java.lang.String namespace,java.lang.String attName,
+                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
             if (xmlWriter.getPrefix(namespace) == null) {
                 xmlWriter.writeNamespace(prefix, namespace);
                 xmlWriter.setPrefix(prefix, namespace);
@@ -166,8 +166,8 @@
         /**
          * Util method to write an attribute without the ns prefix
          */
-        private void writeAttribute(String namespace, String attName,
-                                    String attValue, javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
+        private void writeAttribute(java.lang.String namespace,java.lang.String attName,
+                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
             if (namespace.equals("")) {
                 xmlWriter.writeAttribute(attName,attValue);
             } else {
@@ -180,15 +180,15 @@
            /**
              * Util method to write an attribute without the ns prefix
              */
-            private void writeQNameAttribute(String namespace, String attName,
+            private void writeQNameAttribute(java.lang.String namespace, java.lang.String attName,
                                              javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
 
-                String attributeNamespace = qname.getNamespaceURI();
-                String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+                java.lang.String attributeNamespace = qname.getNamespaceURI();
+                java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
                 if (attributePrefix == null) {
                     attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
                 }
-                String attributeValue;
+                java.lang.String attributeValue;
                 if (attributePrefix.trim().length() > 0) {
                     attributeValue = attributePrefix + ":" + qname.getLocalPart();
                 } else {
@@ -208,9 +208,9 @@
 
         private void writeQName(javax.xml.namespace.QName qname,
                                 javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-            String namespaceURI = qname.getNamespaceURI();
+            java.lang.String namespaceURI = qname.getNamespaceURI();
             if (namespaceURI != null) {
-                String prefix = xmlWriter.getPrefix(namespaceURI);
+                java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
                 if (prefix == null) {
                     prefix = generatePrefix(namespaceURI);
                     xmlWriter.writeNamespace(prefix, namespaceURI);
@@ -235,9 +235,9 @@
             if (qnames != null) {
                 // we have to store this data until last moment since it is not possible to write any
                 // namespace data after writing the charactor data
-                StringBuffer stringToWrite = new StringBuffer();
-                String namespaceURI = null;
-                String prefix = null;
+                java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+                java.lang.String namespaceURI = null;
+                java.lang.String prefix = null;
 
                 for (int i = 0; i < qnames.length; i++) {
                     if (i > 0) {
@@ -270,13 +270,13 @@
         /**
          * Register a namespace prefix
          */
-        private String registerPrefix(javax.xml.stream.XMLStreamWriter xmlWriter, String namespace) throws javax.xml.stream.XMLStreamException {
-            String prefix = xmlWriter.getPrefix(namespace);
+        private java.lang.String registerPrefix(javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace) throws javax.xml.stream.XMLStreamException {
+            java.lang.String prefix = xmlWriter.getPrefix(namespace);
             if (prefix == null) {
                 prefix = generatePrefix(namespace);
                 javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
                 while (true) {
-                    String uri = nsContext.getNamespaceURI(prefix);
+                    java.lang.String uri = nsContext.getNamespaceURI(prefix);
                     if (uri == null || uri.length() == 0) {
                         break;
                     }
@@ -289,7 +289,7 @@
         }
 
 
-
+  
         /**
         * databinding method to get an XML representation of this object
         *
@@ -298,11 +298,11 @@
                     throws org.apache.axis2.databinding.ADBException{
 
 
-
-
+        
+                
                 //We can safely assume an element has only one type associated with it
                  return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(MY_QNAME,
-                            new Object[]{
+                            new java.lang.Object[]{
                             org.apache.axis2.databinding.utils.reader.ADBXMLStreamReader.ELEMENT_TEXT,
                             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFaultMessage)
                             },
@@ -310,15 +310,15 @@
 
         }
 
-
+  
 
      /**
       *  Factory class that keeps the parse method
       */
     public static class Factory{
 
-
-
+        
+        
 
         /**
         * static method to create the object
@@ -327,61 +327,61 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static FaultMessage parse(javax.xml.stream.XMLStreamReader reader) throws Exception{
+        public static FaultMessage parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
             FaultMessage object =
                 new FaultMessage();
 
             int event;
-            String nillableValue = null;
-            String prefix ="";
-            String namespaceuri ="";
+            java.lang.String nillableValue = null;
+            java.lang.String prefix ="";
+            java.lang.String namespaceuri ="";
             try {
-
+                
                 while (!reader.isStartElement() && !reader.isEndElement())
                     reader.next();
 
+                
 
-
-
+                
                 // Note all attributes that were handled. Used to differ normal attributes
                 // from anyAttributes.
                 java.util.Vector handledAttributes = new java.util.Vector();
+                
 
-
-
+                   
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
-
+                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://uber.com/DataTypes","FaultMessage").equals(reader.getName())){
-
+                                
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
                                         throw new org.apache.axis2.databinding.ADBException("The element: "+"FaultMessage" +"  cannot be null");
                                     }
+                                    
 
-
-                                    String content = reader.getElementText();
-
+                                    java.lang.String content = reader.getElementText();
+                                    
                                               object.setFaultMessage(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
+                                            
                               }  // End of if for expected property start element
-
+                                
                              else{
                                         // A start element we are not expecting indicates an invalid parameter was passed
                                         throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
                              }
-
+                          
                              } else {
                                 reader.next();
-                             }
+                             }  
                            }  // end of while loop
-
+                        
 
 
 
             } catch (javax.xml.stream.XMLStreamException e) {
-                throw new Exception(e);
+                throw new java.lang.Exception(e);
             }
 
             return object;
