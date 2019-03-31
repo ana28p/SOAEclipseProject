@@ -10,12 +10,12 @@
                   xmlns:messages="http://uber.com/Messages">
 
     <wsdl:import namespace="http://uber.com/Messages"
-                 location="../../com.uber.general/wsdl/Messages.wsdl"/>
+                 location="../../com.uber/wsdl/Messages.wsdl"/>
 
     <wsdl:types>
         <xsd:schema targetNamespace="http://uber.com/Elements">
             <xsd:import namespace="http://uber.com/DataTypes"
-                        schemaLocation="../../com.uber.general/wsdl/DataTypes.xsd"/>
+                        schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
             <xsd:element name="GetPriceRequest">
                 <xsd:complexType>
                     <xsd:all>
