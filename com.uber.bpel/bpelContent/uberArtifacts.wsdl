@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<definitions name="uber"
+             targetNamespace="http://www.uber.com/bpel/uber"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://www.uber.com/bpel/uber"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:types="http://uber.com/DataTypes"
+             xmlns:feedback="http://uber.com/FeedbackService"
+             xmlns:invoicing="http://uber.com/InvoicingService"
+             xmlns:navigation="http://uber.com/NavigationService"
+             xmlns:notifier="http://uber.com/NotifierService"
+             xmlns:pricing="http://uber.com/PricingService"
+>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         TYPE DEFINITION - List of services participating in this BPEL process
+         The default output of the BPEL designer uses strings as input and
+         output to the BPEL Process. But you can define or import any XML
+         Schema type and us them as part of the message types.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <import namespace="http://uber.com/FeedbackService" location="../../com.uber.feedback/wsdl/Feedback.wsdl"/>
+    <import namespace="http://uber.com/InvoicingService" location="../../com.uber.invoicing/wsdl/Invoicing.wsdl"/>
+    <import namespace="http://uber.com/NavigationService" location="../../com.uber.navigation/wsdl/Navigation.wsdl"/>
+    <import namespace="http://uber.com/NotifierService" location="../../com.uber.notifier/wsdl/Notifier.wsdl"/>
+    <import namespace="http://uber.com/PricingService" location="../../com.uber.pricing/wsdl/Pricing.wsdl"/>
+
+    <types>
+        <schema attributeFormDefault="unqualified"
+                elementFormDefault="qualified"
+                targetNamespace="http://www.uber.com/bpel/uber"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+        >
+            <xsd:import namespace="http://uber.com/DataTypes"
+                        schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+            <element name="uberRequest">
+                <complexType>
+                    <xsd:all>
+                        <xsd:element name="StartLocation" type="types:Location"/>
+                        <xsd:element name="EndLocation" type="types:Location"/>
+                        <xsd:element name="Time" type="xsd:dateTime"/>
+                        <xsd:element name="UserId" type="xsd:int" />
+                    </xsd:all>
+                </complexType>
+            </element>
+
+            <element name="uberResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+        </schema>
+    </types>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         MESSAGE TYPE DEFINITION - Definition of the message types used as
+         part of the port type defintions
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <message name="uberRequestMessage">
+        <part name="payload" element="tns:uberRequest"/>
+    </message>
+
+    <message name="uberResponseMessage">
+        <part name="payload" element="tns:uberResponse"/>
+    </message>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PORT TYPE DEFINITION - A port type groups a set of operations into
+         a logical service unit.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- portType implemented by the uber BPEL process -->
+    <portType name="uber">
+        <operation name="initiate">
+            <input message="tns:uberRequestMessage"/>
+        </operation>
+    </portType>
+
+    <!-- portType implemented by the requester of uber BPEL process 
+         for asynchronous callback purposes
+         -->
+    <portType name="uberCallback">
+        <operation name="onResult">
+            <input message="tns:uberResponseMessage"/>
+        </operation>
+    </portType>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PARTNER LINK TYPE DEFINITION
+             the uber partnerLinkType binds the provider and
+             requester portType into an asynchronous conversation.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <plnk:partnerLinkType name="uber">
+        <plnk:role name="uberProvider" portType="tns:uber"/>
+        <plnk:role name="uberRequester" portType="tns:uberCallback"/>
+    </plnk:partnerLinkType>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         BINDING DEFINITION - Defines the message format and protocol details
+         for a web service.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="uberBinding" type="tns:uber">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="initiate">
+            <soap:operation
+                    soapAction="http://www.uber.com/bpel/uber/initiate"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
+    </binding>
+
+    <binding name="uberCallbackBinding" type="tns:uberCallback">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="onResult">
+            <soap:operation
+                    soapAction="http://www.uber.com/bpel/uber/onResult"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
+    </binding>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         SERVICE DEFINITION - A service groups a set of ports into
+         a service unit.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="uberService">
+        <port name="uberPort" binding="tns:uberBinding">
+            <soap:address location="http://localhost:8080/uber"/>
+        </port>
+    </service>
+
+    <service name="uberServiceCallback">
+        <port name="uberPortCallbackPort" binding="tns:uberCallbackBinding">
+            <soap:address location="http://localhost:8080/uberCallback"/>
+        </port>
+    </service>
+</definitions>
