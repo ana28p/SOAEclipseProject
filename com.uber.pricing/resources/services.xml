@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
+    <service name="PricingService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.pricingservice.PricingServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.uber.pricingservice.PricingServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="GetPrice" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/PricingService">
+            <actionMapping>http://uber.com/PricingService/PricingPortType/GetPriceRequest</actionMapping>
+            <outputActionMapping>http://uber.com/PricingService/PricingPortType/GetPriceResponse</outputActionMapping>
+            <faultActionMapping faultName="PriceNotFound">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="PriceNotFoundMessage">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="PriceNotFoundMessage_Exception">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/PriceNotFound</faultActionMapping>
+            <faultActionMapping faultName="InvalidTime">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidTimeMessage">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidTimeMessage_Exception">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidTime</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocation">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+            <faultActionMapping faultName="InvalidLocationMessage_Exception">http://uber.com/PricingService/PricingPortType/GetPrice/Fault/InvalidLocation</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

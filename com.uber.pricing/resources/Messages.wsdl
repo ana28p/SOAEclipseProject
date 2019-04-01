@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PricingOrderService" targetNamespace="http://uber.com/Messages" xmlns:types="http://uber.com/DataTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+            <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvalidTimeMessage">
+    <wsdl:part name="fault" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+</wsdl:definitions>
