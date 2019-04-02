@@ -33,7 +33,7 @@
         >
             <xsd:import namespace="http://uber.com/DataTypes"
                         schemaLocation="DataTypes.xsd"/>
-            <xsd:element name="uberRequest">
+            <xsd:element name="requestRideRequest">
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element name="StartLocation" type="types:Location"/>
@@ -44,7 +44,7 @@
                 </xsd:complexType>
             </xsd:element>
 
-            <xsd:element name="uberResponse">
+            <xsd:element name="requestRideResponse">
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element name="result" type="xsd:double"/>
@@ -59,12 +59,12 @@
          MESSAGE TYPE DEFINITION - Definition of the message types used as
          part of the port type defintions
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <message name="uberRequestMessage">
-        <part name="test" element="elements:uberRequest"/>
+    <message name="requestRideRequestMessage">
+        <part name="payload" element="elements:requestRideRequest"/>
     </message>
 
-    <message name="uberResponseMessage">
-        <part name="payload" element="elements:uberResponse"/>
+    <message name="requestRideResponseMessage">
+        <part name="payload" element="elements:requestRideResponse"/>
     </message>
 
 
@@ -73,10 +73,10 @@
          a logical service unit.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- portType implemented by the uber BPEL process -->
-    <portType name="uber">
-        <operation name="initiate">
-            <input message="tns:uberRequestMessage"/>
-            <output message="tns:uberResponseMessage"/>
+    <portType name="requestRidePortType">
+        <operation name="requestRide">
+            <input message="tns:requestRideRequestMessage"/>
+            <output message="tns:requestRideResponseMessage"/>
         </operation>
     </portType>
 
@@ -95,22 +95,25 @@
              the uber partnerLinkType binds the provider and
              requester portType into an asynchronous conversation.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <plnk:partnerLinkType name="uber">
-        <plnk:role name="uberProvider" portType="tns:uber"/>
+    <plnk:partnerLinkType name="requestRideLink">
+        <plnk:role name="uberProvider" portType="tns:requestRidePortType"/>
 <!--         <plnk:role name="uberRequester" portType="tns:uberCallback"/> -->
     </plnk:partnerLinkType>
     <plnk:partnerLinkType name="navigationLink">
         <plnk:role name="navigator" portType="navigation:NavigationPortType"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="pricingLink">
+        <plnk:role name="assessor" portType="pricing:PricingPortType"/>
     </plnk:partnerLinkType>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          BINDING DEFINITION - Defines the message format and protocol details
          for a web service.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <binding name="uberBinding" type="tns:uber">
+    <binding name="requestRideBinding" type="tns:requestRidePortType">
         <soap:binding style="document"
                       transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="initiate">
+        <operation name="requestRide">
             <soap:operation
                     soapAction="http://www.uber.com/bpel/uber/initiate"/>
             <input>
@@ -138,7 +141,7 @@
          a service unit.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <service name="uberService">
-        <port name="uberPort" binding="tns:uberBinding">
+        <port name="requestRidePort" binding="tns:requestRideBinding">
             <soap:address location="http://localhost:8080/ode/processes/com.uber.bpel"/>
         </port>
     </service>
