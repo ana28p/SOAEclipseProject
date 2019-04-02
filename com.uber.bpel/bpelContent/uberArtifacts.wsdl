@@ -12,6 +12,7 @@
              xmlns:navigation="http://uber.com/NavigationService"
              xmlns:notifier="http://uber.com/NotifierService"
              xmlns:pricing="http://uber.com/PricingService"
+             xmlns:elements="http://uber.com/Elements"
 >
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,40 +21,38 @@
          output to the BPEL Process. But you can define or import any XML
          Schema type and us them as part of the message types.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <import namespace="http://uber.com/FeedbackService" location="../../com.uber.feedback/wsdl/Feedback.wsdl"/>
-    <import namespace="http://uber.com/InvoicingService" location="../../com.uber.invoicing/wsdl/Invoicing.wsdl"/>
-    <import namespace="http://uber.com/NavigationService" location="../../com.uber.navigation/wsdl/Navigation.wsdl"/>
-    <import namespace="http://uber.com/NotifierService" location="../../com.uber.notifier/wsdl/Notifier.wsdl"/>
-    <import namespace="http://uber.com/PricingService" location="../../com.uber.pricing/wsdl/Pricing.wsdl"/>
+    <import namespace="http://uber.com/FeedbackService" location="Feedback.wsdl"/>
+    <import namespace="http://uber.com/InvoicingService" location="Invoicing.wsdl"/>
+    <import namespace="http://uber.com/NavigationService" location="Navigation.wsdl"/>
+    <import namespace="http://uber.com/NotifierService" location="Notifier.wsdl"/>
+    <import namespace="http://uber.com/PricingService" location="Pricing.wsdl"/>
 
     <types>
-        <schema attributeFormDefault="unqualified"
-                elementFormDefault="qualified"
-                targetNamespace="http://www.uber.com/bpel/uber"
-                xmlns="http://www.w3.org/2001/XMLSchema"
+        <xsd:schema
+                targetNamespace="http://uber.com/Elements"
         >
             <xsd:import namespace="http://uber.com/DataTypes"
-                        schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
-            <element name="uberRequest">
-                <complexType>
-                    <xsd:all>
+                        schemaLocation="DataTypes.xsd"/>
+            <xsd:element name="uberRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
                         <xsd:element name="StartLocation" type="types:Location"/>
                         <xsd:element name="EndLocation" type="types:Location"/>
                         <xsd:element name="Time" type="xsd:dateTime"/>
                         <xsd:element name="UserId" type="xsd:int" />
-                    </xsd:all>
-                </complexType>
-            </element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
 
-            <element name="uberResponse">
-                <complexType>
-                    <sequence>
-                        <element name="result" type="string"/>
-                    </sequence>
-                </complexType>
-            </element>
+            <xsd:element name="uberResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
 
-        </schema>
+        </xsd:schema>
     </types>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,11 +60,11 @@
          part of the port type defintions
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <message name="uberRequestMessage">
-        <part name="payload" element="tns:uberRequest"/>
+        <part name="test" element="elements:uberRequest"/>
     </message>
 
     <message name="uberResponseMessage">
-        <part name="payload" element="tns:uberResponse"/>
+        <part name="payload" element="elements:uberResponse"/>
     </message>
 
 
@@ -77,17 +76,18 @@
     <portType name="uber">
         <operation name="initiate">
             <input message="tns:uberRequestMessage"/>
+            <output message="tns:uberResponseMessage"/>
         </operation>
     </portType>
 
     <!-- portType implemented by the requester of uber BPEL process 
          for asynchronous callback purposes
-         -->
+         --><!-- 
     <portType name="uberCallback">
         <operation name="onResult">
             <input message="tns:uberResponseMessage"/>
         </operation>
-    </portType>
+    </portType> -->
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,7 +97,10 @@
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <plnk:partnerLinkType name="uber">
         <plnk:role name="uberProvider" portType="tns:uber"/>
-        <plnk:role name="uberRequester" portType="tns:uberCallback"/>
+<!--         <plnk:role name="uberRequester" portType="tns:uberCallback"/> -->
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="navigation">
+        <plnk:role name="navigator" portType="navigation:NavigationPortType"/>
     </plnk:partnerLinkType>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,9 +116,12 @@
             <input>
                 <soap:body use="literal"/>
             </input>
+            <output>
+            	<soap:body use="literal"/>
+            </output>
         </operation>
     </binding>
-
+<!-- 
     <binding name="uberCallbackBinding" type="tns:uberCallback">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="onResult">
@@ -125,7 +131,7 @@
                 <soap:body use="literal"/>
             </input>
         </operation>
-    </binding>
+    </binding> -->
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          SERVICE DEFINITION - A service groups a set of ports into
@@ -133,13 +139,13 @@
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <service name="uberService">
         <port name="uberPort" binding="tns:uberBinding">
-            <soap:address location="http://localhost:8080/uber"/>
+            <soap:address location="http://localhost:8080/ode/processes/com.uber.bpel"/>
         </port>
     </service>
 
-    <service name="uberServiceCallback">
+<!--     <service name="uberServiceCallback">
         <port name="uberPortCallbackPort" binding="tns:uberCallbackBinding">
             <soap:address location="http://localhost:8080/uberCallback"/>
         </port>
-    </service>
+    </service> -->
 </definitions>

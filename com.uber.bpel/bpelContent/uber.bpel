@@ -2,19 +2,39 @@
 <!-- Date: Mon Apr 01 20:57:25 CEST 2019 -->
 
 <bpel:process name="uber"
-         targetNamespace="http://www.uber.com/bpel/uber"
-         suppressJoinFailure="yes"
-         xmlns:tns="http://www.uber.com/bpel/uber"
-         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
-         >
+              targetNamespace="http://www.uber.com/bpel/uber"
+              suppressJoinFailure="yes"
+              xmlns:tns="http://www.uber.com/bpel/uber"
+              xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+              xmlns:types="http://uber.com/DataTypes"
+              xmlns:feedback="http://uber.com/FeedbackService"
+              xmlns:invoicing="http://uber.com/InvoicingService"
+              xmlns:navigation="http://uber.com/NavigationService"
+              xmlns:notifier="http://uber.com/NotifierService"
+              xmlns:pricing="http://uber.com/PricingService"
+>
     <!-- Import the client WSDL -->
-	<bpel:import location="uberArtifacts.wsdl" namespace="http://www.uber.com/bpel/uber" 
-	        importType="http://schemas.xmlsoap.org/wsdl/" />
-	        
-    <!-- ================================================================= -->         
+    <bpel:import location="uberArtifacts.wsdl" namespace="http://www.uber.com/bpel/uber"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+
+    <!-- Import the server WSDLs -->
+
+    <bpel:import namespace="http://uber.com/FeedbackService" location="Feedback.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/InvoicingService" location="Invoicing.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/NavigationService"
+                 location="Navigation.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/NotifierService" location="Notifier.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/PricingService" location="Pricing.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+
+    <!-- ================================================================= -->
     <!-- PARTNERLINKS                                                      -->
     <!-- List of services participating in this BPEL process               -->
-    <!-- ================================================================= -->         
+    <!-- ================================================================= -->
     <bpel:partnerLinks>
         <!--
         The 'client' role represents the requester of this service. It is 
@@ -22,53 +42,109 @@
         with the client role are automatically set using WS-Addressing.
         -->
         <bpel:partnerLink name="client"
-                     partnerLinkType="tns:uber"
-                     myRole="uberProvider"
-                     partnerRole="uberRequester"
-                     />
+                          partnerLinkType="tns:uber"
+                          myRole="uberProvider"
+        />
+        <bpel:partnerLink name="navigation"
+                          partnerLinkType="tns:navigation"
+                          partnerRole="navigator"
+        />
+
     </bpel:partnerLinks>
-  
-    <!-- ================================================================= -->         
+
+    <!-- ================================================================= -->
     <!-- VARIABLES                                                         -->
     <!-- List of messages and XML documents used within this BPEL process  -->
-    <!-- ================================================================= -->         
+    <!-- ================================================================= -->
     <bpel:variables>
         <!-- Reference to the message passed as input during initiation -->
         <bpel:variable name="input"
-                  messageType="tns:uberRequestMessage"/>
-                  
+                       messageType="tns:uberRequestMessage"/>
+        <bpel:variable name="distanceInput" messageType="navigation:GetDistanceRequestMessage"/>
+        <bpel:variable name="distanceOutput" messageType="navigation:GetDistanceResponseMessage"/>
+
         <!-- Reference to the message that will be sent back to the 
              requester during callback
              -->
         <bpel:variable name="output"
-                  messageType="tns:uberResponseMessage"/>
+                       messageType="tns:uberResponseMessage"/>
     </bpel:variables>
 
-    <!-- ================================================================= -->         
+    <!-- ================================================================= -->
     <!-- ORCHESTRATION LOGIC                                               -->
     <!-- Set of activities coordinating the flow of messages across the    -->
     <!-- services integrated within this business process                  -->
-    <!-- ================================================================= -->         
+    <!-- ================================================================= -->
     <bpel:sequence name="main">
-        
+
         <!-- Receive input from requestor. 
              Note: This maps to operation defined in uber.wsdl 
              -->
         <bpel:receive name="receiveInput" partnerLink="client"
-                 portType="tns:uber"
-                 operation="initiate" variable="input"
-                 createInstance="yes"/>
-        <bpel:empty name="FIX_ME-Add_Business_Logic_Here"></bpel:empty>
+                      portType="tns:uber"
+                      operation="initiate" variable="input"
+                      createInstance="yes"/>
+
+                <bpel:assign>
+                    <bpel:copy>
+                        <bpel:from>
+                            <bpel:literal>
+                                <navigation:GetDistanceRequest>
+                                    <CurrentLocation>
+                                        <Longitude>0</Longitude>
+                                        <Latitude>0</Latitude>
+                                    </CurrentLocation>
+                                    <EndLocation>
+                                        <Longitude>0</Longitude>
+                                        <Latitude>0</Latitude>
+                                    </EndLocation>
+                                </navigation:GetDistanceRequest>
+                            </bpel:literal>
+                        </bpel:from>
+                        <bpel:to>$distanceInput.inputParameters</bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from>
+                            $input.test/StartLocation
+                        </bpel:from>
+                        <bpel:to>
+                            $distanceInput.inputParameters/CurrentLocation
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from>
+                            $input.test/EndLocation
+                        </bpel:from>
+                        <bpel:to>
+                            $distanceInput.inputParameters/EndLocation
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="Invoke-navigation-getDistance" partnerLink="navigation"
+                             operation="GetDistance" portType="navigation:NavigationPortType"
+                             inputVariable="distanceInput"
+                             outputVariable="distanceOutput"/>
+                <bpel:assign>
+                	<bpel:copy>
+                		<bpel:from>
+                			$distanceOutput.outputParameters/Distance
+                		</bpel:from>
+                		<bpel:to>
+                			$output.payload//result
+                		</bpel:to>
+                	</bpel:copy>
+                </bpel:assign>             
+
         <!-- Asynchronous callback to the requester.
              Note: the callback location and correlation id is transparently handled 
              using WS-addressing.
              -->
-        <bpel:invoke name="callbackClient" 
-                partnerLink="client"
-                portType="tns:uberCallback"
-                operation="onResult" 
-                inputVariable="output"
-                />
+        <bpel:reply name="callbackClient"
+                     partnerLink="client"
+                     portType="tns:uber"
+                     operation="initiate"
+                     variable="output"
+        />
     </bpel:sequence>
 </bpel:process>
 
