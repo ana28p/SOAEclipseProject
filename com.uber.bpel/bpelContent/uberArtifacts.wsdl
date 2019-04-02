@@ -13,6 +13,7 @@
              xmlns:notifier="http://uber.com/NotifierService"
              xmlns:pricing="http://uber.com/PricingService"
              xmlns:elements="http://uber.com/Elements"
+             xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
 >
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,11 +48,22 @@
             <xsd:element name="requestRideResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="result" type="xsd:double"/>
+                        <xsd:element name="result" type="xsd:string"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
 
+            <xsd:element name="customerAnswer">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Answer" type="xsd:string" />
+                        <xsd:element name="UserId" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="TotalPrice" type="xsd:double" />
+            
         </xsd:schema>
     </types>
 
@@ -67,6 +79,10 @@
         <part name="payload" element="elements:requestRideResponse"/>
     </message>
 
+    <message name="aswerToRideMessage">
+        <part name="customerAnswer" element="elements:customerAnswer"/>
+    </message>
+
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          PORT TYPE DEFINITION - A port type groups a set of operations into
@@ -78,11 +94,14 @@
             <input message="tns:requestRideRequestMessage"/>
             <output message="tns:requestRideResponseMessage"/>
         </operation>
+        <operation name="acceptRide">
+            <input message="tns:aswerToRideMessage"/>
+        </operation>
     </portType>
 
-    <!-- portType implemented by the requester of uber BPEL process 
+    <!-- portType implemented by the requester of uber BPEL process
          for asynchronous callback purposes
-         --><!-- 
+         --><!--
     <portType name="uberCallback">
         <operation name="onResult">
             <input message="tns:uberResponseMessage"/>
@@ -105,6 +124,18 @@
     <plnk:partnerLinkType name="pricingLink">
         <plnk:role name="assessor" portType="pricing:PricingPortType"/>
     </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="notifierLink">
+        <plnk:role name="notifier" portType="notifier:NotifierPortType"/>
+    </plnk:partnerLinkType>
+
+
+    <vprop:property name="customerID" type="xsd:int"/>
+    <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:requestRideRequestMessage" part="payload">
+        <vprop:query>UserId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:aswerToRideMessage" part="customerAnswer">
+        <vprop:query>UserId</vprop:query>
+    </vprop:propertyAlias>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          BINDING DEFINITION - Defines the message format and protocol details
@@ -123,8 +154,15 @@
             	<soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="acceptRide">
+            <soap:operation
+                    soapAction="http://www.uber.com/bpel/uber/acceptRide"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
     </binding>
-<!-- 
+<!--
     <binding name="uberCallbackBinding" type="tns:uberCallback">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="onResult">
