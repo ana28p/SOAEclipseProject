@@ -99,7 +99,7 @@
         <plnk:role name="uberProvider" portType="tns:uber"/>
 <!--         <plnk:role name="uberRequester" portType="tns:uberCallback"/> -->
     </plnk:partnerLinkType>
-    <plnk:partnerLinkType name="navigation">
+    <plnk:partnerLinkType name="navigationLink">
         <plnk:role name="navigator" portType="navigation:NavigationPortType"/>
     </plnk:partnerLinkType>
 
