@@ -7,7 +7,16 @@
  */
 package com.uber.notifierservice;
 
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Random;
+
+import com.uber.datatypes.Customer;
+import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
+import com.uber.db.DBQuery;
+import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
+import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.DriverFoundRequest;
 import com.uber.utils.Validation;
 
 /**
@@ -38,8 +47,47 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
 
         SuccessMessage response = new SuccessMessage();
         response.setSuccessMessage("Wait for a driver to accept...");
-
+        
+        DriverFoundRequest callbackResponse = new DriverFoundRequest();
+        Customer dbCustomer = DBQuery.selectCustomer(findDriverRequest0.getCustomer().getId());
+        
+        List<Driver> drivers = DBQuery.selectAllDrivers();
+        Random rand = new Random();
+        Driver randomDriver = drivers.get(rand.nextInt(drivers.size()));
+        
+        callbackResponse.setCustomer(toCallbackCustomer(dbCustomer));
+        callbackResponse.setDriver(toCallbackDriver(randomDriver));
+        
+        try {
+			new NotifierCallbackOrderServiceStub().receiveCallBack(callbackResponse);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         return response;
+    }
+    
+    private com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer toCallbackCustomer(Customer customer) {
+    	com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer cbCustomer = new com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer();
+    	cbCustomer.setId(customer.getId());
+    	cbCustomer.setAge(customer.getAge());
+    	cbCustomer.setName(customer.getName());
+    	cbCustomer.setCardNumber(customer.getCardNumber());
+    	cbCustomer.setRating(customer.getRating());
+    	
+    	return cbCustomer;
+    }
+    
+    private com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver toCallbackDriver(Driver driver) {
+    	com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver cbDriver = new com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver();
+    	cbDriver.setId(driver.getId());
+    	cbDriver.setAge(driver.getAge());
+    	cbDriver.setName(driver.getName());
+    	cbDriver.setCarNumber(driver.getCarNumber());
+    	cbDriver.setRating(driver.getRating());
+    	
+    	return cbDriver;
     }
 
 }

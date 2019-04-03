@@ -11,6 +11,7 @@
              xmlns:invoicing="http://uber.com/InvoicingService"
              xmlns:navigation="http://uber.com/NavigationService"
              xmlns:notifier="http://uber.com/NotifierService"
+             xmlns:notifierCB="http://uber.com/NotifierCallbackService"
              xmlns:pricing="http://uber.com/PricingService"
              xmlns:elements="http://uber.com/Elements"
              xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
@@ -26,6 +27,7 @@
     <import namespace="http://uber.com/InvoicingService" location="Invoicing.wsdl"/>
     <import namespace="http://uber.com/NavigationService" location="Navigation.wsdl"/>
     <import namespace="http://uber.com/NotifierService" location="Notifier.wsdl"/>
+    <import namespace="http://uber.com/NotifierCallbackService" location="NotifierCallback.wsdl"/>
     <import namespace="http://uber.com/PricingService" location="Pricing.wsdl"/>
 
     <types>
@@ -137,6 +139,7 @@
     </plnk:partnerLinkType>
     <plnk:partnerLinkType name="notifierLink">
         <plnk:role name="notifier" portType="notifier:NotifierPortType"/>
+        <plnk:role name="uberAcceptor" portType="notifierCB:NotifierCallbackPortType"/>
     </plnk:partnerLinkType>
 
 
@@ -146,6 +149,9 @@
     </vprop:propertyAlias>
     <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:aswerToRideMessage" part="customerAnswer">
         <vprop:query>UserId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:customerID" messageType="notifierCB:DriverFoundRequestMessage" part="parameters">
+        <vprop:query>Customer/Id</vprop:query>
     </vprop:propertyAlias>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

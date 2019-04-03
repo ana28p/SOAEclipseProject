@@ -5,11 +5,13 @@
 	targetNamespace="http://www.uber.com/bpel/uber"
 	suppressJoinFailure="yes" xmlns:tns="http://www.uber.com/bpel/uber"
 	xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+	xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
 	xmlns:types="http://uber.com/DataTypes"
 	xmlns:feedback="http://uber.com/FeedbackService"
 	xmlns:invoicing="http://uber.com/InvoicingService"
 	xmlns:navigation="http://uber.com/NavigationService"
 	xmlns:notifier="http://uber.com/NotifierService"
+	xmlns:notifierCB="http://uber.com/NotifierCallbackService"
 	xmlns:pricing="http://uber.com/PricingService"
 	xmlns:elements="http://uber.com/Elements">
 	<!-- Import the client WSDL -->
@@ -29,6 +31,8 @@
 		importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import namespace="http://uber.com/NotifierService"
 		location="Notifier.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+	<bpel:import namespace="http://uber.com/NotifierCallbackService"
+		location="NotifierCallback.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import namespace="http://uber.com/PricingService"
 		location="Pricing.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
 
@@ -51,7 +55,7 @@
 		<bpel:partnerLink name="pricingLink"
 			partnerLinkType="tns:pricingLink" partnerRole="assessor" />
 		<bpel:partnerLink name="notifierLink"
-			partnerLinkType="tns:notifierLink" partnerRole="notifier" />
+			partnerLinkType="tns:notifierLink" partnerRole="notifier" myRole="uberAcceptor" />
 
 	</bpel:partnerLinks>
 
@@ -77,6 +81,10 @@
 			messageType="notifier:FindDriverRequestMessage" />
 		<bpel:variable name="findDriverOutput"
 			messageType="notifier:FindDriverResponseMessage" />
+			
+			
+		<bpel:variable name="foundDriverOutput"
+			messageType="notifierCB:DriverFoundRequestMessage" />
 
 		<!-- Reference to the message that will be sent back to the requester during 
 			callback -->
@@ -125,7 +133,7 @@
 			<bpel:copy>
 				<bpel:from>
 					<bpel:literal>
-						<elements:GetPriceRequest xmlns:dt="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<elements:GetPriceRequest>
 							<Location>
 								<Longitude>0.0</Longitude>
 								<Latitude>0.0</Latitude>
@@ -141,7 +149,7 @@
 			<bpel:copy>
 				<bpel:from>
 					<bpel:literal>
-						<elements:requestRideResponse xmlns:dt="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<elements:requestRideResponse>
 							<result>0.0</result>
 						</elements:requestRideResponse>
 					</bpel:literal>
@@ -186,6 +194,29 @@
 					</bpel:literal>
 				</bpel:from>
 				<bpel:to>$findDriverInput.inputParameters</bpel:to>
+			</bpel:copy>
+			<bpel:copy>
+				<bpel:from>
+					<bpel:literal>
+						<elements:DriverFoundRequest>
+							<Customer>
+								<Id>0</Id>
+								<Name>""</Name>
+								<Age>0</Age>
+								<Rating>0</Rating>
+								<CardNumber>""</CardNumber>
+							</Customer>
+							<Driver>
+								<Id>0</Id>
+								<Name>""</Name>
+								<Age>0</Age>
+								<Rating>0</Rating>
+								<CarNumber>""</CarNumber>
+							</Driver>
+						</elements:DriverFoundRequest>
+					</bpel:literal>
+				</bpel:from>
+				<bpel:to>$foundDriverOutput.parameters</bpel:to>
 			</bpel:copy>
 		</bpel:assign>
 
@@ -246,7 +277,7 @@
 			</bpel:copy>
         </bpel:assign>
         
-        <bpel:reply name="replyPrice" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="requestRide" variable="output" >
+        <bpel:reply name="replyPrice" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="requestRide" variable="output">
         </bpel:reply>
 
         <bpel:flow>
@@ -319,10 +350,10 @@
 					</bpel:copy>
 	            </bpel:assign>
 
-				<bpel:invoke name="Invoke-notifier-findDriver" partnerLink="notifierLink" operation="FindDriver" portType="notifier:NotifierPortType" inputVariable="findDriverInput" outputVariable="findDriverOutput" >
+				<bpel:invoke name="Invoke-notifier-findDriver" partnerLink="notifierLink" operation="FindDriver" portType="notifier:NotifierPortType" inputVariable="findDriverInput" outputVariable="findDriverOutput">
 				</bpel:invoke>
 	
-				<bpel:assign name="Assign-done-info">
+			<!-- <bpel:assign name="Assign-done-info">
 					<bpel:copy>
 						<bpel:from>
 							$findDriverOutput.outputParameters
@@ -330,6 +361,23 @@
 						<bpel:to>
 							$lastOutput.info/result
 						</bpel:to>
+					</bpel:copy>
+				</bpel:assign>  -->	
+				
+				<bpel:receive name="Receive-foundDriverCallback" partnerLink="notifierLink"
+					operation="receiveCallBack" portType="notifierCB:NotifierCallbackPortType" variable="foundDriverOutput">
+					<bpel:correlations>
+		                <bpel:correlation set="CustomerID" initiate="no" />
+		            </bpel:correlations>
+				</bpel:receive>
+				
+				<bpel:assign validate="no" name="Assign-FoundDriverResponse">
+					<bpel:copy>
+						<bpel:from>
+         					concat('Driver found: ', $foundDriverOutput.parameters/Driver/Id, ' ', $foundDriverOutput.parameters/Driver/Name)		
+         				</bpel:from>
+						
+						<bpel:to> $lastOutput.info/result </bpel:to>
 					</bpel:copy>
 				</bpel:assign>
 
@@ -352,7 +400,7 @@
 	        
 	        <!-- Asynchronous callback to the requester. Note: the callback location
                 and correlation id is transparently handled using WS-addressing. -->
-            <bpel:reply name="callbackClient" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="acceptRide" variable="lastOutput" >
+            <bpel:reply name="FinalReply" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="acceptRide" variable="lastOutput">
 					
                 <bpel:targets>
                     <bpel:target linkName="end-yes" />
