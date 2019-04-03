@@ -48,7 +48,7 @@
             <xsd:element name="requestRideResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="result" type="xsd:string"/>
+                        <xsd:element name="result" type="xsd:double"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
@@ -61,8 +61,14 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            
-            <xsd:element name="TotalPrice" type="xsd:double" />
+
+            <xsd:element name="answerRideResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
             
         </xsd:schema>
     </types>
@@ -83,6 +89,10 @@
         <part name="customerAnswer" element="elements:customerAnswer"/>
     </message>
 
+    <message name="aswerToRideResponseMessage">
+        <part name="info" element="elements:answerRideResponse"/>
+    </message>
+
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          PORT TYPE DEFINITION - A port type groups a set of operations into
@@ -96,6 +106,7 @@
         </operation>
         <operation name="acceptRide">
             <input message="tns:aswerToRideMessage"/>
+            <output message="tns:aswerToRideResponseMessage"/>
         </operation>
     </portType>
 
@@ -160,6 +171,9 @@
             <input>
                 <soap:body use="literal"/>
             </input>
+            <output>
+            	<soap:body use="literal"/>
+            </output>
         </operation>
     </binding>
 <!--

@@ -82,6 +82,9 @@
 			callback -->
 		<bpel:variable name="output"
 			messageType="tns:requestRideResponseMessage" />
+			
+		<bpel:variable name="lastOutput"
+			messageType="tns:aswerToRideResponseMessage" />
 	</bpel:variables>
 
 	<!-- ================================================================= -->
@@ -138,13 +141,25 @@
 			<bpel:copy>
 				<bpel:from>
 					<bpel:literal>
-						<elements:uberResponse xmlns:dt="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<elements:requestRideResponse xmlns:dt="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 							<result>0.0</result>
-						</elements:uberResponse>
+						</elements:requestRideResponse>
 					</bpel:literal>
 				</bpel:from>
 				<bpel:to>
 					$output.payload
+				</bpel:to>
+			</bpel:copy>
+			<bpel:copy>
+				<bpel:from>
+					<bpel:literal>
+						<elements:answerRideResponse>
+							<result>""</result>
+						</elements:answerRideResponse>
+					</bpel:literal>
+				</bpel:from>
+				<bpel:to>
+					$lastOutput.info
 				</bpel:to>
 			</bpel:copy>
 			<bpel:copy>
@@ -307,13 +322,13 @@
 				<bpel:invoke name="Invoke-notifier-findDriver" partnerLink="notifierLink" operation="FindDriver" portType="notifier:NotifierPortType" inputVariable="findDriverInput" outputVariable="findDriverOutput" >
 				</bpel:invoke>
 	
-				<bpel:assign validate="no" name="Assign-done-info">
+				<bpel:assign name="Assign-done-info">
 					<bpel:copy>
 						<bpel:from>
 							$findDriverOutput.outputParameters
 						</bpel:from>
 						<bpel:to>
-							$output.payload/result
+							$lastOutput.info/result
 						</bpel:to>
 					</bpel:copy>
 				</bpel:assign>
@@ -330,14 +345,14 @@
                 <bpel:copy>
                     <bpel:from> "Customer declined the order!" </bpel:from>
                     <bpel:to>
-						$output.payload/result
+						$lastOutput.info/result
 					</bpel:to>
                 </bpel:copy>
 			</bpel:assign>
 	        
 	        <!-- Asynchronous callback to the requester. Note: the callback location
                 and correlation id is transparently handled using WS-addressing. -->
-            <bpel:reply name="callbackClient" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="requestRide" variable="output" >
+            <bpel:reply name="callbackClient" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="acceptRide" variable="lastOutput" >
 					
                 <bpel:targets>
                     <bpel:target linkName="end-yes" />
