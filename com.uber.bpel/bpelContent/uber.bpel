@@ -162,8 +162,8 @@
 							<Price>0</Price>
 							<Customer>
 								<Id>0</Id>
-								<Age>0</Age>
 								<Name>""</Name>
+								<Age>0</Age>
 								<Rating>0</Rating>
 								<CardNumber>""</CardNumber>
 							</Customer>
@@ -220,7 +220,7 @@
 			</bpel:sequence>
 		</bpel:flow>
 
-	<!-- 	<bpel:assign name="calculatePrice">
+	 	<bpel:assign name="calculatePrice">
 			<bpel:copy>
 				<bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                     $distanceOutput.outputParameters/Distance * $pricingOutput.outputParameters/Price
@@ -229,7 +229,10 @@
 					$output.payload/result
 				</bpel:to>
 			</bpel:copy>
-        </bpel:assign>  -->
+        </bpel:assign>
+        
+        <bpel:reply name="replyPrice" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="requestRide" variable="output" >
+        </bpel:reply>
 
         <bpel:flow>
             <bpel:links>
@@ -301,7 +304,8 @@
 					</bpel:copy>
 	            </bpel:assign>
 
-				<bpel:invoke name="Invoke-notifier-findDriver" partnerLink="notifierLink" operation="FindDriver" portType="notifier:NotifierPortType" inputVariable="findDriverInput" outputVariable="findDriverOutput" />
+				<bpel:invoke name="Invoke-notifier-findDriver" partnerLink="notifierLink" operation="FindDriver" portType="notifier:NotifierPortType" inputVariable="findDriverInput" outputVariable="findDriverOutput" >
+				</bpel:invoke>
 	
 				<bpel:assign validate="no" name="Assign-done-info">
 					<bpel:copy>
