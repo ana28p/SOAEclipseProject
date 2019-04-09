@@ -87,6 +87,15 @@
             		</xsd:sequence>
             	</xsd:complexType>
             </xsd:element>
+            
+            <xsd:element name="giveFeedbackRequest">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="PersonId" type="xsd:int" />
+            			<xsd:element name="Rating" type="xsd:double" />
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </types>
 
@@ -117,6 +126,10 @@
     <message name="rideCompletedResponseMessage">
         <part name="payload" element="elements:rideCompletedResponse"/>
     </message>
+
+    <message name="giveFeedbackRequestMessage">
+        <part name="payload" element="elements:giveFeedbackRequest"/>
+    </message>
     
 
 
@@ -137,6 +150,9 @@
         <operation name="rideCompleted">
             <input message="tns:rideCompletedMessage"/>
             <output message="tns:rideCompletedResponseMessage"/>
+        </operation>
+        <operation name="giveFeedback">
+            <input message="tns:giveFeedbackRequestMessage"/>
         </operation>
     </portType>
 
@@ -215,6 +231,12 @@
                     <output>
                     	<soap:body use="literal"/>
                     </output>
+        </operation>
+        <operation name="giveFeedback">
+            <soap:operation soapAction="http://www.uber.com/bpel/uber/giveFeedback"/>
+            <input>
+            	<soap:body use="literal"/>
+            </input>
         </operation>
     </binding>
 

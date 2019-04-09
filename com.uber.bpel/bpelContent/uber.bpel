@@ -98,6 +98,10 @@
 			messageType="tns:rideCompletedMessage" />
 		<bpel:variable name="rideCompletedOutput"
 			messageType="tns:rideCompletedResponseMessage" />
+		<bpel:variable name="giveFeedbackInput"
+					   messageType="tns:giveFeedbackRequestMessage" />
+		<bpel:variable name="ratePersonInput"
+					   messageType="feedback:RatePersonRequestMessage" />
 
 		<!-- Reference to the message that will be sent back to the requester during 
 			callback -->
@@ -277,6 +281,22 @@
                     $rideCompletedOutput.payload
                 </bpel:to>
             </bpel:copy>
+			<bpel:copy>
+				<bpel:from>
+					<bpel:literal>
+						<elements:RatePersonRequest>
+							<Rating>0.0</Rating>
+							<Person>
+								<Id>0</Id>
+								<Name>""</Name>
+								<Age>0</Age>
+								<Rating>0.0</Rating>
+							</Person>
+						</elements:RatePersonRequest>
+					</bpel:literal>
+				</bpel:from>
+				<bpel:to>$ratePersonInput.inputParameters</bpel:to>
+			</bpel:copy>
 		</bpel:assign>
 
 		<bpel:flow>
@@ -488,12 +508,36 @@
         </bpel:receive>
 
 		<bpel:flow>
-			<!-- <bpel:sequence name="GiveFeedback">
-				<bpel:receive name="Receive-RatePerson"
-					partnerLink="feedbackLink" portType="feedback:FeedbackPortType"
-					operation="RatePerson" createInstance="no" />
+			 <bpel:sequence name="GiveFeedback">
+				<bpel:receive name="Receive-GiveFeedback"
+					partnerLink="requestRideLink" portType="tns:requestRidePortType"
+					operation="giveFeedback" variable="giveFeedbackInput" createInstance="no" />
+				 <bpel:assign name="Assign-rating">
+					 <bpel:copy>
+						 <bpel:from>
+							 $giveFeedbackInput.payload/PersonId
+						 </bpel:from>
+						 <bpel:to>
+							 $ratePersonInput.inputParameters/Person/Id
+						 </bpel:to>
+					 </bpel:copy>
+					 <bpel:copy>
+						 <bpel:from>
+							 $giveFeedbackInput.payload/Rating
+						 </bpel:from>
+						 <bpel:to>
+							 $ratePersonInput.inputParameters/Rating
+						 </bpel:to>
+					 </bpel:copy>
+				 </bpel:assign>
+
+				 <bpel:invoke name="Invoke-ratePerson"
+							  partnerLink="feedbackLink" operation="RatePerson"
+							  portType="feedback:FeedbackPortType" inputVariable="ratePersonInput" >
+				 </bpel:invoke>
+
 			</bpel:sequence>
- -->
+
 			<bpel:sequence name="SendInvoice">
 				<bpel:assign name="Assign-invoicingData">
 					<bpel:copy>
