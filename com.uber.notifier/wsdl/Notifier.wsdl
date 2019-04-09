@@ -96,7 +96,7 @@
 		<wsdl:port name="FindDriverPort"
 			binding="ps:NotifierSOAPBinding">
 			<soap:address
-				location="http://localhost:8080/com.uber.notifier/services/NotifierOrderService" />
+				location="http://localhost:9080/com.uber.notifier/services/NotifierOrderService" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
