@@ -157,6 +157,12 @@
         <plnk:role name="notifier" portType="notifier:NotifierPortType"/>
         <plnk:role name="uberAcceptor" portType="notifierCB:NotifierCallbackPortType"/>
     </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="feedbackLink">
+        <plnk:role name="reviewer" portType="feedback:FeedbackPortType"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="invoicingLink">
+        <plnk:role name="payer" portType="invoicing:InvoicingPortType"/>
+    </plnk:partnerLinkType>
 
 
     <vprop:property name="customerID" type="xsd:int"/>
