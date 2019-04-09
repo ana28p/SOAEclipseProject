@@ -91,6 +91,7 @@
             <xsd:element name="giveFeedbackRequest">
             	<xsd:complexType>
             		<xsd:sequence>
+            			<xsd:element name="From" type="xsd:int" />
             			<xsd:element name="PersonId" type="xsd:int" />
             			<xsd:element name="Rating" type="xsd:double" />
             		</xsd:sequence>
@@ -193,6 +194,9 @@
     </vprop:propertyAlias>
     <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:rideCompletedMessage" part="payload">
         <vprop:query>UserId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:giveFeedbackRequestMessage" part="payload">
+        <vprop:query>From</vprop:query>
     </vprop:propertyAlias>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
