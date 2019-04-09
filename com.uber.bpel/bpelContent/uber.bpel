@@ -56,6 +56,10 @@
 			partnerLinkType="tns:pricingLink" partnerRole="assessor" />
 		<bpel:partnerLink name="notifierLink"
 			partnerLinkType="tns:notifierLink" partnerRole="notifier" myRole="uberAcceptor" />
+		<bpel:partnerLink name="feedbackLink"
+			partnerLinkType="tns:feedbackLink" partnerRole="reviewer" />
+		<bpel:partnerLink name="invoicingLink"
+			partnerLinkType="tns:invoicingLink" partnerRole="payer" />
 
 	</bpel:partnerLinks>
 
@@ -82,10 +86,14 @@
 		<bpel:variable name="findDriverOutput"
 			messageType="notifier:FindDriverResponseMessage" />
 			
-			
 		<bpel:variable name="foundDriverOutput"
 			messageType="notifierCB:DriverFoundRequestMessage" />
-
+			
+		<bpel:variable name="invoicingInput"
+			messageType="invoicing:PayForRideRequestMessage" />
+		<bpel:variable name="invoicingOutput"
+			messageType="invoicing:PayForRideResponseMessage" />
+			
 		<!-- Reference to the message that will be sent back to the requester during 
 			callback -->
 		<bpel:variable name="output"
@@ -217,6 +225,38 @@
 					</bpel:literal>
 				</bpel:from>
 				<bpel:to>$foundDriverOutput.parameters</bpel:to>
+			</bpel:copy>
+			<bpel:copy>
+				<bpel:from>
+					<bpel:literal>
+						<elements:PayForRideRequest>
+							<CurrentLocation>
+								<Longitude>0</Longitude>
+								<Latitude>0</Latitude>
+							</CurrentLocation>
+							<EndLocation>
+								<Longitude>0</Longitude>
+								<Latitude>0</Latitude>
+							</EndLocation>
+							<Price>0</Price>
+							<Customer>
+								<Id>0</Id>
+								<Name>""</Name>
+								<Age>0</Age>
+								<Rating>0</Rating>
+								<CardNumber>""</CardNumber>
+							</Customer>
+							<Driver>
+								<Id>0</Id>
+								<Name>""</Name>
+								<Age>0</Age>
+								<Rating>0</Rating>
+								<CarNumber>""</CarNumber>
+							</Driver>
+						</elements:PayForRideRequest>
+					</bpel:literal>
+				</bpel:from>
+				<bpel:to>$invoicingInput.inputParameters</bpel:to>
 			</bpel:copy>
 		</bpel:assign>
 
@@ -400,13 +440,78 @@
 	        
 	        <!-- Asynchronous callback to the requester. Note: the callback location
                 and correlation id is transparently handled using WS-addressing. -->
-            <bpel:reply name="FinalReply" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="acceptRide" variable="lastOutput">
-					
+            <bpel:reply name="AcceptingRideReply" partnerLink="requestRideLink" portType="tns:requestRidePortType" operation="acceptRide" variable="lastOutput">
                 <bpel:targets>
                     <bpel:target linkName="end-yes" />
                     <bpel:target linkName="end-no" />
                 </bpel:targets>
             </bpel:reply>
+		</bpel:flow>
+
+		<bpel:flow>
+			<bpel:sequence name="GiveFeedback">
+				<bpel:receive name="Receive-RatePerson"
+					partnerLink="feedbackLink" portType="feedback:FeedbackPortType"
+					operation="RatePerson" createInstance="no" />
+			</bpel:sequence>
+
+			<bpel:sequence name="SendInvoice">
+				<bpel:assign name="Assign-invoicingData">
+					<bpel:copy>
+						<bpel:from>
+							$input.payload/StartLocation
+						</bpel:from>
+						<bpel:to>
+							$invoicingInput.inputParameters/CurrentLocation
+						</bpel:to>
+					</bpel:copy>
+					<bpel:copy>
+						<bpel:from>
+							$input.payload/EndLocation
+						</bpel:from>
+						<bpel:to>
+							$invoicingInput.inputParameters/EndLocation
+						</bpel:to>
+					</bpel:copy>
+					<bpel:copy>
+						<bpel:from>
+							$output.payload/result
+						</bpel:from>
+						<bpel:to>
+							$invoicingInput.inputParameters/Price
+						</bpel:to>
+					</bpel:copy>
+					<bpel:copy>
+						<bpel:from>
+							$foundDriverOutput.parameters/Driver/Id
+						</bpel:from>
+						<bpel:to>
+							$invoicingInput.inputParameters/Driver/Id
+						</bpel:to>
+					</bpel:copy>
+					<bpel:copy>
+						<bpel:from>
+							$answerToRide.customerAnswer/UserId
+						</bpel:from>
+						<bpel:to>
+							$invoicingInput.inputParameters/Customer/Id
+						</bpel:to>
+					</bpel:copy>
+				</bpel:assign>
+
+				<bpel:invoke name="Invoke-invoicing"
+					partnerLink="invoicingLink" operation="PayForRide"
+					portType="invoicing:InvoicingPortType" inputVariable="invoicingInput"
+					outputVariable="invoicingOutput" >
+				</bpel:invoke>
+
+				<bpel:assign validate="no" name="Assign-CompleteResponse">
+					<bpel:copy>
+						<bpel:from>	$invoicingOutput.outputParameters </bpel:from>
+						<bpel:to> $lastOutput.info/result </bpel:to>
+					</bpel:copy>
+				</bpel:assign>
+			</bpel:sequence>
 		</bpel:flow>
 	</bpel:sequence>
 </bpel:process>

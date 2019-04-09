@@ -6,7 +6,7 @@
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1554311944884"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1554810512177"/>
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#//@variables/@children.1"/>
