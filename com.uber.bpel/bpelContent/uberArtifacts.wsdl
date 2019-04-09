@@ -72,6 +72,21 @@
                 </xsd:complexType>
             </xsd:element>
             
+            <xsd:element name="rideCompleted">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="UserId" type="xsd:int" />
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="rideCompletedResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="Result" type="xsd:string" />
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </types>
 
@@ -94,6 +109,15 @@
     <message name="aswerToRideResponseMessage">
         <part name="info" element="elements:answerRideResponse"/>
     </message>
+    
+    <message name="rideCompletedMessage">
+        <part name="payload" element="elements:rideCompleted"/>
+    </message>
+
+    <message name="rideCompletedResponseMessage">
+        <part name="payload" element="elements:rideCompletedResponse"/>
+    </message>
+    
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,26 +134,18 @@
             <input message="tns:aswerToRideMessage"/>
             <output message="tns:aswerToRideResponseMessage"/>
         </operation>
-    </portType>
-
-    <!-- portType implemented by the requester of uber BPEL process
-         for asynchronous callback purposes
-         --><!--
-    <portType name="uberCallback">
-        <operation name="onResult">
-            <input message="tns:uberResponseMessage"/>
+        <operation name="rideCompleted">
+            <input message="tns:rideCompletedMessage"/>
+            <output message="tns:rideCompletedResponseMessage"/>
         </operation>
-    </portType> -->
+    </portType>
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          PARTNER LINK TYPE DEFINITION
-             the uber partnerLinkType binds the provider and
-             requester portType into an asynchronous conversation.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <plnk:partnerLinkType name="requestRideLink">
         <plnk:role name="uberProvider" portType="tns:requestRidePortType"/>
-<!--         <plnk:role name="uberRequester" portType="tns:uberCallback"/> -->
     </plnk:partnerLinkType>
     <plnk:partnerLinkType name="navigationLink">
         <plnk:role name="navigator" portType="navigation:NavigationPortType"/>
@@ -159,6 +175,9 @@
     <vprop:propertyAlias propertyName="tns:customerID" messageType="notifierCB:DriverFoundRequestMessage" part="parameters">
         <vprop:query>Customer/Id</vprop:query>
     </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:rideCompletedMessage" part="payload">
+        <vprop:query>UserId</vprop:query>
+    </vprop:propertyAlias>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          BINDING DEFINITION - Defines the message format and protocol details
@@ -187,18 +206,17 @@
             	<soap:body use="literal"/>
             </output>
         </operation>
-    </binding>
-<!--
-    <binding name="uberCallbackBinding" type="tns:uberCallback">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="onResult">
+        <operation name="rideCompleted">
             <soap:operation
-                    soapAction="http://www.uber.com/bpel/uber/onResult"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
+                    soapAction="http://www.uber.com/bpel/uber/rideCompleted"/>
+                    <input>
+                    	<soap:body use="literal"/>
+                    </input>
+                    <output>
+                    	<soap:body use="literal"/>
+                    </output>
         </operation>
-    </binding> -->
+    </binding>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          SERVICE DEFINITION - A service groups a set of ports into
