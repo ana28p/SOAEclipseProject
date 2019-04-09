@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:NavigationService="http://uber.com/NavigationService" xmlns:NotifierCallbackService="http://uber.com/NotifierCallbackService" xmlns:NotifierService="http://uber.com/NotifierService" xmlns:PricingService="http://uber.com/PricingService" xmlns:uber="http://www.uber.com/bpel/uber">
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:FeedbackService="http://uber.com/FeedbackService" xmlns:InvoicingService="http://uber.com/InvoicingService" xmlns:NavigationService="http://uber.com/NavigationService" xmlns:NotifierCallbackService="http://uber.com/NotifierCallbackService" xmlns:NotifierService="http://uber.com/NotifierService" xmlns:PricingService="http://uber.com/PricingService" xmlns:uber="http://www.uber.com/bpel/uber">
   <process name="uber:uber">
     <active>true</active>
     <retired>false</retired>
@@ -18,6 +18,12 @@
     </invoke>
     <invoke partnerLink="notifierLink">
       <service name="NotifierService:NotifierOrderService" port="FindDriverPort"/>
+    </invoke>
+    <invoke partnerLink="feedbackLink">
+      <service name="FeedbackService:FeedbackService" port="RatePersonPort"/>
+    </invoke>
+    <invoke partnerLink="invoicingLink">
+      <service name="InvoicingService:InvoicingOrderService" port="InvoicingPort"/>
     </invoke>
   </process>
 </deploy>

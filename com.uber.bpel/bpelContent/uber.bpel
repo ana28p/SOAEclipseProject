@@ -488,12 +488,12 @@
         </bpel:receive>
 
 		<bpel:flow>
-			<bpel:sequence name="GiveFeedback">
+			<!-- <bpel:sequence name="GiveFeedback">
 				<bpel:receive name="Receive-RatePerson"
 					partnerLink="feedbackLink" portType="feedback:FeedbackPortType"
 					operation="RatePerson" createInstance="no" />
 			</bpel:sequence>
-
+ -->
 			<bpel:sequence name="SendInvoice">
 				<bpel:assign name="Assign-invoicingData">
 					<bpel:copy>
