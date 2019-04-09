@@ -7,7 +7,10 @@
  */
 package com.uber.invoicingservice;
 
+import com.uber.datatypes.Customer;
+import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
+import com.uber.db.DBQuery;
 import com.uber.utils.Validation;
 
 /**
@@ -38,14 +41,19 @@ public class InvoicingOrderServiceSkeleton implements InvoicingOrderServiceSkele
 		Validation.validateLocation(payForRideRequest0.getEndLocation(), new InvalidLocationMessage());
 
 		Validation.validateCustomer(payForRideRequest0.getCustomer(), new InvalidCustomerMessage());
+		Customer customer = DBQuery.selectCustomer(payForRideRequest0.getCustomer().getId());
+		payForRideRequest0.setCustomer(customer);
+
 		Validation.validateDriver(payForRideRequest0.getDriver(), new InvalidDriverMessage());
+		Driver driver = DBQuery.selectDriver(payForRideRequest0.getDriver().getId());
+		payForRideRequest0.setDriver(driver);
 		
 		Validation.validatePrice(payForRideRequest0.getPrice(), new PriceNotFoundMessage());
 		
 		Validation.validateCardNumber(payForRideRequest0.getCustomer().getCardNumber(), new PaymentFailedMessage());
 
 		SuccessMessage successMessage = new SuccessMessage();
-		successMessage.setSuccessMessage("Invoicing created.");
+		successMessage.setSuccessMessage("Invoicing created. Done!");
 
 		return successMessage;
 	}
