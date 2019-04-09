@@ -251,7 +251,7 @@
 								<Name>""</Name>
 								<Age>0</Age>
 								<Rating>0</Rating>
-								<CardNumber>""</CardNumber>
+								<CardNumber>NL123456</CardNumber>
 							</Customer>
 							<Driver>
 								<Id>0</Id>
@@ -551,7 +551,7 @@
 					</bpel:copy>
 				</bpel:assign>
 
-                <bpel:reply name="TempFinalReply"
+                <bpel:reply name="InvoiceReply"
                             partnerLink="requestRideLink" portType="tns:requestRidePortType"
                             operation="rideCompleted" variable="rideCompletedOutput" />
 			</bpel:sequence>
