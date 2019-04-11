@@ -86,11 +86,4 @@
         </wsdl:operation>
     </wsdl:binding>
 
-    <wsdl:service name="PricingService">
-        <wsdl:port name="PricingPort"
-                   binding="ps:PricingSOAPBinding">
-            <soap:address
-                    location="http://localhost:9080/com.uber.pricing/services/PricingService"/>
-        </wsdl:port>
-    </wsdl:service>
 </wsdl:definitions>

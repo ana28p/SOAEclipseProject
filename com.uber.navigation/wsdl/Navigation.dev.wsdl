@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NavigationService"
+                  targetNamespace="http://uber.com/NavigationService"
+                  xmlns:ps="http://uber.com/NavigationService"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:import namespace="http://uber.com/NavigationService"
+                 location="Navigation.wsdl"/>
+
+    <wsdl:service name="NavigationService">
+        <wsdl:port name="GetDistancePort"
+                   binding="ps:NavigationSOAPBinding">
+            <soap:address
+                    location="http://localhost:9080/com.uber.navigation/services/NavigationService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

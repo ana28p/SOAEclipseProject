@@ -61,6 +61,11 @@
                 <include name="*.xsd"/>
             </fileset>
         </copy>
+        <copy toDir="${classes}/lib" failonerror="false">
+            <fileset dir="${project.base.dir}/../build">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
         <jar destfile="${lib}/${name}.aar">
             <fileset excludes="**/Test.class" dir="${classes}"/>
         </jar>
