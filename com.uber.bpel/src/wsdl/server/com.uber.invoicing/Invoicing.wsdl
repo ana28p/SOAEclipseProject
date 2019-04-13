@@ -11,7 +11,7 @@
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://uber.com/Elements">
 			<xsd:import namespace="http://uber.com/DataTypes"
-				schemaLocation="DataTypes.xsd" />
+				schemaLocation="../../com.uber/wsdl/DataTypes.xsd" />
 			<xsd:element name="PayForRideRequest">
 				<xsd:complexType>
 					<xsd:all>
@@ -103,12 +103,4 @@
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
-
-	<wsdl:service name="InvoicingOrderService">
-		<wsdl:port name="InvoicingPort"
-			binding="ps:InvoicingSOAPBinding">
-			<soap:address
-				location="http://localhost:9080/com.uber.invoicing/services/InvoicingOrderService" />
-		</wsdl:port>
-	</wsdl:service>
 </wsdl:definitions>

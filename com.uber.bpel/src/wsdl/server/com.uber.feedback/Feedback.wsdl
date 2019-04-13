@@ -6,16 +6,15 @@
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                   xmlns:types="http://uber.com/DataTypes"
-                  xmlns:elements="http://uber.com/Elements"
-                  xmlns:messages="http://uber.com/Messages">
+                  xmlns:elements="http://uber.com/Elements">
 
     <wsdl:import namespace="http://uber.com/Messages"
-                 location="Messages.wsdl"/>
+                 location="../../com.uber/wsdl/Messages.wsdl"/>
 
     <wsdl:types>
         <xsd:schema targetNamespace="http://uber.com/Elements">
             <xsd:import namespace="http://uber.com/DataTypes"
-                        schemaLocation="DataTypes.xsd"/>
+                        schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
             <xsd:element name="RatePersonRequest">
                 <xsd:complexType>
                     <xsd:all>
@@ -50,11 +49,4 @@
         </wsdl:operation>
     </wsdl:binding>
 
-    <wsdl:service name="FeedbackService">
-        <wsdl:port name="RatePersonPort"
-                   binding="ps:FeedbackSOAPBinding">
-            <soap:address
-                    location="http://localhost:9080/com.uber.feedback/services/FeedbackService"/>
-        </wsdl:port>
-    </wsdl:service>
 </wsdl:definitions>
