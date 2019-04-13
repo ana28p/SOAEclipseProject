@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<definitions name="uber"
+             targetNamespace="http://www.uber.com/bpel/uber"
+             xmlns:tns="http://www.uber.com/bpel/uber"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+    <import namespace="http://www.uber.com/bpel/uber" location="uberArtifacts.wsdl"/>
+
+    <service name="uberService">
+        <port name="requestRidePort" binding="tns:requestRideBinding">
+            <soap:address location="http://localhost/ode/processes/com.uber.bpel"/>
+        </port>
+    </service>
+</definitions>

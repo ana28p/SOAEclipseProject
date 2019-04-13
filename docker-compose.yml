@@ -1,0 +1,38 @@
+version: "3.3"
+services:
+  feedback:
+    build: ./docker/axis2
+    ports:
+    - "3080:8080"
+    volumes:
+    - ./com.uber.feedback/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  invoicing:
+    build: ./docker/axis2
+    ports:
+    - "4080:8080"
+    volumes:
+    - ./com.uber.invoicing/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  navigation:
+    build: ./docker/axis2
+    ports:
+    - "5080:8080"
+    volumes:
+    - ./com.uber.navigation/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  notifier:
+    build: ./docker/axis2
+    ports:
+    - "6080:8080"
+    volumes:
+    - ./com.uber.notifier/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  pricing:
+    build: ./docker/axis2
+    ports:
+    - "7080:8080"
+    volumes:
+      - ./com.uber.pricing/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  ode:
+    image: opentosca/ode
+    ports:
+    - "80:9763"
+    volumes:
+      - ./com.uber.bpel/build/prod:/usr/local/tomcat/webapps/ode/WEB-INF/processes/uber
