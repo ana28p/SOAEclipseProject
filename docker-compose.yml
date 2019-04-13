@@ -30,3 +30,8 @@ services:
     - "7080:8080"
     volumes:
       - ./com.uber.pricing/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+  ode:
+    image: opentosca/ode
+    ports:
+    - "80:9763"
+    volumes:
