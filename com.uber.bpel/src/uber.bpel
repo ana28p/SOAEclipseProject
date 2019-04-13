@@ -14,29 +14,30 @@
 	xmlns:notifierCB="http://uber.com/NotifierCallbackService"
 	xmlns:pricing="http://uber.com/PricingService"
 	xmlns:elements="http://uber.com/Elements">
+
 	<!-- Import the client WSDL -->
-	<bpel:import location="uberArtifacts.wsdl"
+	<bpel:import location="wsdl/uberArtifacts.wsdl"
 		namespace="http://www.uber.com/bpel/uber"
 		importType="http://schemas.xmlsoap.org/wsdl/" />
 
 	<!-- Import the server WSDLs -->
-
 	<bpel:import namespace="http://uber.com/FeedbackService"
-		location="Feedback.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+		location="wsdl/server/com.uber.feedback/wsdl/Feedback.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import namespace="http://uber.com/InvoicingService"
-		location="Invoicing.wsdl"
+		location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.wsdl"
 		importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import namespace="http://uber.com/NavigationService"
-		location="Navigation.wsdl"
+		location="wsdl/server/com.uber.navigation/wsdl/Navigation.wsdl"
 		importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import namespace="http://uber.com/NotifierService"
-		location="Notifier.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+		location="wsdl/server/com.uber.notifier/wsdl/Notifier.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+	<bpel:import namespace="http://uber.com/PricingService"
+				 location="wsdl/server/com.uber.pricing/wsdl/Pricing.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
 	<bpel:import
 		namespace="http://uber.com/NotifierCallbackService"
-		location="NotifierCallback.wsdl"
+		location="wsdl/NotifierCallback.wsdl"
 		importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import namespace="http://uber.com/PricingService"
-		location="Pricing.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+
 
 	<bpel:correlationSets>
 		<bpel:correlationSet name="CustomerID"
