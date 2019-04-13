@@ -18,7 +18,7 @@
         <fileset dir="${axis2.home}">
             <include name="lib/*.jar"/>
         </fileset>
-    	<fileset dir="${project.base.dir}/../build">
+    	<fileset dir="${project.base.dir}/../lib">
     	    		<include name="*.jar"/>
     	    	</fileset>
     </path>
@@ -65,7 +65,7 @@
             </fileset>
         </copy>
         <copy toDir="${classes}/lib" failonerror="false">
-            <fileset dir="${project.base.dir}/../build">
+            <fileset dir="${project.base.dir}/../lib">
                 <include name="*.jar"/>
             </fileset>
         </copy>
