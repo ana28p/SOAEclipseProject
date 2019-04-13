@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="InvoicingOrderService"
+	targetNamespace="http://uber.com/InvoicingService"
+	xmlns:ps="http://uber.com/InvoicingService"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:import namespace="http://uber.com/InvoicingService"
+				 location="Invoicing.wsdl"/>
+	<wsdl:service name="InvoicingOrderService">
+		<wsdl:port name="InvoicingPort"
+			binding="ps:InvoicingSOAPBinding">
+			<soap:address
+				location="http://invoicing:8080/axis2/services//InvoicingOrderService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
