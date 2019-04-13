@@ -48,7 +48,7 @@
     <macrodef name="copy-wsdl">
         <attribute name="project"/>
         <sequential>
-            <copy todir="${src}/wsdl/@{project}">
+            <copy todir="${src}/wsdl/server/@{project}">
                 <fileset dir="${project.base.dir}/../@{project}/wsdl"/>
             </copy>
         </sequential>
