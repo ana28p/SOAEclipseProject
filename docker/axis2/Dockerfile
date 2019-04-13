@@ -11,3 +11,5 @@ RUN mkdir -p /tmp/axis2 && cd /tmp/axis2 && \
     cp /tmp/axis2/axis2.war . && \
     rm -rf /tmp/axis2 && \
     mkdir axis2 && unzip axis2.war -d axis2
+
+COPY axis2.xml /usr/local/tomcat/webapps/axis2/WEB-INF/conf/axis2.xml

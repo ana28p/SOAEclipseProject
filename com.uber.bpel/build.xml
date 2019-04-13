@@ -10,7 +10,9 @@
         <delete dir="${dev}"/>
         <mkdir dir="${dev}"/>
         <copy toDir="${dev}/wsdl">
-            <fileset dir="${src}/wsdl"/>
+            <fileset dir="${src}/wsdl">
+                    <exclude name="**/*.prod.wsdl"/>
+            </fileset>
         </copy>
         <copy file="${src}/deploy.xml" todir="${dev}"/>
         <copy file="${src}/uber.bpelex" todir="${dev}"/>
@@ -25,7 +27,9 @@
         <delete dir="${prod}"/>
         <mkdir dir="${prod}"/>
         <copy toDir="${prod}/wsdl">
-            <fileset dir="${src}/wsdl"/>
+            <fileset dir="${src}/wsdl">
+                <exclude name="**/*.dev.wsdl"/>
+            </fileset>
         </copy>
         <copy file="${src}/deploy.xml" todir="${prod}"/>
         <copy file="${src}/uber.bpelex" todir="${prod}"/>

@@ -9,7 +9,7 @@
 
     <service name="uberService">
         <port name="requestRidePort" binding="tns:requestRideBinding">
-            <soap:address location="http://localhost:8080/ode/processes/com.uber.bpel"/>
+            <soap:address location="http://localhost/ode/processes/com.uber.bpel"/>
         </port>
     </service>
 </definitions>

@@ -18,6 +18,9 @@
         <fileset dir="${axis2.home}">
             <include name="lib/*.jar"/>
         </fileset>
+    	<fileset dir="${project.base.dir}/../build">
+    	    		<include name="*.jar"/>
+    	    	</fileset>
     </path>
     <target name="init">
         <mkdir dir="${build}"/>
