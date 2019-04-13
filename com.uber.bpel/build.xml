@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><project basedir="." default="build.all">
+    <!--Auto generated ant build file-->
+    <property name="project.base.dir" value="."/>
+    <property name="src" value="${project.base.dir}/src"/>
+    <property name="build" value="${project.base.dir}/build"/>
+    <property name="dev" value="${build}/dev"/>
+    <property name="prod" value="${build}/prod"/>
+    <target name="build.dev">
+        <property name="env" value="dev"/>
+        <delete dir="${dev}"/>
+        <mkdir dir="${dev}"/>
+        <copy toDir="${dev}/wsdl">
+            <fileset dir="${src}/wsdl"/>
+        </copy>
+        <copy file="${src}/deploy.xml" todir="${dev}"/>
+        <copy file="${src}/uber.bpelex" todir="${dev}"/>
+        <copy file="${src}/uber.bpel" todir="${dev}"/>
+        <replaceregexp file="${dev}/uber.bpel"
+                match='(location=")(.+?)(.wsdl")'
+                replace='location="\2.${env}.wsdl"'
+                       flags="g"/>
+    </target>
+    <target name="build.prod">
+        <property name="env" value="prod"/>
+        <delete dir="${prod}"/>
+        <mkdir dir="${prod}"/>
+        <copy toDir="${prod}/wsdl">
+            <fileset dir="${src}/wsdl"/>
+        </copy>
+        <copy file="${src}/deploy.xml" todir="${prod}"/>
+        <copy file="${src}/uber.bpelex" todir="${prod}"/>
+        <copy file="${src}/uber.bpel" todir="${prod}"/>
+        <replaceregexp file="${prod}/uber.bpel"
+                       match='(location=")(.+?)(.wsdl")'
+                       replace='location="\2.${env}.wsdl"'
+                       flags="g"/>
+    </target>
+    <target name="build.all" depends="build.dev, build.prod"/>
+
+    <target name="copy.wsdls">
+        <copy-wsdl project="com.uber"/>
+        <copy-wsdl project="com.uber.feedback"/>
+        <copy-wsdl project="com.uber.invoicing"/>
+        <copy-wsdl project="com.uber.navigation"/>
+        <copy-wsdl project="com.uber.notifier"/>
+        <copy-wsdl project="com.uber.pricing"/>
+    </target>
+    <macrodef name="copy-wsdl">
+        <attribute name="project"/>
+        <sequential>
+            <copy todir="${src}/wsdl/@{project}">
+                <fileset dir="${project.base.dir}/../@{project}/wsdl"/>
+            </copy>
+        </sequential>
+    </macrodef>
+</project>
