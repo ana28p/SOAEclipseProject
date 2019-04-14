@@ -5,7 +5,6 @@
                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:types="http://uber.com/DataTypes"
                   xmlns:elements="http://uber.com/Elements">
 
     <wsdl:import namespace="http://uber.com/Messages"
@@ -18,7 +17,7 @@
             <xsd:element name="RatePersonRequest">
                 <xsd:complexType>
                     <xsd:all>
-                        <xsd:element name="Person" type="types:Person"/>
+                        <xsd:element name="Person" type="xsd:int"/>
                         <xsd:element name="Rating" type="xsd:double"/>
                     </xsd:all>
                 </xsd:complexType>
