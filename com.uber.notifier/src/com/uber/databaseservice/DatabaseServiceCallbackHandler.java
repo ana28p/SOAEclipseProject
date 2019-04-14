@@ -8,7 +8,13 @@
 
     package com.uber.databaseservice;
 
-    /**
+import com.uber.datatypes.SuccessMessage;
+import com.uber.elements.GetCustomerResponse;
+import com.uber.elements.GetCustomersResponse;
+import com.uber.elements.GetDriverResponse;
+import com.uber.elements.GetDriversResponse;
+
+/**
      *  DatabaseServiceCallbackHandler Callback class, Users can extend this class and implement
      *  their own receiveResult and receiveError methods.
      */
@@ -49,7 +55,7 @@
             * override this method for handling normal response from getDriver operation
             */
            public void receiveResultgetDriver(
-                    com.uber.databaseservice.DatabaseServiceStub.GetDriverResponse result
+                    GetDriverResponse result
                         ) {
            }
 
@@ -65,7 +71,7 @@
             * override this method for handling normal response from giveFeedback operation
             */
            public void receiveResultgiveFeedback(
-                    com.uber.databaseservice.DatabaseServiceStub.SuccessMessage result
+                    SuccessMessage result
                         ) {
            }
 
@@ -81,7 +87,7 @@
             * override this method for handling normal response from getCustomers operation
             */
            public void receiveResultgetCustomers(
-                    com.uber.databaseservice.DatabaseServiceStub.GetCustomersResponse result
+                    GetCustomersResponse result
                         ) {
            }
 
@@ -97,7 +103,7 @@
             * override this method for handling normal response from getCustomer operation
             */
            public void receiveResultgetCustomer(
-                    com.uber.databaseservice.DatabaseServiceStub.GetCustomerResponse result
+                    GetCustomerResponse result
                         ) {
            }
 
@@ -113,7 +119,7 @@
             * override this method for handling normal response from getDrivers operation
             */
            public void receiveResultgetDrivers(
-                    com.uber.databaseservice.DatabaseServiceStub.GetDriversResponse result
+                    GetDriversResponse result
                         ) {
            }
 

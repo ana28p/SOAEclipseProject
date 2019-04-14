@@ -13,6 +13,9 @@ import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBQuery;
+import com.uber.elements.GetCustomerRequest;
+import com.uber.elements.GetCustomerResponse;
+import com.uber.elements.GetDriversRequest;
 import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
 import com.uber.utils.Validation;
 import org.apache.axis2.AxisFault;
@@ -58,6 +61,7 @@ import java.util.Random;
         Validation.validateLocation(findDriverRequest0.getEndLocation(), new InvalidLocationMessage());
         Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
 
+        Customer customer = this.getCustomer(findDriverRequest0.getCustomerId());
 
 
 
@@ -66,7 +70,7 @@ import java.util.Random;
         Driver randomDriver = drivers.get(rand.nextInt(drivers.size()));
 
         NotifierCallbackOrderServiceStub.DriverFoundRequest callbackResponse = new NotifierCallbackOrderServiceStub.DriverFoundRequest();
-        callbackResponse.setCustomer(toCallbackCustomer(dbCustomer));
+        callbackResponse.setCustomer(toCallbackCustomer(customer));
         callbackResponse.setDriver(toCallbackDriver(randomDriver));
 
         try {
@@ -105,16 +109,28 @@ import java.util.Random;
 
     private Customer getCustomer(int id) throws InvalidCustomerMessage {
 
+        Customer customer = null;
         try {
-            DatabaseServiceStub.GetCustomerRequest customerRequest = new DatabaseServiceStub.GetCustomerRequest();
+            GetCustomerRequest customerRequest = new GetCustomerRequest();
             customerRequest.setId(id);
-            DatabaseServiceStub.GetCustomerResponse response = this.databaseServiceStub.getCustomer(customerRequest);
-            response.getCustomer();
+            GetCustomerResponse response = this.databaseServiceStub.getCustomer(customerRequest);
+            customer = response.getCustomer();
         } catch (PersonNotFoundMessage personNotFoundMessage) {
             throw new InvalidCustomerMessage();
         } catch (RemoteException remoteException){
             remoteException.printStackTrace();
         }
+
+        return customer;
+    }
+
+    private Driver getRandomDriver(){
+
+        Driver driver = null;
+
+        GetDriversRequest driversRequest = new GetDriversRequest();
+
+        return driver;
     }
 
     static private DatabaseServiceStub getDatabaseServiceStub() throws AxisFault {
