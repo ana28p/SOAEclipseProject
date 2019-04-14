@@ -10,6 +10,7 @@ package com.uber.databaseservice;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
+import com.uber.db.DBCreator;
 import com.uber.db.DBQuery;
 import com.uber.elements.GetCustomerResponse;
 import com.uber.elements.GetCustomersResponse;
@@ -23,6 +24,12 @@ import java.util.List;
  */
 public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface {
 
+    public DatabaseServiceSkeleton() {
+    	System.out.println("test");
+        if(!DBCreator.databaseExists()){
+            DBCreator.initializeDB();
+        }
+    }
 
     /**
      * Auto generated method signature
@@ -111,7 +118,7 @@ public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface
     /**
      * Auto generated method signature
      *
-     * @param getCustomerRequest9
+     * @param giveFeedBackRequest9
      * @return successMessage10
      * @throws PersonNotFoundMessage
      */

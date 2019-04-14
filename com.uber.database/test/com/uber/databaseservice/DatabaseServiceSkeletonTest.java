@@ -83,8 +83,8 @@ public class DatabaseServiceSkeletonTest {
         SuccessMessage response = this.skeleton.giveFeedback(this.giveFeedbackRequest);
         assertNotNull(response);
 
-        Double newRating = DBQuery.getRatingOf(2);
-        assertEquals(4d, newRating);
+        double newRating = DBQuery.getRatingOf(2);
+        assertEquals(4.0, newRating);
     }
 
     @Test

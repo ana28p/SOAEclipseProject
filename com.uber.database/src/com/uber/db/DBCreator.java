@@ -3,6 +3,7 @@ package com.uber.db;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 
+import java.io.File;
 import java.sql.*;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class DBCreator {
 		createNewTable(DBTable.DRIVER);
 
 		populateDB();
+	}
+	
+	public static boolean databaseExists(){
+		File file = new File(JDBC_SQLITE_DB);
+		return file.exists();
 	}
 
 	private static void createNewDatabase() {

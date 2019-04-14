@@ -3,6 +3,7 @@
 	<name>com.uber.database</name>
 	<comment></comment>
 	<projects>
+		<project>com.uber</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

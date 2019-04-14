@@ -12,7 +12,7 @@
         <wsdl:port name="DatabasePort"
                    binding="ps:DatabaseSOAPBinding">
             <soap:address
-                    location="http://localhost:9080/com.uber.db/services/DatabaseService"/>
+                    location="http://localhost:9080/com.uber.database/services/DatabaseService"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
