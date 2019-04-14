@@ -5,7 +5,7 @@ import java.io.File;
 public class CleaningDB {
 
 	public static void deleteDB() {
-		File file = new File("database.db"); 
+		File file = new File("uber.db");
 
 		if (file.exists()) {
 			if (!file.delete()) {

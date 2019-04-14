@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
+    <service name="DatabaseService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.databaseservice.DatabaseServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.uber.databaseservice.DatabaseServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="GetDriver" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriverRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriverResponse</outputActionMapping>
+            <faultActionMapping faultName="DriverNotFound">http://uber.com/DatabaseService/DatabasePortType/GetDriver/Fault/DriverNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/GetDriver/Fault/DriverNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/GetDriver/Fault/DriverNotFound</faultActionMapping>
+        </operation>
+        <operation name="GiveFeedback" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GiveFeedbackRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GiveFeedbackResponse</outputActionMapping>
+            <faultActionMapping faultName="PersonNotFound">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+        </operation>
+        <operation name="GetCustomers" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomersRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomersResponse</outputActionMapping>
+        </operation>
+        <operation name="GetCustomer" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomerRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomerResponse</outputActionMapping>
+            <faultActionMapping faultName="CustomerNotFound">http://uber.com/DatabaseService/DatabasePortType/GetCustomer/Fault/CustomerNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/GetCustomer/Fault/CustomerNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/GetCustomer/Fault/CustomerNotFound</faultActionMapping>
+        </operation>
+        <operation name="GetDrivers" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriversRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriversResponse</outputActionMapping>
+        </operation>
+    </service>
+</serviceGroup>
