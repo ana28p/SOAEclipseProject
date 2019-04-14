@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project basedir="." default="jar.client">
+<?xml version="1.0" encoding="UTF-8"?><project basedir="." default="jar.server">
     <!--Auto generated ant build file-->
     <property environment="env"/>
     <property name="axis2.home" value="${env.AXIS2_HOME}"/>
@@ -17,6 +17,9 @@
         <pathelement path="${maven.class.path}"/>
         <fileset dir="${axis2.home}">
             <include name="lib/*.jar"/>
+        </fileset>
+        <fileset dir="${project.base.dir}/../lib">
+            <include name="*.jar"/>
         </fileset>
     </path>
     <target name="init">
@@ -59,6 +62,11 @@
                 <include name="*.xml"/>
                 <include name="*.wsdl"/>
                 <include name="*.xsd"/>
+            </fileset>
+        </copy>
+        <copy toDir="${classes}/lib" failonerror="false">
+            <fileset dir="${project.base.dir}/../lib">
+                <include name="*.jar"/>
             </fileset>
         </copy>
         <jar destfile="${lib}/${name}.aar">
