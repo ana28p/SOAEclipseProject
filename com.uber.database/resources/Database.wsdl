@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DatabaseService" targetNamespace="http://uber.com/DatabaseService" xmlns:types="http://uber.com/DataTypes" xmlns:ps="http://uber.com/DatabaseService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:elements="http://uber.com/Elements" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:import namespace="http://uber.com/Messages" location="Messages.wsdl">
+    </wsdl:import>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+            <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+            <xsd:element name="GetDriversRequest">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Limit" type="xsd:int"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetDriversResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" ref="types:DriverElement"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetDriverRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Id" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetDriverResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Driver" type="types:Driver"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="GetCustomersRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Limit" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetCustomersResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" ref="types:CustomerElement"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetCustomerRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Id" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetCustomerResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Driver" type="types:Customer"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateFeedbackRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Id" type="xsd:int"/>
+                        <xsd:element name="Rating" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDriverResponseMessage">
+    <wsdl:part name="payload" element="elements:GetDriverResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDriversRequestMessage">
+    <wsdl:part name="payload" element="elements:GetDriversRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDriversResponseMessage">
+    <wsdl:part name="payload" element="elements:GetDriversResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateFeedbackResponseMessage">
+    <wsdl:part name="payload" element="types:SuccessMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCustomerRequestMessage">
+    <wsdl:part name="payload" element="elements:GetCustomerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateFeedbackRequestMessage">
+    <wsdl:part name="payload" element="elements:GetCustomerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCustomersRequestMessage">
+    <wsdl:part name="payload" element="elements:GetCustomersRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCustomerResponseMessage">
+    <wsdl:part name="payload" element="elements:GetCustomerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCustomersResponseMessage">
+    <wsdl:part name="payload" element="elements:GetCustomersResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PersonNotFoundMessage">
+    <wsdl:part name="payload" element="types:FaultMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDriverRequestMessage">
+    <wsdl:part name="payload" element="elements:GetDriverRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DatabasePortType">
+    <wsdl:operation name="GetDrivers">
+      <wsdl:input message="ps:GetDriversRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:GetDriversResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDriver">
+      <wsdl:input message="ps:GetDriverRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:GetDriverResponseMessage">
+    </wsdl:output>
+      <wsdl:fault name="DriverNotFound" message="ps:PersonNotFoundMessage">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <wsdl:input message="ps:GetCustomersRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:GetCustomersResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomer">
+      <wsdl:input message="ps:GetCustomerRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:GetCustomerResponseMessage">
+    </wsdl:output>
+      <wsdl:fault name="CustomerNotFound" message="ps:PersonNotFoundMessage">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeedback">
+      <wsdl:input message="ps:UpdateFeedbackRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="ps:UpdateFeedbackResponseMessage">
+    </wsdl:output>
+      <wsdl:fault name="PersonNotFound" message="ps:PersonNotFoundMessage">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DatabaseSOAPBinding" type="ps:DatabasePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDrivers">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDriver">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DriverNotFound">
+        <soap:fault name="DriverNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomer">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CustomerNotFound">
+        <soap:fault name="CustomerNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFeedback">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PersonNotFound">
+        <soap:fault name="PersonNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

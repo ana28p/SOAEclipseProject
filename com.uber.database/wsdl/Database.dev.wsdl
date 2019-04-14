@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DatabaseService"
+                  targetNamespace="http://uber.com/DatabaseService"
+                  xmlns:ps="http://uber.com/DatabaseService"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:import namespace="http://uber.com/DatabaseService"
+                 location="Database.wsdl"/>
+
+    <wsdl:service name="DatabaseService">
+        <wsdl:port name="DatabasePort"
+                   binding="ps:DatabaseSOAPBinding">
+            <soap:address
+                    location="http://localhost:9080/com.uber.db/services/DatabaseService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
