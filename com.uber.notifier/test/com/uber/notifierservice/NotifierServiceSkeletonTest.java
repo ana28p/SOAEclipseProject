@@ -1,25 +1,29 @@
 package com.uber.notifierservice;
 
-import com.uber.datatypes.Customer;
-import com.uber.datatypes.Location;
-import com.uber.datatypes.SuccessMessage;
+import com.uber.databaseservice.DatabaseServiceStub;
+import com.uber.datatypes.*;
 import com.uber.db.DBCreator;
-import com.uber.elements.FindDriverRequest;
-import com.uber.elements.FindDriverResponse;
+import com.uber.elements.*;
+import com.uber.notifiercallbackservice.NotifierCallbackServiceStub;
 import com.uber.utils.CleaningDB;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.rmi.RemoteException;
 
-class NotifierOrderServiceSkeletonTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class NotifierServiceSkeletonTest {
 
     private FindDriverRequest request;
-    private NotifierOrderServiceSkeleton skeleton;
+    private NotifierServiceSkeleton skeleton;
     private Customer customer;
     private Location startPoint;
     private Location endPoint;
+    private DatabaseServiceStub databaseServiceStub;
+    private NotifierCallbackServiceStub notifierCallbackOrderServiceStub;
 
     @BeforeAll
     static void beforeAll(){
@@ -28,7 +32,7 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() throws RemoteException, PersonNotFoundMessage {
 
         this.customer = new Customer();
         this.customer.setCardNumber("ABCD");
@@ -46,12 +50,41 @@ class NotifierOrderServiceSkeletonTest {
         this.endPoint.setLongitude(4);
 
         this.request = new FindDriverRequest();
-        this.request.setCustomer(this.customer);
+        this.request.setCustomerId(1);
         this.request.setStartLocation(this.startPoint);
         this.request.setEndLocation(this.endPoint);
         this.request.setPrice(100d);
 
-        this.skeleton = new NotifierOrderServiceSkeleton();
+        Driver driver = new Driver();
+        driver.setId(2);
+        driver.setAge(1);
+        driver.setCarNumber("1");
+        driver.setName("Joe");
+        driver.setRating(5.0);
+
+        Driver[] drivers = new Driver[1];
+        drivers[0] = driver;
+
+        Customer customer = new Customer();
+        customer.setId(1);
+        customer.setAge(1);
+        customer.setName("Joe");
+        customer.setRating(5.0);
+
+        GetDriversResponse driversResponse = new GetDriversResponse();
+        driversResponse.setDriverElement(drivers);
+        GetCustomerResponse customerResponse = new GetCustomerResponse();
+        customerResponse.setCustomer(customer);
+
+        this.databaseServiceStub = mock(DatabaseServiceStub.class);
+
+        when(this.databaseServiceStub.getDrivers(any(GetDriversRequest.class))).thenReturn(driversResponse);
+        when(this.databaseServiceStub.getCustomer(any(GetCustomerRequest.class))).thenReturn(customerResponse);
+
+        this.notifierCallbackOrderServiceStub = mock(NotifierCallbackServiceStub.class);
+
+
+        this.skeleton = new NotifierServiceSkeleton(this.databaseServiceStub, this.notifierCallbackOrderServiceStub);
     }
 
     @Test
@@ -83,15 +116,8 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @Test
-    void testFindDriverInvalidCustomerNull() {
-        this.request.setCustomer(null);
-
-        assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
-    }
-
-    @Test
-    void testFindDriverInvalidCustomerNotFound() {
-        this.request.getCustomer().setId(-1);
+    void testFindDriverInvalidCustomerNotFound() throws PersonNotFoundMessage, RemoteException {
+        when(this.databaseServiceStub.getCustomer(any(GetCustomerRequest.class))).thenThrow(PersonNotFoundMessage.class);
 
         assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
     }

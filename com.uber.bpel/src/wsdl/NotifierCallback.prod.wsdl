@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="NotifierCallbackOrderService"
+<wsdl:definitions name="NotifierCallbackService"
 	targetNamespace="http://uber.com/NotifierCallbackService"
 	xmlns:ps="http://uber.com/NotifierCallbackService"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 
 	<wsdl:import namespace="http://uber.com/NotifierCallbackService" location="NotifierCallback.wsdl"/>
-	<wsdl:service name="NotifierCallbackOrderService">
+	<wsdl:service name="NotifierCallbackService">
 		<wsdl:port name="FoundDriverPort"
 			binding="ps:NotifierCallbackSOAPBinding">
 			<soap:address

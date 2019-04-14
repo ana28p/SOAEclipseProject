@@ -1,5 +1,6 @@
 package com.uber.databaseservice;
 
+import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBCreator;
 import com.uber.db.DBQuery;
@@ -43,7 +44,7 @@ public class DatabaseServiceSkeletonTest {
     }
 
     @Test
-    void testGetDriver() throws PersonNotFoundMessage {
+    void testGetDriver() throws com.uber.datatypes.PersonNotFoundMessage {
         this.getDriverRequest.setId(1);
         GetDriverResponse response = this.skeleton.getDriver(this.getDriverRequest);
         assertEquals(1, response.getDriver().getId());
@@ -52,7 +53,7 @@ public class DatabaseServiceSkeletonTest {
     @Test
     void testGetDriverNotFound() {
         this.getDriverRequest.setId(-1);
-        assertThrows(PersonNotFoundMessage.class, () -> this.skeleton.getDriver(this.getDriverRequest));
+        assertThrows(com.uber.datatypes.PersonNotFoundMessage.class, () -> this.skeleton.getDriver(this.getDriverRequest));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class DatabaseServiceSkeletonTest {
     }
 
     @Test
-    void testGetCustomer() throws PersonNotFoundMessage {
+    void testGetCustomer() throws com.uber.datatypes.PersonNotFoundMessage {
         this.getCustomerRequest.setId(2);
         GetCustomerResponse response = this.skeleton.getCustomer(this.getCustomerRequest);
         assertEquals(2, response.getCustomer().getId());
@@ -71,11 +72,11 @@ public class DatabaseServiceSkeletonTest {
     @Test
     void testGetCustomerNotFound() {
         this.getCustomerRequest.setId(-1);
-        assertThrows(PersonNotFoundMessage.class, () -> this.skeleton.getCustomer(this.getCustomerRequest));
+        assertThrows(com.uber.datatypes.PersonNotFoundMessage.class, () -> this.skeleton.getCustomer(this.getCustomerRequest));
     }
 
     @Test
-    void testGiveFeedback() throws PersonNotFoundMessage {
+    void testGiveFeedback() throws com.uber.datatypes.PersonNotFoundMessage {
         CleaningDB.deleteDB();
         DBCreator.initializeDB();
         this.giveFeedbackRequest.setId(2);

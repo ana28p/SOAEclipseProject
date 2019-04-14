@@ -10,7 +10,7 @@ package com.uber.notifierservice;
 
 public class InvalidCustomerMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1554043838050L;
+    private static final long serialVersionUID = 1555264175923L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 

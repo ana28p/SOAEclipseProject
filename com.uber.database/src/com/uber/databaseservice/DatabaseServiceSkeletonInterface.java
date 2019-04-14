@@ -6,7 +6,10 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
     package com.uber.databaseservice;
-    /**
+
+import com.uber.datatypes.PersonNotFoundMessage;
+
+/**
      *  DatabaseServiceSkeletonInterface java skeleton interface for the axisService
      */
     public interface DatabaseServiceSkeletonInterface {
@@ -16,7 +19,7 @@
          * Auto generated method signature
          * 
                                     * @param getDriverRequest
-             * @throws PersonNotFoundMessage : 
+             * @throws com.uber.datatypes.PersonNotFoundMessage :
          */
 
         
@@ -24,14 +27,14 @@
                 (
                   com.uber.elements.GetDriverRequest getDriverRequest
                  )
-            throws PersonNotFoundMessage;
+            throws com.uber.datatypes.PersonNotFoundMessage;
         
          
         /**
          * Auto generated method signature
          * 
                                     * @param giveFeedbackRequest
-             * @throws PersonNotFoundMessage : 
+             * @throws com.uber.datatypes.PersonNotFoundMessage :
          */
 
         
@@ -39,7 +42,7 @@
                 (
                   com.uber.elements.GiveFeedbackRequest giveFeedbackRequest
                  )
-            throws PersonNotFoundMessage;
+            throws com.uber.datatypes.PersonNotFoundMessage;
         
          
         /**
@@ -60,7 +63,7 @@
          * Auto generated method signature
          * 
                                     * @param getCustomerRequest
-             * @throws PersonNotFoundMessage : 
+             * @throws com.uber.datatypes.PersonNotFoundMessage :
          */
 
         

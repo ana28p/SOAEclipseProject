@@ -7,7 +7,9 @@
  */
         package com.uber.databaseservice;
 
-        /**
+import com.uber.datatypes.PersonNotFoundMessage;
+
+/**
         *  DatabaseServiceMessageReceiverInOut message receiver
         */
 

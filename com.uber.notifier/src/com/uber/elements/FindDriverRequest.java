@@ -116,30 +116,30 @@
                             
 
                         /**
-                        * field for Customer
+                        * field for CustomerId
                         */
 
                         
-                                    protected com.uber.datatypes.Customer localCustomer ;
+                                    protected int localCustomerId ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.uber.datatypes.Customer
+                           * @return int
                            */
-                           public  com.uber.datatypes.Customer getCustomer(){
-                               return localCustomer;
+                           public  int getCustomerId(){
+                               return localCustomerId;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Customer
+                               * @param param CustomerId
                                */
-                               public void setCustomer(com.uber.datatypes.Customer param){
+                               public void setCustomerId(int param){
                             
-                                            this.localCustomer=param;
+                                            this.localCustomerId=param;
                                        
 
                                }
@@ -229,12 +229,19 @@
                                     
                                    xmlWriter.writeEndElement();
                              
-                                            if (localCustomer==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
-                                            }
-                                           localCustomer.serialize(new javax.xml.namespace.QName("","Customer"),
-                                               xmlWriter);
-                                        
+                                    namespace = "";
+                                    writeStartElement(null, namespace, "CustomerId", xmlWriter);
+                             
+                                               if (localCustomerId==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("CustomerId cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCustomerId));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
                     xmlWriter.writeEndElement();
                
 
@@ -444,15 +451,12 @@
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrice));
                             
-                            elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Customer"));
+                                      elementList.add(new javax.xml.namespace.QName("",
+                                                                      "CustomerId"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCustomerId));
                             
-                            
-                                    if (localCustomer==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
-                                    }
-                                    elementList.add(localCustomer);
-                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -570,9 +574,18 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Customer").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","CustomerId").equals(reader.getName())){
                                 
-                                                object.setCustomer(com.uber.datatypes.Customer.Factory.parse(reader));
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CustomerId" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setCustomerId(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
                                               
                                         reader.next();
                                     
