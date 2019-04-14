@@ -6,7 +6,15 @@
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
     package com.uber.databaseservice;
-    /**
+
+import com.uber.datatypes.Driver;
+import com.uber.db.DBQuery;
+import com.uber.elements.GetDriverResponse;
+import com.uber.elements.GetDriversResponse;
+
+import java.util.List;
+
+/**
      *  DatabaseServiceSkeleton java skeleton for the axisService
      */
     public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface{
@@ -25,8 +33,14 @@
                   com.uber.elements.GetDriverRequest getDriverRequest1
                   )
             throws PersonNotFoundMessage{
-                //TODO : fill this with the necessary business logic
-                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#getDriver");
+                Driver driver = DBQuery.selectDriver(getDriverRequest1.getId());
+                GetDriverResponse response = new GetDriverResponse();
+                response.setDriver(driver);
+
+                if(driver == null){
+                    throw new PersonNotFoundMessage();
+                }
+                return response;
         }
      
          
@@ -77,8 +91,10 @@
                   com.uber.elements.GetDriversRequest getDriversRequest7
                   )
             {
-                //TODO : fill this with the necessary business logic
-                throw new  java.lang.UnsupportedOperationException("Please implement " + this.getClass().getName() + "#getDrivers");
+                List<Driver> drivers = DBQuery.selectAllDrivers();
+                GetDriversResponse response = new GetDriversResponse();
+                response.setDriverElement(drivers.toArray(new Driver[drivers.size()]));
+                return response;
         }
      
          
