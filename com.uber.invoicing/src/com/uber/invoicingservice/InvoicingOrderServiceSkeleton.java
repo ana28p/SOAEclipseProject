@@ -12,7 +12,6 @@ import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.datatypes.SuccessMessage;
-import com.uber.db.DBQuery;
 import com.uber.elements.*;
 import com.uber.utils.Validation;
 import org.apache.axis2.AxisFault;
