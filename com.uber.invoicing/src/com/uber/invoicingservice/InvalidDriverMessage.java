@@ -10,7 +10,7 @@ package com.uber.invoicingservice;
 
 public class InvalidDriverMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1554043862808L;
+    private static final long serialVersionUID = 1555272189806L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 

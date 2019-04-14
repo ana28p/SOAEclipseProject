@@ -10,7 +10,7 @@ package com.uber.invoicingservice;
 
 public class PriceNotFoundMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1554043862843L;
+    private static final long serialVersionUID = 1555272189820L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 

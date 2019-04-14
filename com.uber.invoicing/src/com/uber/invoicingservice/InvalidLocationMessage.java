@@ -10,7 +10,7 @@ package com.uber.invoicingservice;
 
 public class InvalidLocationMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1554043862859L;
+    private static final long serialVersionUID = 1555272189827L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 
