@@ -16,6 +16,7 @@ public class DatabaseServiceSkeletonTest {
     private GetDriverRequest getDriverRequest;
     private GetCustomersRequest getCustomersRequest;
     private GetCustomerRequest getCustomerRequest;
+    private UpdateFeedbackRequest updateFeedbackRequest;
 
     @BeforeAll
     static public void beforeClass() {
@@ -30,6 +31,7 @@ public class DatabaseServiceSkeletonTest {
         this.getDriverRequest = new GetDriverRequest();
         this.getCustomersRequest = new GetCustomersRequest();
         this.getCustomerRequest = new GetCustomerRequest();
+        this.updateFeedbackRequest = new UpdateFeedbackRequest();
     }
 
     @Test
@@ -61,12 +63,19 @@ public class DatabaseServiceSkeletonTest {
     void testGetCustomer() throws PersonNotFoundMessage {
         this.getCustomerRequest.setId(2);
         GetCustomerResponse response = this.skeleton.getCustomer(this.getCustomerRequest);
-        assertEquals(2, response.getDriver().getId());
+        assertEquals(2, response.getCustomer().getId());
     }
 
     @Test
     void testGetCustomerNotFound() {
         this.getCustomerRequest.setId(-1);
         assertThrows(PersonNotFoundMessage.class, () -> this.skeleton.getCustomer(this.getCustomerRequest));
+    }
+
+    @Test
+    void testUpdateFeedback() {
+        this.updateFeedbackRequest.setId(1);
+        this.updateFeedbackRequest.setRating(5);
+
     }
 }

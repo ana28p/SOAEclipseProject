@@ -26,30 +26,30 @@
             
 
                         /**
-                        * field for Driver
+                        * field for Customer
                         */
 
                         
-                                    protected com.uber.datatypes.Customer localDriver ;
+                                    protected com.uber.datatypes.Customer localCustomer ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return com.uber.datatypes.Customer
                            */
-                           public  com.uber.datatypes.Customer getDriver(){
-                               return localDriver;
+                           public  com.uber.datatypes.Customer getCustomer(){
+                               return localCustomer;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Driver
+                               * @param param Customer
                                */
-                               public void setDriver(com.uber.datatypes.Customer param){
+                               public void setCustomer(com.uber.datatypes.Customer param){
                             
-                                            this.localDriver=param;
+                                            this.localCustomer=param;
                                        
 
                                }
@@ -114,10 +114,10 @@
                
                    }
                
-                                            if (localDriver==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Driver cannot be null!!");
+                                            if (localCustomer==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
                                             }
-                                           localDriver.serialize(new javax.xml.namespace.QName("","Driver"),
+                                           localCustomer.serialize(new javax.xml.namespace.QName("","Customer"),
                                                xmlWriter);
                                         
                     xmlWriter.writeEndElement();
@@ -306,13 +306,13 @@
 
                 
                             elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Driver"));
+                                                                      "Customer"));
                             
                             
-                                    if (localDriver==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Driver cannot be null!!");
+                                    if (localCustomer==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
                                     }
-                                    elementList.add(localDriver);
+                                    elementList.add(localCustomer);
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -392,9 +392,9 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Driver").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Customer").equals(reader.getName())){
                                 
-                                                object.setDriver(com.uber.datatypes.Customer.Factory.parse(reader));
+                                                object.setCustomer(com.uber.datatypes.Customer.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -10,7 +10,7 @@ package com.uber.databaseservice;
 
 public class PersonNotFoundMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1555239451714L;
+    private static final long serialVersionUID = 1555251664993L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 

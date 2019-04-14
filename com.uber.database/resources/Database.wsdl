@@ -58,7 +58,7 @@
             <xsd:element name="GetCustomerResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element name="Driver" type="types:Customer"/>
+                        <xsd:element name="Customer" type="types:Customer"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
