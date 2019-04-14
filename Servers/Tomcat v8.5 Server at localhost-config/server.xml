@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="com.uber.pricing" path="/com.uber.pricing" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.pricing"/><Context docBase="com.uber.navigation" path="/com.uber.navigation" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.navigation"/><Context docBase="com.uber.database" path="/com.uber.database" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.database"/></Host>
+      <Context docBase="com.uber.pricing" path="/com.uber.pricing" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.pricing"/><Context docBase="com.uber.navigation" path="/com.uber.navigation" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.navigation"/><Context docBase="com.uber.database" path="/com.uber.database" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.database"/><Context docBase="com.uber.notifier" path="/com.uber.notifier" reloadable="true" source="org.eclipse.jst.jee.server:com.uber.notifier"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -1,7 +1,7 @@
 
 /**
  * NotifierOrderServiceSkeleton.java
- * <p>
+ *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Random;
 
+import com.uber.databaseservice.DatabaseServiceStub;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
@@ -18,12 +19,26 @@ import com.uber.db.DBQuery;
 import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
 import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.DriverFoundRequest;
 import com.uber.utils.Validation;
+import org.apache.axis2.AxisFault;
+
+import javax.sound.midi.SysexMessage;
 
 /**
  *  NotifierOrderServiceSkeleton java skeleton for the axisService
  */
 public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeletonInterface {
 
+    private DatabaseServiceStub databaseServiceStub;
+    private NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub;
+
+    public NotifierOrderServiceSkeleton() throws AxisFault {
+        this(NotifierOrderServiceSkeleton.getDatabaseServiceStub(), NotifierOrderServiceSkeleton.getNotifierCallbackOrderServiceStub());
+    }
+
+    public NotifierOrderServiceSkeleton(DatabaseServiceStub databaseServiceStub, NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub) {
+        this.databaseServiceStub = databaseServiceStub;
+        this.notifierCallbackOrderServiceStub = notifierCallbackOrderServiceStub;
+    }
 
     /**
      * Auto generated method signature
@@ -43,10 +58,9 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
         Validation.validateLocation(findDriverRequest0.getStartLocation(), new InvalidLocationMessage());
         Validation.validateLocation(findDriverRequest0.getEndLocation(), new InvalidLocationMessage());
         Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
-        Validation.validateCustomer(findDriverRequest0.getCustomer(), new InvalidCustomerMessage());
 
         SuccessMessage response = new SuccessMessage();
-        response.setSuccessMessage("Wait for a driver to accept...");
+        response.setSuccessMessage("Please wait for a driver to accept...");
 
         DriverFoundRequest callbackResponse = new DriverFoundRequest();
         Customer dbCustomer = DBQuery.selectCustomer(findDriverRequest0.getCustomer().getId());
@@ -88,6 +102,24 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
         cbDriver.setRating(driver.getRating());
 
         return cbDriver;
+    }
+
+    static private DatabaseServiceStub getDatabaseServiceStub() throws AxisFault {
+        String url = System.getenv("DATABASE_SERVICE_URL");
+        if(url == null){
+            return new DatabaseServiceStub();
+        }
+
+        return new DatabaseServiceStub(url);
+    }
+
+    static private NotifierCallbackOrderServiceStub getNotifierCallbackOrderServiceStub() throws AxisFault {
+        String url = System.getenv("NOTIFIER_CALLBACK_URL");
+        if(url == null){
+            return new NotifierCallbackOrderServiceStub();
+        }
+
+        return new NotifierCallbackOrderServiceStub(url);
     }
 
 }

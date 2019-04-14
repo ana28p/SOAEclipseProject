@@ -46,7 +46,7 @@ class NotifierOrderServiceSkeletonTest {
         this.endPoint.setLongitude(4);
 
         this.request = new FindDriverRequest();
-        this.request.setCustomer(this.customer);
+        this.request.setCustomerId(1);
         this.request.setStartLocation(this.startPoint);
         this.request.setEndLocation(this.endPoint);
         this.request.setPrice(100d);
@@ -83,15 +83,8 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @Test
-    void testFindDriverInvalidCustomerNull() {
-        this.request.setCustomer(null);
-
-        assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
-    }
-
-    @Test
     void testFindDriverInvalidCustomerNotFound() {
-        this.request.getCustomer().setId(-1);
+        this.request.setCustomerId(-1);
 
         assertThrows(InvalidCustomerMessage.class, ()->this.skeleton.findDriver(this.request));
     }

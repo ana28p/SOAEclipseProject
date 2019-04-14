@@ -4,7 +4,7 @@
     <property name="axis2.home" value="${env.AXIS2_HOME}"/>
     <property name="project.base.dir" value="."/>
     <property name="maven.class.path" value=""/>
-    <property name="name" value="NotifierCallbackOrderService"/>
+    <property name="name" value="NotifierOrderService"/>
     <property name="src" value="${project.base.dir}/src"/>
     <property name="test" value="${project.base.dir}/test"/>
     <property name="build" value="${project.base.dir}/build"/>
@@ -18,9 +18,6 @@
         <fileset dir="${axis2.home}">
             <include name="lib/*.jar"/>
         </fileset>
-    	<fileset dir="${project.base.dir}/../lib">
-    		<include name="*.jar"/>
-    	</fileset>
     </path>
     <target name="init">
         <mkdir dir="${build}"/>
@@ -62,11 +59,6 @@
                 <include name="*.xml"/>
                 <include name="*.wsdl"/>
                 <include name="*.xsd"/>
-            </fileset>
-        </copy>
-        <copy toDir="${classes}/lib" failonerror="false">
-            <fileset dir="${project.base.dir}/../lib">
-                <include name="*.jar"/>
             </fileset>
         </copy>
         <jar destfile="${lib}/${name}.aar">
