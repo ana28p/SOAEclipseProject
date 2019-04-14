@@ -51,7 +51,7 @@ import java.util.Random;
      * @throws InvalidLocationMessage
      */
 
-    public com.uber.datatypes.SuccessMessage findDriver
+    public SuccessMessage findDriver
     (
             com.uber.elements.FindDriverRequest findDriverRequest0
     )
