@@ -1,39 +1,40 @@
 
 /**
- * NotifierOrderServiceSkeleton.java
+ * NotifierServiceSkeleton.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT)
  */
-package com.uber.notifierservice;
-
-import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Random;
+    package com.uber.notifierservice;
 
 import com.uber.databaseservice.DatabaseServiceStub;
+import com.uber.databaseservice.PersonNotFoundMessage;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBQuery;
 import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
-import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.DriverFoundRequest;
 import com.uber.utils.Validation;
 import org.apache.axis2.AxisFault;
 
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Random;
+
 /**
- *  NotifierOrderServiceSkeleton java skeleton for the axisService
- */
-public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeletonInterface {
+     *  NotifierServiceSkeleton java skeleton for the axisService
+     */
+    public class NotifierServiceSkeleton implements NotifierServiceSkeletonInterface{
+
 
     private DatabaseServiceStub databaseServiceStub;
     private NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub;
 
-    public NotifierOrderServiceSkeleton() throws AxisFault {
-        this(NotifierOrderServiceSkeleton.getDatabaseServiceStub(), NotifierOrderServiceSkeleton.getNotifierCallbackOrderServiceStub());
+    public NotifierServiceSkeleton() throws AxisFault {
+        this(NotifierServiceSkeleton.getDatabaseServiceStub(), NotifierServiceSkeleton.getNotifierCallbackOrderServiceStub());
     }
 
-    public NotifierOrderServiceSkeleton(DatabaseServiceStub databaseServiceStub, NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub) {
+    public NotifierServiceSkeleton(DatabaseServiceStub databaseServiceStub, NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub) {
         this.databaseServiceStub = databaseServiceStub;
         this.notifierCallbackOrderServiceStub = notifierCallbackOrderServiceStub;
     }
@@ -57,25 +58,25 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
         Validation.validateLocation(findDriverRequest0.getEndLocation(), new InvalidLocationMessage());
         Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
 
-        SuccessMessage response = new SuccessMessage();
-        response.setSuccessMessage("Please wait for a driver to accept...");
 
-        DriverFoundRequest callbackResponse = new DriverFoundRequest();
-        Customer dbCustomer = DBQuery.selectCustomer(findDriverRequest0.getCustomer().getId());
+
 
         List<Driver> drivers = DBQuery.selectAllDrivers();
         Random rand = new Random();
         Driver randomDriver = drivers.get(rand.nextInt(drivers.size()));
 
+        NotifierCallbackOrderServiceStub.DriverFoundRequest callbackResponse = new NotifierCallbackOrderServiceStub.DriverFoundRequest();
         callbackResponse.setCustomer(toCallbackCustomer(dbCustomer));
         callbackResponse.setDriver(toCallbackDriver(randomDriver));
 
         try {
-            new NotifierCallbackOrderServiceStub(System.getenv("ODE_URL") + "/ode/processes/NotifierCallbackService").receiveCallBack(callbackResponse);
+            this.notifierCallbackOrderServiceStub.receiveCallBack(callbackResponse);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        SuccessMessage response = new SuccessMessage();
+        response.setSuccessMessage("Please wait for a driver to accept...");
 
         return response;
     }
@@ -102,6 +103,20 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
         return cbDriver;
     }
 
+    private Customer getCustomer(int id) throws InvalidCustomerMessage {
+
+        try {
+            DatabaseServiceStub.GetCustomerRequest customerRequest = new DatabaseServiceStub.GetCustomerRequest();
+            customerRequest.setId(id);
+            DatabaseServiceStub.GetCustomerResponse response = this.databaseServiceStub.getCustomer(customerRequest);
+            response.getCustomer();
+        } catch (PersonNotFoundMessage personNotFoundMessage) {
+            throw new InvalidCustomerMessage();
+        } catch (RemoteException remoteException){
+            remoteException.printStackTrace();
+        }
+    }
+
     static private DatabaseServiceStub getDatabaseServiceStub() throws AxisFault {
         String url = System.getenv("DATABASE_SERVICE_URL");
         if(url == null){
@@ -119,5 +134,6 @@ public class NotifierOrderServiceSkeleton implements NotifierOrderServiceSkeleto
 
         return new NotifierCallbackOrderServiceStub(url);
     }
-
-}
+     
+    }
+    

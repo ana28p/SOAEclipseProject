@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) --><serviceGroup>
-    <service name="NotifierOrderService">
+    <service name="NotifierService">
         <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.notifierservice.NotifierOrderServiceMessageReceiverInOut"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.uber.notifierservice.NotifierServiceMessageReceiverInOut"/>
         </messageReceivers>
-        <parameter name="ServiceClass">com.uber.notifierservice.NotifierOrderServiceSkeleton</parameter>
+        <parameter name="ServiceClass">com.uber.notifierservice.NotifierServiceSkeleton</parameter>
         <parameter name="useOriginalwsdl">true</parameter>
         <parameter name="modifyUserWSDLPortAddress">true</parameter>
         <operation name="FindDriver" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/NotifierService">
