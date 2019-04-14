@@ -42,12 +42,6 @@ class InvoicingOrderServiceSkeletonTest {
         this.endLocation.setLongitude(6.954814);
     }
 
-    @BeforeAll
-    static public void beforeClass() {
-        CleaningDB.deleteDB();
-        DBCreator.initializeDB();
-    }
-
     @BeforeEach
     public void beforeEach() throws ParseException, PersonNotFoundMessage, RemoteException {
         this.request.setCurrentLocation(this.currentLocation);
