@@ -7,16 +7,17 @@ import com.uber.db.DBCreator;
 import com.uber.elements.FindDriverRequest;
 import com.uber.elements.FindDriverResponse;
 import com.uber.utils.CleaningDB;
+import org.apache.axis2.AxisFault;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NotifierOrderServiceSkeletonTest {
+class NotifierServiceSkeletonTest {
 
     private FindDriverRequest request;
-    private NotifierOrderServiceSkeleton skeleton;
+    private NotifierServiceSkeleton skeleton;
     private Customer customer;
     private Location startPoint;
     private Location endPoint;
@@ -28,7 +29,7 @@ class NotifierOrderServiceSkeletonTest {
     }
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() throws AxisFault {
 
         this.customer = new Customer();
         this.customer.setCardNumber("ABCD");
@@ -51,7 +52,7 @@ class NotifierOrderServiceSkeletonTest {
         this.request.setEndLocation(this.endPoint);
         this.request.setPrice(100d);
 
-        this.skeleton = new NotifierOrderServiceSkeleton();
+        this.skeleton = new NotifierServiceSkeleton();
     }
 
     @Test

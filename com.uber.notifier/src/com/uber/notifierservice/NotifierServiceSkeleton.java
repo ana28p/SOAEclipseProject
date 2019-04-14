@@ -8,20 +8,19 @@
     package com.uber.notifierservice;
 
 import com.uber.databaseservice.DatabaseServiceStub;
-import com.uber.databaseservice.PersonNotFoundMessage;
+import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.SuccessMessage;
-import com.uber.db.DBQuery;
 import com.uber.elements.GetCustomerRequest;
 import com.uber.elements.GetCustomerResponse;
 import com.uber.elements.GetDriversRequest;
+import com.uber.elements.GetDriversResponse;
 import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
 import com.uber.utils.Validation;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -62,16 +61,11 @@ import java.util.Random;
         Validation.validatePrice(findDriverRequest0.getPrice(), new InvalidPriceMessage());
 
         Customer customer = this.getCustomer(findDriverRequest0.getCustomerId());
-
-
-
-        List<Driver> drivers = DBQuery.selectAllDrivers();
-        Random rand = new Random();
-        Driver randomDriver = drivers.get(rand.nextInt(drivers.size()));
+        Driver driver = this.getRandomDriver();
 
         NotifierCallbackOrderServiceStub.DriverFoundRequest callbackResponse = new NotifierCallbackOrderServiceStub.DriverFoundRequest();
         callbackResponse.setCustomer(toCallbackCustomer(customer));
-        callbackResponse.setDriver(toCallbackDriver(randomDriver));
+        callbackResponse.setDriver(toCallbackDriver(driver));
 
         try {
             this.notifierCallbackOrderServiceStub.receiveCallBack(callbackResponse);
@@ -128,7 +122,15 @@ import java.util.Random;
 
         Driver driver = null;
 
-        GetDriversRequest driversRequest = new GetDriversRequest();
+        try {
+            GetDriversRequest driversRequest = new GetDriversRequest();
+            GetDriversResponse response = this.databaseServiceStub.getDrivers(driversRequest);
+            Driver[] drivers = response.getDriverElement();
+            Random rand = new Random();
+            driver = drivers[rand.nextInt(drivers.length)];
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         return driver;
     }

@@ -9,6 +9,7 @@ package com.uber.databaseservice;
 
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
+import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBCreator;
 import com.uber.db.DBQuery;
@@ -36,20 +37,20 @@ public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface
      *
      * @param getDriverRequest1
      * @return getDriverResponse2
-     * @throws PersonNotFoundMessage
+     * @throws com.uber.datatypes.PersonNotFoundMessage
      */
 
     public com.uber.elements.GetDriverResponse getDriver
     (
             com.uber.elements.GetDriverRequest getDriverRequest1
     )
-            throws PersonNotFoundMessage {
+            throws com.uber.datatypes.PersonNotFoundMessage {
         Driver driver = DBQuery.selectDriver(getDriverRequest1.getId());
         GetDriverResponse response = new GetDriverResponse();
         response.setDriver(driver);
 
         if (driver == null) {
-            throw new PersonNotFoundMessage();
+            throw new com.uber.datatypes.PersonNotFoundMessage();
         }
         return response;
     }
@@ -78,20 +79,20 @@ public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface
      *
      * @param getCustomerRequest5
      * @return getCustomerResponse6
-     * @throws PersonNotFoundMessage
+     * @throws com.uber.datatypes.PersonNotFoundMessage
      */
 
     public com.uber.elements.GetCustomerResponse getCustomer
     (
             com.uber.elements.GetCustomerRequest getCustomerRequest5
     )
-            throws PersonNotFoundMessage {
+            throws com.uber.datatypes.PersonNotFoundMessage {
         Customer customer = DBQuery.selectCustomer(getCustomerRequest5.getId());
         GetCustomerResponse response = new GetCustomerResponse();
         response.setCustomer(customer);
 
         if (customer == null) {
-            throw new PersonNotFoundMessage();
+            throw new com.uber.datatypes.PersonNotFoundMessage();
         }
         return response;
     }
@@ -120,14 +121,14 @@ public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface
      *
      * @param giveFeedBackRequest9
      * @return successMessage10
-     * @throws PersonNotFoundMessage
+     * @throws com.uber.datatypes.PersonNotFoundMessage
      */
 
     public com.uber.datatypes.SuccessMessage giveFeedback
     (
             com.uber.elements.GiveFeedbackRequest giveFeedBackRequest9
     )
-            throws PersonNotFoundMessage {
+            throws com.uber.datatypes.PersonNotFoundMessage {
         try{
             DBQuery.updateFeedback(giveFeedBackRequest9.getId(), giveFeedBackRequest9.getRating());
         } catch (Exception e){

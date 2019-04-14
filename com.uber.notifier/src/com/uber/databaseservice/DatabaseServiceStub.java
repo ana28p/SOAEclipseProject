@@ -17,6 +17,7 @@ package com.uber.databaseservice;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
 import com.uber.datatypes.FaultMessage;
+import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.datatypes.SuccessMessage;
 import com.uber.elements.*;
 
@@ -184,7 +185,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
      * @see com.uber.databaseservice.DatabaseServiceSkeleton#getDriver(com.uber.elements.GetDriverRequest)
      * @param getDriverRequest0
 
-     * @throws com.uber.databaseservice.PersonNotFoundMessage :
+     * @throws PersonNotFoundMessage :
      */
 
 
@@ -196,7 +197,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
             throws java.rmi.RemoteException
 
 
-            , com.uber.databaseservice.PersonNotFoundMessage {
+            , PersonNotFoundMessage {
         org.apache.axis2.context.MessageContext _messageContext = null;
         try {
             org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
@@ -265,8 +266,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                 new java.lang.Class[]{messageClass});
                         m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                        if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                            throw (com.uber.databaseservice.PersonNotFoundMessage) ex;
+                        if (ex instanceof PersonNotFoundMessage) {
+                            throw (PersonNotFoundMessage) ex;
                         }
 
 
@@ -385,8 +386,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                         new java.lang.Class[]{messageClass});
                                 m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                                if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                                    callback.receiveErrorgetDriver((com.uber.databaseservice.PersonNotFoundMessage) ex);
+                                if (ex instanceof PersonNotFoundMessage) {
+                                    callback.receiveErrorgetDriver((PersonNotFoundMessage) ex);
                                     return;
                                 }
 
@@ -458,7 +459,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
      * @see com.uber.databaseservice.DatabaseService#giveFeedback
      * @param giveFeedbackRequest2
 
-     * @throws com.uber.databaseservice.PersonNotFoundMessage :
+     * @throws PersonNotFoundMessage :
      */
 
 
@@ -470,7 +471,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
             throws java.rmi.RemoteException
 
 
-            , com.uber.databaseservice.PersonNotFoundMessage {
+            , PersonNotFoundMessage {
         org.apache.axis2.context.MessageContext _messageContext = null;
         try {
             org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[1].getName());
@@ -539,8 +540,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                 new java.lang.Class[]{messageClass});
                         m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                        if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                            throw (com.uber.databaseservice.PersonNotFoundMessage) ex;
+                        if (ex instanceof PersonNotFoundMessage) {
+                            throw (PersonNotFoundMessage) ex;
                         }
 
 
@@ -659,8 +660,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                         new java.lang.Class[]{messageClass});
                                 m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                                if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                                    callback.receiveErrorgiveFeedback((com.uber.databaseservice.PersonNotFoundMessage) ex);
+                                if (ex instanceof PersonNotFoundMessage) {
+                                    callback.receiveErrorgiveFeedback((PersonNotFoundMessage) ex);
                                     return;
                                 }
 
@@ -993,7 +994,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
      * @see com.uber.databaseservice.DatabaseService#getCustomer
      * @param getCustomerRequest6
 
-     * @throws com.uber.databaseservice.PersonNotFoundMessage :
+     * @throws PersonNotFoundMessage :
      */
 
 
@@ -1005,7 +1006,7 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
             throws java.rmi.RemoteException
 
 
-            , com.uber.databaseservice.PersonNotFoundMessage {
+            , PersonNotFoundMessage {
         org.apache.axis2.context.MessageContext _messageContext = null;
         try {
             org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[3].getName());
@@ -1074,8 +1075,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                 new java.lang.Class[]{messageClass});
                         m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                        if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                            throw (com.uber.databaseservice.PersonNotFoundMessage) ex;
+                        if (ex instanceof PersonNotFoundMessage) {
+                            throw (PersonNotFoundMessage) ex;
                         }
 
 
@@ -1194,8 +1195,8 @@ public class DatabaseServiceStub extends org.apache.axis2.client.Stub {
                                         new java.lang.Class[]{messageClass});
                                 m.invoke(ex, new java.lang.Object[]{messageObject});
 
-                                if (ex instanceof com.uber.databaseservice.PersonNotFoundMessage) {
-                                    callback.receiveErrorgetCustomer((com.uber.databaseservice.PersonNotFoundMessage) ex);
+                                if (ex instanceof PersonNotFoundMessage) {
+                                    callback.receiveErrorgetCustomer((PersonNotFoundMessage) ex);
                                     return;
                                 }
 
