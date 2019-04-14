@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NotifierService" targetNamespace="http://uber.com/NotifierService" xmlns:ps="http://uber.com/NotifierService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:import namespace="http://uber.com/NotifierService" location="Notifier.wsdl">
+    </wsdl:import>
+  <wsdl:service name="NotifierService">
+    <wsdl:port name="FindDriverPort" binding="ps:NotifierSOAPBinding">
+      <soap:address location="http://localhost:9080/com.uber.notifier/services/NotifierService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
