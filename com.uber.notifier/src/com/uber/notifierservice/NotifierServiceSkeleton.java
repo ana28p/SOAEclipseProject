@@ -16,7 +16,7 @@ import com.uber.elements.GetCustomerRequest;
 import com.uber.elements.GetCustomerResponse;
 import com.uber.elements.GetDriversRequest;
 import com.uber.elements.GetDriversResponse;
-import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
+import com.uber.notifiercallbackservice.NotifierCallbackServiceStub;
 import com.uber.utils.Validation;
 import org.apache.axis2.AxisFault;
 
@@ -30,13 +30,13 @@ import java.util.Random;
 
 
     private DatabaseServiceStub databaseServiceStub;
-    private NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub;
+    private NotifierCallbackServiceStub notifierCallbackOrderServiceStub;
 
     public NotifierServiceSkeleton() throws AxisFault {
         this(NotifierServiceSkeleton.getDatabaseServiceStub(), NotifierServiceSkeleton.getNotifierCallbackOrderServiceStub());
     }
 
-    public NotifierServiceSkeleton(DatabaseServiceStub databaseServiceStub, NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub) {
+    public NotifierServiceSkeleton(DatabaseServiceStub databaseServiceStub, NotifierCallbackServiceStub notifierCallbackOrderServiceStub) {
         this.databaseServiceStub = databaseServiceStub;
         this.notifierCallbackOrderServiceStub = notifierCallbackOrderServiceStub;
     }
@@ -63,9 +63,9 @@ import java.util.Random;
         Customer customer = this.getCustomer(findDriverRequest0.getCustomerId());
         Driver driver = this.getRandomDriver();
 
-        NotifierCallbackOrderServiceStub.DriverFoundRequest callbackResponse = new NotifierCallbackOrderServiceStub.DriverFoundRequest();
-        callbackResponse.setCustomer(toCallbackCustomer(customer));
-        callbackResponse.setDriver(toCallbackDriver(driver));
+        NotifierCallbackServiceStub.DriverFoundRequest callbackResponse = new NotifierCallbackServiceStub.DriverFoundRequest();
+        callbackResponse.setCustomer(customer);
+        callbackResponse.setDriver(driver);
 
         try {
             this.notifierCallbackOrderServiceStub.receiveCallBack(callbackResponse);
@@ -77,28 +77,6 @@ import java.util.Random;
         response.setSuccessMessage("Please wait for a driver to accept...");
 
         return response;
-    }
-
-    private com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer toCallbackCustomer(Customer customer) {
-        com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer cbCustomer = new com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Customer();
-        cbCustomer.setId(customer.getId());
-        cbCustomer.setAge(customer.getAge());
-        cbCustomer.setName(customer.getName());
-        cbCustomer.setCardNumber(customer.getCardNumber());
-        cbCustomer.setRating(customer.getRating());
-
-        return cbCustomer;
-    }
-
-    private com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver toCallbackDriver(Driver driver) {
-        com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver cbDriver = new com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub.Driver();
-        cbDriver.setId(driver.getId());
-        cbDriver.setAge(driver.getAge());
-        cbDriver.setName(driver.getName());
-        cbDriver.setCarNumber(driver.getCarNumber());
-        cbDriver.setRating(driver.getRating());
-
-        return cbDriver;
     }
 
     private Customer getCustomer(int id) throws InvalidCustomerMessage {
@@ -144,13 +122,13 @@ import java.util.Random;
         return new DatabaseServiceStub(url);
     }
 
-    static private NotifierCallbackOrderServiceStub getNotifierCallbackOrderServiceStub() throws AxisFault {
+    static private NotifierCallbackServiceStub getNotifierCallbackOrderServiceStub() throws AxisFault {
         String url = System.getenv("NOTIFIER_CALLBACK_URL");
         if(url == null){
-            return new NotifierCallbackOrderServiceStub();
+            return new NotifierCallbackServiceStub();
         }
 
-        return new NotifierCallbackOrderServiceStub(url);
+        return new NotifierCallbackServiceStub(url);
     }
      
     }

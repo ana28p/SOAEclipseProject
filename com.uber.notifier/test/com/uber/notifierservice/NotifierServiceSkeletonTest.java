@@ -4,9 +4,8 @@ import com.uber.databaseservice.DatabaseServiceStub;
 import com.uber.datatypes.*;
 import com.uber.db.DBCreator;
 import com.uber.elements.*;
-import com.uber.notifiercallbackservice.NotifierCallbackOrderServiceStub;
+import com.uber.notifiercallbackservice.NotifierCallbackServiceStub;
 import com.uber.utils.CleaningDB;
-import org.apache.axis2.AxisFault;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ class NotifierServiceSkeletonTest {
     private Location startPoint;
     private Location endPoint;
     private DatabaseServiceStub databaseServiceStub;
-    private NotifierCallbackOrderServiceStub notifierCallbackOrderServiceStub;
+    private NotifierCallbackServiceStub notifierCallbackOrderServiceStub;
 
     @BeforeAll
     static void beforeAll(){
@@ -82,7 +81,7 @@ class NotifierServiceSkeletonTest {
         when(this.databaseServiceStub.getDrivers(any(GetDriversRequest.class))).thenReturn(driversResponse);
         when(this.databaseServiceStub.getCustomer(any(GetCustomerRequest.class))).thenReturn(customerResponse);
 
-        this.notifierCallbackOrderServiceStub = mock(NotifierCallbackOrderServiceStub.class);
+        this.notifierCallbackOrderServiceStub = mock(NotifierCallbackServiceStub.class);
 
 
         this.skeleton = new NotifierServiceSkeleton(this.databaseServiceStub, this.notifierCallbackOrderServiceStub);
