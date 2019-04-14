@@ -2,6 +2,7 @@ package com.uber.db;
 
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
+import org.sqlite.JDBC;
 
 import java.io.File;
 import java.sql.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class DBCreator {
 
-	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:database.db"; // the file is created in the project root
+	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:uber.db"; // the file is created in the project root
 
 	public static void initializeDB() {
 		createNewDatabase();
@@ -53,6 +54,7 @@ public class DBCreator {
 	public static Connection connect() {
 		Connection conn = null;
 		try {
+			DriverManager.registerDriver(new JDBC());
 			conn = DriverManager.getConnection(JDBC_SQLITE_DB);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

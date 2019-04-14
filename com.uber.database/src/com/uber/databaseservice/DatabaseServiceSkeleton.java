@@ -25,7 +25,7 @@ import java.util.List;
 public class DatabaseServiceSkeleton implements DatabaseServiceSkeletonInterface {
 
     public DatabaseServiceSkeleton() {
-    	System.out.println("test");
+
         if(!DBCreator.databaseExists()){
             DBCreator.initializeDB();
         }
