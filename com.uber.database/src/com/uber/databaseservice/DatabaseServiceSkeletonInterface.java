@@ -30,14 +30,14 @@
         /**
          * Auto generated method signature
          * 
-                                    * @param getCustomerRequest
+                                    * @param giveFeedbackRequest
              * @throws PersonNotFoundMessage : 
          */
 
         
                 public com.uber.datatypes.SuccessMessage giveFeedback
                 (
-                  com.uber.elements.GetCustomerRequest getCustomerRequest
+                  com.uber.elements.GiveFeedbackRequest giveFeedbackRequest
                  )
             throws PersonNotFoundMessage;
         
@@ -59,14 +59,14 @@
         /**
          * Auto generated method signature
          * 
-                                    * @param getCustomerRequest0
+                                    * @param getCustomerRequest
              * @throws PersonNotFoundMessage : 
          */
 
         
                 public com.uber.elements.GetCustomerResponse getCustomer
                 (
-                  com.uber.elements.GetCustomerRequest getCustomerRequest0
+                  com.uber.elements.GetCustomerRequest getCustomerRequest
                  )
             throws PersonNotFoundMessage;
         

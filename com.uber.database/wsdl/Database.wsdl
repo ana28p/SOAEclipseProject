@@ -121,7 +121,7 @@
 
     <wsdl:message name="GiveFeedbackRequestMessage">
         <wsdl:part name="payload"
-                   element="elements:GetCustomerRequest"/>
+                   element="elements:GiveFeedbackRequest"/>
     </wsdl:message>
     <wsdl:message name="GiveFeedbackResponseMessage">
         <wsdl:part name="payload"

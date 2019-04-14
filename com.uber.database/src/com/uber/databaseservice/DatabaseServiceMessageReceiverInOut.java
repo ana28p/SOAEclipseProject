@@ -39,96 +39,96 @@
 
             if("getDriver".equals(methodName)){
                 
-                com.uber.elements.GetDriverResponse getDriverResponse32 = null;
+                com.uber.elements.GetDriverResponse getDriverResponse31 = null;
 	                        com.uber.elements.GetDriverRequest wrappedParam =
                                                              (com.uber.elements.GetDriverRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.uber.elements.GetDriverRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getDriverResponse32 =
+                                               getDriverResponse31 =
                                                    
                                                    
                                                          skel.getDriver(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDriverResponse32, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDriverResponse31, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
                                                     "getDriver"));
                                     } else 
 
             if("giveFeedback".equals(methodName)){
                 
-                com.uber.datatypes.SuccessMessage successMessage34 = null;
-	                        com.uber.elements.GetCustomerRequest wrappedParam =
-                                                             (com.uber.elements.GetCustomerRequest)fromOM(
+                com.uber.datatypes.SuccessMessage successMessage33 = null;
+	                        com.uber.elements.GiveFeedbackRequest wrappedParam =
+                                                             (com.uber.elements.GiveFeedbackRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
-                                    com.uber.elements.GetCustomerRequest.class,
+                                    com.uber.elements.GiveFeedbackRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               successMessage34 =
+                                               successMessage33 =
                                                    
                                                    
                                                          skel.giveFeedback(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), successMessage34, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), successMessage33, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
                                                     "giveFeedback"));
                                     } else 
 
             if("getCustomers".equals(methodName)){
                 
-                com.uber.elements.GetCustomersResponse getCustomersResponse36 = null;
+                com.uber.elements.GetCustomersResponse getCustomersResponse35 = null;
 	                        com.uber.elements.GetCustomersRequest wrappedParam =
                                                              (com.uber.elements.GetCustomersRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.uber.elements.GetCustomersRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getCustomersResponse36 =
+                                               getCustomersResponse35 =
                                                    
                                                    
                                                          skel.getCustomers(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getCustomersResponse36, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getCustomersResponse35, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
                                                     "getCustomers"));
                                     } else 
 
             if("getCustomer".equals(methodName)){
                 
-                com.uber.elements.GetCustomerResponse getCustomerResponse38 = null;
+                com.uber.elements.GetCustomerResponse getCustomerResponse37 = null;
 	                        com.uber.elements.GetCustomerRequest wrappedParam =
                                                              (com.uber.elements.GetCustomerRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.uber.elements.GetCustomerRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getCustomerResponse38 =
+                                               getCustomerResponse37 =
                                                    
                                                    
                                                          skel.getCustomer(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getCustomerResponse38, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getCustomerResponse37, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
                                                     "getCustomer"));
                                     } else 
 
             if("getDrivers".equals(methodName)){
                 
-                com.uber.elements.GetDriversResponse getDriversResponse40 = null;
+                com.uber.elements.GetDriversResponse getDriversResponse39 = null;
 	                        com.uber.elements.GetDriversRequest wrappedParam =
                                                              (com.uber.elements.GetDriversRequest)fromOM(
                                     msgContext.getEnvelope().getBody().getFirstElement(),
                                     com.uber.elements.GetDriversRequest.class,
                                     getEnvelopeNamespaces(msgContext.getEnvelope()));
                                                 
-                                               getDriversResponse40 =
+                                               getDriversResponse39 =
                                                    
                                                    
                                                          skel.getDrivers(wrappedParam)
                                                     ;
                                             
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDriversResponse40, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
+                                        envelope = toEnvelope(getSOAPFactory(msgContext), getDriversResponse39, false, new javax.xml.namespace.QName("http://uber.com/DatabaseService",
                                                     "getDrivers"));
                                     
             } else {
@@ -196,12 +196,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.uber.elements.GetCustomerRequest param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.uber.elements.GiveFeedbackRequest param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.uber.elements.GetCustomerRequest.MY_QNAME,
+                             return param.getOMElement(com.uber.elements.GiveFeedbackRequest.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -244,6 +244,20 @@
             
                         try{
                              return param.getOMElement(com.uber.elements.GetCustomersResponse.MY_QNAME,
+                                          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+                        } catch(org.apache.axis2.databinding.ADBException e){
+                            throw org.apache.axis2.AxisFault.makeFault(e);
+                        }
+                    
+
+            }
+        
+            private  org.apache.axiom.om.OMElement  toOM(com.uber.elements.GetCustomerRequest param, boolean optimizeContent)
+            throws org.apache.axis2.AxisFault {
+
+            
+                        try{
+                             return param.getOMElement(com.uber.elements.GetCustomerRequest.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -472,6 +486,13 @@
                 if (com.uber.elements.GetDriversResponse.class.equals(type)){
                 
                         return com.uber.elements.GetDriversResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                    
+
+                }
+            
+                if (com.uber.elements.GiveFeedbackRequest.class.equals(type)){
+                
+                        return com.uber.elements.GiveFeedbackRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

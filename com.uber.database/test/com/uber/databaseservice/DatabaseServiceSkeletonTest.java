@@ -2,6 +2,7 @@ package com.uber.databaseservice;
 
 import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBCreator;
+import com.uber.db.DBQuery;
 import com.uber.elements.*;
 import com.uber.utils.CleaningDB;
 import org.junit.jupiter.api.BeforeAll;
@@ -74,10 +75,22 @@ public class DatabaseServiceSkeletonTest {
     }
 
     @Test
-    void testGiveFeedback() {
-        this.giveFeedbackRequest.setId(1);
-        this.giveFeedbackRequest.setRating(5);
-        //SuccessMessage response = this.skeleton.giveFeedback(this.giveFeedbackRequest);
+    void testGiveFeedback() throws PersonNotFoundMessage {
+        CleaningDB.deleteDB();
+        DBCreator.initializeDB();
+        this.giveFeedbackRequest.setId(2);
+        this.giveFeedbackRequest.setRating(2.5);
+        SuccessMessage response = this.skeleton.giveFeedback(this.giveFeedbackRequest);
+        assertNotNull(response);
 
+        Double newRating = DBQuery.getRatingOf(2);
+        assertEquals(4d, newRating);
+    }
+
+    @Test
+    void testGiveFeedbackPersonNotFound(){
+        this.giveFeedbackRequest.setId(-1);
+        this.giveFeedbackRequest.setRating(2.5);
+        assertThrows(PersonNotFoundMessage.class, () -> this.skeleton.giveFeedback(this.giveFeedbackRequest));
     }
 }

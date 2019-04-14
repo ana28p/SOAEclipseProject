@@ -93,7 +93,7 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="GiveFeedbackRequestMessage">
-    <wsdl:part name="payload" element="elements:GetCustomerRequest">
+    <wsdl:part name="payload" element="elements:GiveFeedbackRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="GetCustomersRequestMessage">
