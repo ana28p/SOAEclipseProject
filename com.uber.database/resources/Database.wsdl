@@ -62,7 +62,7 @@
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-            <xsd:element name="UpdateFeedbackRequest">
+            <xsd:element name="GiveFeedbackRequest">
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element name="Id" type="xsd:int"/>
@@ -80,19 +80,19 @@
     <wsdl:part name="payload" element="elements:GetDriversRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="GetDriversResponseMessage">
-    <wsdl:part name="payload" element="elements:GetDriversResponse">
+  <wsdl:message name="GiveFeedbackResponseMessage">
+    <wsdl:part name="payload" element="types:SuccessMessage">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="UpdateFeedbackResponseMessage">
-    <wsdl:part name="payload" element="types:SuccessMessage">
+  <wsdl:message name="GetDriversResponseMessage">
+    <wsdl:part name="payload" element="elements:GetDriversResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="GetCustomerRequestMessage">
     <wsdl:part name="payload" element="elements:GetCustomerRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="UpdateFeedbackRequestMessage">
+  <wsdl:message name="GiveFeedbackRequestMessage">
     <wsdl:part name="payload" element="elements:GetCustomerRequest">
     </wsdl:part>
   </wsdl:message>
@@ -145,10 +145,10 @@
       <wsdl:fault name="CustomerNotFound" message="ps:PersonNotFoundMessage">
     </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="UpdateFeedback">
-      <wsdl:input message="ps:UpdateFeedbackRequestMessage">
+    <wsdl:operation name="GiveFeedback">
+      <wsdl:input message="ps:GiveFeedbackRequestMessage">
     </wsdl:input>
-      <wsdl:output message="ps:UpdateFeedbackResponseMessage">
+      <wsdl:output message="ps:GiveFeedbackResponseMessage">
     </wsdl:output>
       <wsdl:fault name="PersonNotFound" message="ps:PersonNotFoundMessage">
     </wsdl:fault>
@@ -198,7 +198,7 @@
         <soap:fault name="CustomerNotFound"/>
       </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="UpdateFeedback">
+    <wsdl:operation name="GiveFeedback">
       <soap:operation style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>

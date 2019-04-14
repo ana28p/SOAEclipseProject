@@ -30,6 +30,21 @@
         /**
          * Auto generated method signature
          * 
+                                    * @param getCustomerRequest
+             * @throws PersonNotFoundMessage : 
+         */
+
+        
+                public com.uber.datatypes.SuccessMessage giveFeedback
+                (
+                  com.uber.elements.GetCustomerRequest getCustomerRequest
+                 )
+            throws PersonNotFoundMessage;
+        
+         
+        /**
+         * Auto generated method signature
+         * 
                                     * @param getCustomersRequest
          */
 
@@ -44,14 +59,14 @@
         /**
          * Auto generated method signature
          * 
-                                    * @param getCustomerRequest
+                                    * @param getCustomerRequest0
              * @throws PersonNotFoundMessage : 
          */
 
         
                 public com.uber.elements.GetCustomerResponse getCustomer
                 (
-                  com.uber.elements.GetCustomerRequest getCustomerRequest
+                  com.uber.elements.GetCustomerRequest getCustomerRequest0
                  )
             throws PersonNotFoundMessage;
         
@@ -68,21 +83,6 @@
                   com.uber.elements.GetDriversRequest getDriversRequest
                  )
             ;
-        
-         
-        /**
-         * Auto generated method signature
-         * 
-                                    * @param getCustomerRequest0
-             * @throws PersonNotFoundMessage : 
-         */
-
-        
-                public com.uber.datatypes.SuccessMessage updateFeedback
-                (
-                  com.uber.elements.GetCustomerRequest getCustomerRequest0
-                 )
-            throws PersonNotFoundMessage;
         
          }
     

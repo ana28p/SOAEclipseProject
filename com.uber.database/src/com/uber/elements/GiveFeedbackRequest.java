@@ -1,6 +1,6 @@
 
 /**
- * UpdateFeedbackRequest.java
+ * GiveFeedbackRequest.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -11,16 +11,16 @@
             
 
             /**
-            *  UpdateFeedbackRequest bean class
+            *  GiveFeedbackRequest bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class UpdateFeedbackRequest
+        public  class GiveFeedbackRequest
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://uber.com/Elements",
-                "UpdateFeedbackRequest",
+                "GiveFeedbackRequest",
                 "ns2");
 
             
@@ -133,11 +133,11 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://uber.com/Elements");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":UpdateFeedbackRequest",
+                           namespacePrefix+":GiveFeedbackRequest",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "UpdateFeedbackRequest",
+                           "GiveFeedbackRequest",
                            xmlWriter);
                    }
 
@@ -391,9 +391,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static UpdateFeedbackRequest parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            UpdateFeedbackRequest object =
-                new UpdateFeedbackRequest();
+        public static GiveFeedbackRequest parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            GiveFeedbackRequest object =
+                new GiveFeedbackRequest();
 
             int event;
             java.lang.String nillableValue = null;
@@ -417,10 +417,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"UpdateFeedbackRequest".equals(type)){
+                            if (!"GiveFeedbackRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (UpdateFeedbackRequest)com.uber.elements.ExtensionMapper.getTypeObject(
+                                return (GiveFeedbackRequest)com.uber.elements.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

@@ -13,6 +13,13 @@
             <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/GetDriver/Fault/DriverNotFound</faultActionMapping>
             <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/GetDriver/Fault/DriverNotFound</faultActionMapping>
         </operation>
+        <operation name="GiveFeedback" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
+            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GiveFeedbackRequest</actionMapping>
+            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GiveFeedbackResponse</outputActionMapping>
+            <faultActionMapping faultName="PersonNotFound">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/GiveFeedback/Fault/PersonNotFound</faultActionMapping>
+        </operation>
         <operation name="GetCustomers" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
             <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomersRequest</actionMapping>
             <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetCustomersResponse</outputActionMapping>
@@ -27,13 +34,6 @@
         <operation name="GetDrivers" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
             <actionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriversRequest</actionMapping>
             <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/GetDriversResponse</outputActionMapping>
-        </operation>
-        <operation name="UpdateFeedback" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://uber.com/DatabaseService">
-            <actionMapping>http://uber.com/DatabaseService/DatabasePortType/UpdateFeedbackRequest</actionMapping>
-            <outputActionMapping>http://uber.com/DatabaseService/DatabasePortType/UpdateFeedbackResponse</outputActionMapping>
-            <faultActionMapping faultName="PersonNotFound">http://uber.com/DatabaseService/DatabasePortType/UpdateFeedback/Fault/PersonNotFound</faultActionMapping>
-            <faultActionMapping faultName="PersonNotFoundMessage">http://uber.com/DatabaseService/DatabasePortType/UpdateFeedback/Fault/PersonNotFound</faultActionMapping>
-            <faultActionMapping faultName="PersonNotFoundMessage_Exception">http://uber.com/DatabaseService/DatabasePortType/UpdateFeedback/Fault/PersonNotFound</faultActionMapping>
         </operation>
     </service>
 </serviceGroup>

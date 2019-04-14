@@ -1,5 +1,6 @@
 package com.uber.databaseservice;
 
+import com.uber.datatypes.SuccessMessage;
 import com.uber.db.DBCreator;
 import com.uber.elements.*;
 import com.uber.utils.CleaningDB;
@@ -16,7 +17,7 @@ public class DatabaseServiceSkeletonTest {
     private GetDriverRequest getDriverRequest;
     private GetCustomersRequest getCustomersRequest;
     private GetCustomerRequest getCustomerRequest;
-    private UpdateFeedbackRequest updateFeedbackRequest;
+    private GiveFeedbackRequest giveFeedbackRequest;
 
     @BeforeAll
     static public void beforeClass() {
@@ -31,7 +32,7 @@ public class DatabaseServiceSkeletonTest {
         this.getDriverRequest = new GetDriverRequest();
         this.getCustomersRequest = new GetCustomersRequest();
         this.getCustomerRequest = new GetCustomerRequest();
-        this.updateFeedbackRequest = new UpdateFeedbackRequest();
+        this.giveFeedbackRequest = new GiveFeedbackRequest();
     }
 
     @Test
@@ -73,9 +74,10 @@ public class DatabaseServiceSkeletonTest {
     }
 
     @Test
-    void testUpdateFeedback() {
-        this.updateFeedbackRequest.setId(1);
-        this.updateFeedbackRequest.setRating(5);
+    void testGiveFeedback() {
+        this.giveFeedbackRequest.setId(1);
+        this.giveFeedbackRequest.setRating(5);
+        //SuccessMessage response = this.skeleton.giveFeedback(this.giveFeedbackRequest);
 
     }
 }
