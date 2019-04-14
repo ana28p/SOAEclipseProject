@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="NotifierCallbackOrderService"
+<wsdl:definitions name="NotifierCallbackService"
 	targetNamespace="http://uber.com/NotifierCallbackService"
 	xmlns:ps="http://uber.com/NotifierCallbackService"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
