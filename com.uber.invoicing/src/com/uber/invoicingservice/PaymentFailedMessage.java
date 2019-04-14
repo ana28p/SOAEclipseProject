@@ -10,7 +10,7 @@ package com.uber.invoicingservice;
 
 public class PaymentFailedMessage extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1554043862826L;
+    private static final long serialVersionUID = 1555272189813L;
     
     private com.uber.datatypes.FaultMessage faultMessage;
 
