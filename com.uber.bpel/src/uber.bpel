@@ -204,13 +204,7 @@
 								<Latitude>0</Latitude>
 							</EndLocation>
 							<Price>0</Price>
-							<Customer>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0</Rating>
-								<CardNumber>""</CardNumber>
-							</Customer>
+							<CustomerId>0</CustomerId>
 						</elements:FindDriverRequest>
 					</bpel:literal>
 				</bpel:from>
@@ -252,20 +246,8 @@
 								<Latitude>0</Latitude>
 							</EndLocation>
 							<Price>0</Price>
-							<Customer>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0</Rating>
-								<CardNumber>NL123456</CardNumber>
-							</Customer>
-							<Driver>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0</Rating>
-								<CarNumber>""</CarNumber>
-							</Driver>
+							<CustomerId>0</CustomerId>
+							<DriverId>0</DriverId>
 						</elements:PayForRideRequest>
 					</bpel:literal>
 				</bpel:from>
@@ -440,7 +422,7 @@
 							$answerToRide.customerAnswer/UserId
 						</bpel:from>
 						<bpel:to>
-							$findDriverInput.inputParameters/Customer/Id
+							$findDriverInput.inputParameters/CustomerId
 						</bpel:to>
 					</bpel:copy>
 				</bpel:assign>
@@ -582,7 +564,7 @@
 							$foundDriverOutput.parameters/Driver/Id
 						</bpel:from>
 						<bpel:to>
-							$invoicingInput.inputParameters/Driver/Id
+							$invoicingInput.inputParameters/DriverId
 						</bpel:to>
 					</bpel:copy>
 					<bpel:copy>
@@ -590,7 +572,7 @@
 							$answerToRide.customerAnswer/UserId
 						</bpel:from>
 						<bpel:to>
-							$invoicingInput.inputParameters/Customer/Id
+							$invoicingInput.inputParameters/CustomerId
 						</bpel:to>
 					</bpel:copy>
 				</bpel:assign>

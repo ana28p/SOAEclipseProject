@@ -6,42 +6,31 @@
     <property name="dev" value="${build}/dev"/>
     <property name="prod" value="${build}/prod"/>
     <target name="build.dev">
-        <property name="env" value="dev"/>
-        <delete dir="${dev}"/>
-        <mkdir dir="${dev}"/>
-        <copy toDir="${dev}/wsdl">
-            <fileset dir="${src}/wsdl">
-                    <exclude name="**/*.prod.wsdl"/>
-            </fileset>
-        </copy>
-        <copy file="${src}/deploy.xml" todir="${dev}"/>
-        <copy file="${src}/uber.bpelex" todir="${dev}"/>
-        <copy file="${src}/uber.bpel" todir="${dev}"/>
-        <replaceregexp file="${dev}/uber.bpel"
-                match='(location=")(.+?)(.wsdl")'
-                replace='location="\2.${env}.wsdl"'
-                       flags="g"/>
+        <deploy env="dev"/>
     </target>
     <target name="build.prod">
-        <property name="env" value="prod"/>
-        <delete dir="${prod}"/>
-        <mkdir dir="${prod}"/>
-        <copy toDir="${prod}/wsdl">
-            <fileset dir="${src}/wsdl">
-                <exclude name="**/*.dev.wsdl"/>
-            </fileset>
-        </copy>
-        <copy file="${src}/deploy.xml" todir="${prod}"/>
-        <copy file="${src}/uber.bpelex" todir="${prod}"/>
-        <copy file="${src}/uber.bpel" todir="${prod}"/>
-        <replaceregexp file="${prod}/uber.bpel"
-                       match='(location=")(.+?)(.wsdl")'
-                       replace='location="\2.${env}.wsdl"'
-                       flags="g"/>
+        <deploy env="prod"/>
     </target>
     <target name="build.all" depends="build.dev, build.prod"/>
     <macrodef name="deploy">
-
+        <attribute name="env"/>
+        <sequential>
+            <delete dir="${build}/@{env}"/>
+            <mkdir dir="${build}/@{env}"/>
+            <copy toDir="${build}/@{env}/wsdl">
+                <fileset dir="${src}/wsdl">
+                    <include name="**/*.wsdl"/>
+                    <include name="**/*.xsd"/>
+                </fileset>
+            </copy>
+            <copy file="${src}/deploy.xml" todir="${build}/@{env}"/>
+            <copy file="${src}/uber.bpelex" todir="${build}/@{env}"/>
+            <copy file="${src}/uber.bpel" todir="${build}/@{env}"/>
+            <replaceregexp file="${build}/@{env}/uber.bpel"
+                           match='(location=")(.+?)(.wsdl")'
+                           replace='location="\2.@{env}.wsdl"'
+                           flags="g"/>
+        </sequential>
     </macrodef>
     <target name="copy.wsdls">
         <copy-wsdl project="com.uber"/>

@@ -8,7 +8,7 @@
       <service name="uber:uberService" port="requestRidePort"/>
     </provide>
     <provide partnerLink="notifierLink">
-      <service name="NotifierCallbackService:NotifierCallbackOrderService" port="FoundDriverPort"/>
+      <service name="NotifierCallbackService:NotifierCallbackService" port="FoundDriverPort"/>
     </provide>
     <invoke partnerLink="navigationLink">
       <service name="NavigationService:NavigationService" port="GetDistancePort"/>
@@ -17,7 +17,7 @@
       <service name="PricingService:PricingService" port="PricingPort"/>
     </invoke>
     <invoke partnerLink="notifierLink">
-      <service name="NotifierService:NotifierOrderService" port="FindDriverPort"/>
+      <service name="NotifierService:NotifierService" port="FindDriverPort"/>
     </invoke>
     <invoke partnerLink="feedbackLink">
       <service name="FeedbackService:FeedbackService" port="RatePersonPort"/>
