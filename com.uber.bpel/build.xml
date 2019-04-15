@@ -22,7 +22,7 @@
                 <fileset dir="${src}/wsdl">
                     <include name="**/*.wsdl"/>
                     <include name="**/*.xsd"/>
-                    <exclude name="**/@{ignore}.wsld"/>
+                    <exclude name="**/*.@{ignore}.wsdl"/>
                 </fileset>
             </copy>
             <copy file="${src}/deploy.xml" todir="${build}/@{env}"/>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:FeedbackService="http://uber.com/FeedbackService" xmlns:InvoicingService="http://uber.com/InvoicingService" xmlns:NavigationService="http://uber.com/NavigationService" xmlns:NotifierCallbackService="http://uber.com/NotifierCallbackService" xmlns:NotifierService="http://uber.com/NotifierService" xmlns:PricingService="http://uber.com/PricingService" xmlns:uber="http://www.uber.com/bpel/uber">
+  <process name="uber:uber">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="requestRideLink">
+      <service name="uber:uberService" port="requestRidePort"/>
+    </provide>
+    <provide partnerLink="notifierLink">
+      <service name="NotifierCallbackService:NotifierCallbackService" port="FoundDriverPort"/>
+    </provide>
+    <invoke partnerLink="navigationLink">
+      <service name="NavigationService:NavigationService" port="GetDistancePort"/>
+    </invoke>
+    <invoke partnerLink="pricingLink">
+      <service name="PricingService:PricingService" port="PricingPort"/>
+    </invoke>
+    <invoke partnerLink="notifierLink">
+      <service name="NotifierService:NotifierService" port="FindDriverPort"/>
+    </invoke>
+    <invoke partnerLink="feedbackLink">
+      <service name="FeedbackService:FeedbackService" port="RatePersonPort"/>
+    </invoke>
+    <invoke partnerLink="invoicingLink">
+      <service name="InvoicingService:InvoicingOrderService" port="InvoicingPort"/>
+    </invoke>
+  </process>
+</deploy>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="FeedbackService"
+                  targetNamespace="http://uber.com/FeedbackService"
+                  xmlns:ps="http://uber.com/FeedbackService"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:import namespace="http://uber.com/FeedbackService"
+                 location="Feedback.wsdl"/>
+
+    <wsdl:service name="FeedbackService">
+        <wsdl:port name="RatePersonPort"
+                   binding="ps:FeedbackSOAPBinding">
+            <soap:address
+                    location="http://feedback:8080/axis2/services/FeedbackService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
