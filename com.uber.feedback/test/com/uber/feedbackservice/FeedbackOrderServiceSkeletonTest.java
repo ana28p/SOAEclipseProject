@@ -1,62 +1,64 @@
 package com.uber.feedbackservice;
 
+import static org.mockito.Mockito.mock;
+
+import java.rmi.RemoteException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.uber.databaseservice.DatabaseServiceStub;
 import com.uber.datatypes.Customer;
 import com.uber.datatypes.Driver;
-import com.uber.db.DBCreator;
-import com.uber.db.DBQuery;
+import com.uber.datatypes.PersonNotFoundMessage;
 import com.uber.elements.RatePersonRequest;
-import com.uber.utils.CleaningDB;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class FeedbackOrderServiceSkeletonTest {
 
+	private Customer customer;
+	private Driver driver;
+
 	private RatePersonRequest request;
-	private FeedbackServiceSkeleton skeleton = new FeedbackServiceSkeleton();
+	private FeedbackServiceSkeleton skeleton;
+
+	private DatabaseServiceStub databaseServiceStub;
 
 	@BeforeEach
-	public void beforeEach() {
-		CleaningDB.deleteDB();
-		DBCreator.initializeDB();
+	public void beforeEach() throws RemoteException, PersonNotFoundMessage {
+		this.databaseServiceStub = mock(DatabaseServiceStub.class);
+		this.skeleton = new FeedbackServiceSkeleton(this.databaseServiceStub);
 	}
 
 	@Test
-	void testGetRatingRateCustomer() {
-		// id: 4, name: Signe Foye, age: 27, cardNo: NL261981, rating: 5.00
-		Customer customer = DBQuery.selectCustomer(4);
-
-		assertEquals(5, customer.getRating());
+	void testGetRatingRateCustomer() throws RemoteException, PersonNotFoundMessage {
+		this.customer = new Customer();
+		customer.setId(4);
+		customer.setName("Signe Foye");
+		customer.setAge(27);
+		customer.setCardNumber("NL261981");
+		customer.setRating(5.0);
 
 		request = new RatePersonRequest();
 		request.setPerson(customer);
 		request.setRating(3);
 
 		skeleton.ratePerson(request);
-
-		customer = DBQuery.selectCustomer(4);
-
-		assertEquals(4.5, customer.getRating());
 	}
 
 	@Test
-	void testGetRatingRateDriver() {
-		// id: 5, name: Jasper Lowe, age: 21, carNo: JL4944, rating: 4.50
-		Driver driver = DBQuery.selectDriver(5);
-
-		assertEquals(4.5, driver.getRating());
+	void testGetRatingRateDriver() throws RemoteException, PersonNotFoundMessage {
+		this.driver = new Driver();
+		driver.setId(5);
+		driver.setName("Jasper Lowe");
+		driver.setAge(21);
+		driver.setCarNumber("JL4944");
+		driver.setRating(4.50);
 
 		request = new RatePersonRequest();
 		request.setPerson(driver);
 		request.setRating(4);
 
 		skeleton.ratePerson(request);
-
-		driver = DBQuery.selectDriver(5);
-
-		assertEquals(4.4, driver.getRating());
 	}
 
 }
