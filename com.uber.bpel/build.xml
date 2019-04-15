@@ -40,7 +40,9 @@
                        flags="g"/>
     </target>
     <target name="build.all" depends="build.dev, build.prod"/>
+    <macrodef name="deploy">
 
+    </macrodef>
     <target name="copy.wsdls">
         <copy-wsdl project="com.uber"/>
         <copy-wsdl project="com.uber.feedback"/>
