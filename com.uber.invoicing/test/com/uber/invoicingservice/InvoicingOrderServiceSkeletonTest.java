@@ -9,13 +9,8 @@ import java.text.ParseException;
 import com.uber.databaseservice.DatabaseServiceStub;
 import com.uber.datatypes.*;
 import com.uber.elements.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.uber.db.DBCreator;
-import com.uber.db.DBQuery;
-import com.uber.utils.CleaningDB;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
