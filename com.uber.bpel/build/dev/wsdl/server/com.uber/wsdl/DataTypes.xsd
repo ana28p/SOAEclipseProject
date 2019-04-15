@@ -5,6 +5,8 @@
 
 	<xsd:element name="FaultMessage" type="xsd:string" />
 	<xsd:element name="SuccessMessage" type="xsd:string" />
+	<xsd:element name="DriverElement" type="dt:Driver" />
+	<xsd:element name="CustomerElement" type="dt:Customer" />
 
 	<xsd:complexType name="Person">
 		<xsd:sequence>
