@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="NotifierOrderService"
+<wsdl:definitions name="NotifierService"
 	targetNamespace="http://uber.com/NotifierService"
 	xmlns:ps="http://uber.com/NotifierService"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -19,14 +19,7 @@
 							type="types:Location" />
 						<xsd:element name="EndLocation" type="types:Location" />
 						<xsd:element name="Price" type="xsd:double" />
-						<xsd:element name="Customer" type="types:Customer" />
-					</xsd:all>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="FindDriverResponse">
-				<xsd:complexType>
-					<xsd:all>
-						<xsd:element name="Driver" type="types:Driver" />
+						<xsd:element name="CustomerId" type="xsd:int" />
 					</xsd:all>
 				</xsd:complexType>
 			</xsd:element>

@@ -16,29 +16,29 @@
               xmlns:elements="http://uber.com/Elements">
 
     <!-- Import the client WSDL -->
-    <bpel:import location="wsdl/uberArtifacts.wsdl"
+    <bpel:import location="wsdl/uberArtifacts.prod.wsdl"
                  namespace="http://www.uber.com/bpel/uber"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
 
     <!-- Import the server WSDLs -->
     <bpel:import namespace="http://uber.com/FeedbackService"
-                 location="wsdl/server/com.uber.feedback/wsdl/Feedback.wsdl"
+                 location="wsdl/server/com.uber.feedback/wsdl/Feedback.prod.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/InvoicingService"
-                 location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.wsdl"
+                 location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.prod.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/NavigationService"
-                 location="wsdl/server/com.uber.navigation/wsdl/Navigation.wsdl"
+                 location="wsdl/server/com.uber.navigation/wsdl/Navigation.prod.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/NotifierService"
-                 location="wsdl/server/com.uber.notifier/wsdl/Notifier.wsdl"
+                 location="wsdl/server/com.uber.notifier/wsdl/Notifier.prod.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/PricingService"
-                 location="wsdl/server/com.uber.pricing/wsdl/Pricing.wsdl"
+                 location="wsdl/server/com.uber.pricing/wsdl/Pricing.prod.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import
             namespace="http://uber.com/NotifierCallbackService"
-            location="wsdl/NotifierCallback.wsdl"
+            location="wsdl/NotifierCallback.prod.wsdl"
             importType="http://schemas.xmlsoap.org/wsdl/"/>
 
 

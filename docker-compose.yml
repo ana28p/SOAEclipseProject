@@ -12,12 +12,16 @@ services:
     - "3080:8080"
     volumes:
     - ./com.uber.feedback/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+    environment:
+    - DATABASE_SERVICE_URL=http://database:8080/axis2/services/DatabaseService
   invoicing:
     build: ./docker/axis2
     ports:
     - "4080:8080"
     volumes:
     - ./com.uber.invoicing/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+    environment:
+    - DATABASE_SERVICE_URL=http://database:8080/axis2/services/DatabaseService
   navigation:
     build: ./docker/axis2
     ports:
@@ -30,6 +34,9 @@ services:
     - "6080:8080"
     volumes:
     - ./com.uber.notifier/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
+    environment:
+    - DATABASE_SERVICE_URL=http://database:8080/axis2/services/DatabaseService
+    - NOTIFIER_CALLBACK_URL=http://ode:9763/ode/processes/NotifierCallbackService
   pricing:
     build: ./docker/axis2
     ports:
