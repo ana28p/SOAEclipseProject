@@ -2,600 +2,613 @@
 <!-- Date: Mon Apr 01 20:57:25 CEST 2019 -->
 
 <bpel:process name="uber"
-	targetNamespace="http://www.uber.com/bpel/uber"
-	suppressJoinFailure="yes" xmlns:tns="http://www.uber.com/bpel/uber"
-	xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
-	xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
-	xmlns:types="http://uber.com/DataTypes"
-	xmlns:feedback="http://uber.com/FeedbackService"
-	xmlns:invoicing="http://uber.com/InvoicingService"
-	xmlns:navigation="http://uber.com/NavigationService"
-	xmlns:notifier="http://uber.com/NotifierService"
-	xmlns:notifierCB="http://uber.com/NotifierCallbackService"
-	xmlns:pricing="http://uber.com/PricingService"
-	xmlns:elements="http://uber.com/Elements">
+              targetNamespace="http://www.uber.com/bpel/uber"
+              suppressJoinFailure="yes" xmlns:tns="http://www.uber.com/bpel/uber"
+              xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+              xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+              xmlns:types="http://uber.com/DataTypes"
+              xmlns:feedback="http://uber.com/FeedbackService"
+              xmlns:invoicing="http://uber.com/InvoicingService"
+              xmlns:navigation="http://uber.com/NavigationService"
+              xmlns:notifier="http://uber.com/NotifierService"
+              xmlns:notifierCB="http://uber.com/NotifierCallbackService"
+              xmlns:pricing="http://uber.com/PricingService"
+              xmlns:elements="http://uber.com/Elements">
 
-	<!-- Import the client WSDL -->
-	<bpel:import location="wsdl/uberArtifacts.wsdl"
-		namespace="http://www.uber.com/bpel/uber"
-		importType="http://schemas.xmlsoap.org/wsdl/" />
+    <!-- Import the client WSDL -->
+    <bpel:import location="wsdl/uberArtifacts.wsdl"
+                 namespace="http://www.uber.com/bpel/uber"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
 
-	<!-- Import the server WSDLs -->
-	<bpel:import namespace="http://uber.com/FeedbackService"
-		location="wsdl/server/com.uber.feedback/wsdl/Feedback.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import namespace="http://uber.com/InvoicingService"
-		location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.wsdl"
-		importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import namespace="http://uber.com/NavigationService"
-		location="wsdl/server/com.uber.navigation/wsdl/Navigation.wsdl"
-		importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import namespace="http://uber.com/NotifierService"
-		location="wsdl/server/com.uber.notifier/wsdl/Notifier.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import namespace="http://uber.com/PricingService"
-				 location="wsdl/server/com.uber.pricing/wsdl/Pricing.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
-	<bpel:import
-		namespace="http://uber.com/NotifierCallbackService"
-		location="wsdl/NotifierCallback.wsdl"
-		importType="http://schemas.xmlsoap.org/wsdl/" />
+    <!-- Import the server WSDLs -->
+    <bpel:import namespace="http://uber.com/FeedbackService"
+                 location="wsdl/server/com.uber.feedback/wsdl/Feedback.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/InvoicingService"
+                 location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/NavigationService"
+                 location="wsdl/server/com.uber.navigation/wsdl/Navigation.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/NotifierService"
+                 location="wsdl/server/com.uber.notifier/wsdl/Notifier.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import namespace="http://uber.com/PricingService"
+                 location="wsdl/server/com.uber.pricing/wsdl/Pricing.wsdl"
+                 importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <bpel:import
+            namespace="http://uber.com/NotifierCallbackService"
+            location="wsdl/NotifierCallback.wsdl"
+            importType="http://schemas.xmlsoap.org/wsdl/"/>
 
 
-	<bpel:correlationSets>
-		<bpel:correlationSet name="CustomerID"
-			properties="tns:customerID" />
-	</bpel:correlationSets>
+    <bpel:correlationSets>
+        <bpel:correlationSet name="CustomerID"
+                             properties="tns:customerID"/>
+    </bpel:correlationSets>
 
-	<!-- ================================================================= -->
-	<!-- PARTNERLINKS -->
-	<!-- List of services participating in this BPEL process -->
-	<!-- ================================================================= -->
-	<bpel:partnerLinks>
-		<!-- The 'client' role represents the requester of this service. It is 
-			used for callback. The location and correlation information associated with 
-			the client role are automatically set using WS-Addressing. -->
-		<bpel:partnerLink name="requestRideLink"
-			partnerLinkType="tns:requestRideLink" myRole="uberProvider" />
-		<bpel:partnerLink name="navigationLink"
-			partnerLinkType="tns:navigationLink" partnerRole="navigator" />
-		<bpel:partnerLink name="pricingLink"
-			partnerLinkType="tns:pricingLink" partnerRole="assessor" />
-		<bpel:partnerLink name="notifierLink"
-			partnerLinkType="tns:notifierLink" partnerRole="notifier"
-			myRole="uberAcceptor" />
-		<bpel:partnerLink name="feedbackLink"
-			partnerLinkType="tns:feedbackLink" partnerRole="reviewer" />
-		<bpel:partnerLink name="invoicingLink"
-			partnerLinkType="tns:invoicingLink" partnerRole="payer" />
+    <!-- ================================================================= -->
+    <!-- PARTNERLINKS -->
+    <!-- List of services participating in this BPEL process -->
+    <!-- ================================================================= -->
+    <bpel:partnerLinks>
+        <!-- The 'client' role represents the requester of this service. It is
+            used for callback. The location and correlation information associated with
+            the client role are automatically set using WS-Addressing. -->
+        <bpel:partnerLink name="requestRideLink"
+                          partnerLinkType="tns:requestRideLink" myRole="uberProvider"/>
+        <bpel:partnerLink name="navigationLink"
+                          partnerLinkType="tns:navigationLink" partnerRole="navigator"/>
+        <bpel:partnerLink name="pricingLink"
+                          partnerLinkType="tns:pricingLink" partnerRole="assessor"/>
+        <bpel:partnerLink name="notifierLink"
+                          partnerLinkType="tns:notifierLink" partnerRole="notifier"
+                          myRole="uberAcceptor"/>
+        <bpel:partnerLink name="feedbackLink"
+                          partnerLinkType="tns:feedbackLink" partnerRole="reviewer"/>
+        <bpel:partnerLink name="invoicingLink"
+                          partnerLinkType="tns:invoicingLink" partnerRole="payer"/>
 
-	</bpel:partnerLinks>
+    </bpel:partnerLinks>
 
-	<!-- ================================================================= -->
-	<!-- VARIABLES -->
-	<!-- List of messages and XML documents used within this BPEL process -->
-	<!-- ================================================================= -->
-	<bpel:variables>
-		<!-- Reference to the message passed as input during initiation -->
-		<bpel:variable name="input"
-			messageType="tns:requestRideRequestMessage" />
-		<bpel:variable name="distanceInput"
-			messageType="navigation:GetDistanceRequestMessage" />
-		<bpel:variable name="distanceOutput"
-			messageType="navigation:GetDistanceResponseMessage" />
-		<bpel:variable name="pricingInput"
-			messageType="pricing:GetPriceRequestMessage" />
-		<bpel:variable name="pricingOutput"
-			messageType="pricing:GetPriceResponseMessage" />
-		<bpel:variable name="answerToRide"
-			messageType="tns:aswerToRideMessage" />
-		<bpel:variable name="findDriverInput"
-			messageType="notifier:FindDriverRequestMessage" />
-		<bpel:variable name="findDriverOutput"
-			messageType="notifier:FindDriverResponseMessage" />
-		<bpel:variable name="foundDriverOutput"
-			messageType="notifierCB:DriverFoundRequestMessage" />
-		<bpel:variable name="invoicingInput"
-			messageType="invoicing:PayForRideRequestMessage" />
-		<bpel:variable name="invoicingOutput"
-			messageType="invoicing:PayForRideResponseMessage" />
-		<bpel:variable name="rideCompletedInput"
-			messageType="tns:rideCompletedMessage" />
-		<bpel:variable name="rideCompletedOutput"
-			messageType="tns:rideCompletedResponseMessage" />
-		<bpel:variable name="giveFeedbackInput"
-			messageType="tns:giveFeedbackRequestMessage" />
-		<bpel:variable name="ratePersonInput"
-			messageType="feedback:RatePersonRequestMessage" />
+    <!-- ================================================================= -->
+    <!-- VARIABLES -->
+    <!-- List of messages and XML documents used within this BPEL process -->
+    <!-- ================================================================= -->
+    <bpel:variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <bpel:variable name="input"
+                       messageType="tns:requestRideRequestMessage"/>
+        <bpel:variable name="distanceInput"
+                       messageType="navigation:GetDistanceRequestMessage"/>
+        <bpel:variable name="distanceOutput"
+                       messageType="navigation:GetDistanceResponseMessage"/>
+        <bpel:variable name="pricingInput"
+                       messageType="pricing:GetPriceRequestMessage"/>
+        <bpel:variable name="pricingOutput"
+                       messageType="pricing:GetPriceResponseMessage"/>
+        <bpel:variable name="answerToRide"
+                       messageType="tns:aswerToRideMessage"/>
+        <bpel:variable name="findDriverInput"
+                       messageType="notifier:FindDriverRequestMessage"/>
+        <bpel:variable name="findDriverOutput"
+                       messageType="notifier:FindDriverResponseMessage"/>
+        <bpel:variable name="foundDriverOutput"
+                       messageType="notifierCB:DriverFoundRequestMessage"/>
+        <bpel:variable name="invoicingInput"
+                       messageType="invoicing:PayForRideRequestMessage"/>
+        <bpel:variable name="invoicingOutput"
+                       messageType="invoicing:PayForRideResponseMessage"/>
+        <bpel:variable name="rideCompletedInput"
+                       messageType="tns:rideCompletedMessage"/>
+        <bpel:variable name="rideCompletedOutput"
+                       messageType="tns:rideCompletedResponseMessage"/>
+        <bpel:variable name="giveFeedbackInput"
+                       messageType="tns:giveFeedbackRequestMessage"/>
+        <bpel:variable name="ratePersonInput"
+                       messageType="feedback:RatePersonRequestMessage"/>
 
-		<!-- Reference to the message that will be sent back to the requester during 
-			callback -->
-		<bpel:variable name="output"
-			messageType="tns:requestRideResponseMessage" />
+        <!-- Reference to the message that will be sent back to the requester during
+            callback -->
+        <bpel:variable name="output"
+                       messageType="tns:requestRideResponseMessage"/>
 
-		<bpel:variable name="lastOutput"
-			messageType="tns:aswerToRideResponseMessage" />
-	</bpel:variables>
+        <bpel:variable name="lastOutput"
+                       messageType="tns:aswerToRideResponseMessage"/>
+    </bpel:variables>
 
-	<!-- ================================================================= -->
-	<!-- ORCHESTRATION LOGIC -->
-	<!-- Set of activities coordinating the flow of messages across the -->
-	<!-- services integrated within this business process -->
-	<!-- ================================================================= -->
+    <!-- ================================================================= -->
+    <!-- ORCHESTRATION LOGIC -->
+    <!-- Set of activities coordinating the flow of messages across the -->
+    <!-- services integrated within this business process -->
+    <!-- ================================================================= -->
 
-	<bpel:sequence name="main">
+    <bpel:flow name="wrapper">
 
-		<!-- Receive input from requestor. Note: This maps to operation defined 
-			in uber.wsdl -->
-		<bpel:receive name="receiveInput"
-			partnerLink="requestRideLink" portType="tns:requestRidePortType"
-			operation="requestRide" variable="input" createInstance="yes">
+        <bpel:links>
+            <bpel:link name="end"/>
+            <bpel:link name="findDriver"/>
+            <bpel:link name="assign-declined-message"/>
+            <bpel:link name="abort"/>
+        </bpel:links>
+        <bpel:sequence name="AcceptOrder">
+            <!-- Receive input from requestor. Note: This maps to operation defined
+                in uber.wsdl -->
 
-			<bpel:correlations>
-				<bpel:correlation set="CustomerID" initiate="yes" />
-			</bpel:correlations>
-		</bpel:receive>
+            <bpel:receive name="receiveInput"
+                          partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                          operation="requestRide" variable="input" createInstance="yes">
 
-		<bpel:assign name="InitiateVars">
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:GetDistanceRequest>
-							<CurrentLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</CurrentLocation>
-							<EndLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</EndLocation>
-						</elements:GetDistanceRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>$distanceInput.inputParameters</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:GetPriceRequest>
-							<Location>
-								<Longitude>0.0</Longitude>
-								<Latitude>0.0</Latitude>
-							</Location>
-							<Time>2001-12-31T12:00:00</Time>
-						</elements:GetPriceRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>
-					$pricingInput.inputParameters
-				</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:requestRideResponse>
-							<result>0.0</result>
-						</elements:requestRideResponse>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>
-					$output.payload
-				</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:answerRideResponse>
-							<result>""</result>
-						</elements:answerRideResponse>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>
-					$lastOutput.info
-				</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:FindDriverRequest>
-							<StartLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</StartLocation>
-							<EndLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</EndLocation>
-							<Price>0</Price>
-							<CustomerId>0</CustomerId>
-						</elements:FindDriverRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>$findDriverInput.inputParameters</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:DriverFoundRequest>
-							<Customer>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0</Rating>
-								<CardNumber>""</CardNumber>
-							</Customer>
-							<Driver>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0</Rating>
-								<CarNumber>""</CarNumber>
-							</Driver>
-						</elements:DriverFoundRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>$foundDriverOutput.parameters</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:PayForRideRequest>
-							<CurrentLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</CurrentLocation>
-							<EndLocation>
-								<Longitude>0</Longitude>
-								<Latitude>0</Latitude>
-							</EndLocation>
-							<Price>0</Price>
-							<CustomerId>0</CustomerId>
-							<DriverId>0</DriverId>
-						</elements:PayForRideRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>$invoicingInput.inputParameters</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:rideCompletedResponse>
-							<Result>Result</Result>
-						</elements:rideCompletedResponse>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>
-					$rideCompletedOutput.payload
-				</bpel:to>
-			</bpel:copy>
-			<bpel:copy>
-				<bpel:from>
-					<bpel:literal>
-						<elements:RatePersonRequest>
-							<Rating>0.0</Rating>
-							<Person>
-								<Id>0</Id>
-								<Name>""</Name>
-								<Age>0</Age>
-								<Rating>0.0</Rating>
-							</Person>
-						</elements:RatePersonRequest>
-					</bpel:literal>
-				</bpel:from>
-				<bpel:to>$ratePersonInput.inputParameters</bpel:to>
-			</bpel:copy>
-		</bpel:assign>
+                <bpel:correlations>
+                    <bpel:correlation set="CustomerID" initiate="yes"/>
+                </bpel:correlations>
+            </bpel:receive>
 
-		<bpel:flow>
+            <bpel:assign name="InitiateVars">
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:GetDistanceRequest>
+                                <CurrentLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </CurrentLocation>
+                                <EndLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </EndLocation>
+                            </elements:GetDistanceRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>$distanceInput.inputParameters</bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:GetPriceRequest>
+                                <Location>
+                                    <Longitude>0.0</Longitude>
+                                    <Latitude>0.0</Latitude>
+                                </Location>
+                                <Time>2001-12-31T12:00:00</Time>
+                            </elements:GetPriceRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>
+                        $pricingInput.inputParameters
+                    </bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:requestRideResponse>
+                                <result>0.0</result>
+                            </elements:requestRideResponse>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>
+                        $output.payload
+                    </bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:answerRideResponse>
+                                <result>""</result>
+                            </elements:answerRideResponse>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>
+                        $lastOutput.info
+                    </bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:FindDriverRequest>
+                                <StartLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </StartLocation>
+                                <EndLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </EndLocation>
+                                <Price>0</Price>
+                                <CustomerId>0</CustomerId>
+                            </elements:FindDriverRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>$findDriverInput.inputParameters</bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:DriverFoundRequest>
+                                <Customer>
+                                    <Id>0</Id>
+                                    <Name>""</Name>
+                                    <Age>0</Age>
+                                    <Rating>0</Rating>
+                                    <CardNumber>""</CardNumber>
+                                </Customer>
+                                <Driver>
+                                    <Id>0</Id>
+                                    <Name>""</Name>
+                                    <Age>0</Age>
+                                    <Rating>0</Rating>
+                                    <CarNumber>""</CarNumber>
+                                </Driver>
+                            </elements:DriverFoundRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>$foundDriverOutput.parameters</bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:PayForRideRequest>
+                                <CurrentLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </CurrentLocation>
+                                <EndLocation>
+                                    <Longitude>0</Longitude>
+                                    <Latitude>0</Latitude>
+                                </EndLocation>
+                                <Price>0</Price>
+                                <CustomerId>0</CustomerId>
+                                <DriverId>0</DriverId>
+                            </elements:PayForRideRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>$invoicingInput.inputParameters</bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:rideCompletedResponse>
+                                <Result>Result</Result>
+                            </elements:rideCompletedResponse>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>
+                        $rideCompletedOutput.payload
+                    </bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal>
+                            <elements:RatePersonRequest>
+                                <Rating>0.0</Rating>
+                                <Person>
+                                    <Id>0</Id>
+                                    <Name>""</Name>
+                                    <Age>0</Age>
+                                    <Rating>0.0</Rating>
+                                </Person>
+                            </elements:RatePersonRequest>
+                        </bpel:literal>
+                    </bpel:from>
+                    <bpel:to>$ratePersonInput.inputParameters</bpel:to>
+                </bpel:copy>
+            </bpel:assign>
 
-			<bpel:sequence name="getDistance">
-				<bpel:assign name="createDistanceInput">
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/StartLocation
-						</bpel:from>
-						<bpel:to>
-							$distanceInput.inputParameters/CurrentLocation
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/EndLocation
-						</bpel:from>
-						<bpel:to>
-							$distanceInput.inputParameters/EndLocation
-						</bpel:to>
-					</bpel:copy>
-				</bpel:assign>
-				<bpel:invoke name="Invoke-navigation-getDistance"
-					partnerLink="navigationLink" operation="GetDistance"
-					portType="navigation:NavigationPortType"
-					inputVariable="distanceInput" outputVariable="distanceOutput" />
-			</bpel:sequence>
-			<bpel:sequence name="getPricePerKM">
-				<bpel:assign name="createPricingInput">
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/StartLocation
-						</bpel:from>
-						<bpel:to>
-							$pricingInput.inputParameters/Location
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/Time
-						</bpel:from>
-						<bpel:to>
-							$pricingInput.inputParameters/Time
-						</bpel:to>
-					</bpel:copy>
-				</bpel:assign>
-				<bpel:invoke name="Invoke-pricing-getPrice"
-					partnerLink="pricingLink" operation="GetPrice"
-					portType="pricing:PricingPortType" inputVariable="pricingInput"
-					outputVariable="pricingOutput" />
-			</bpel:sequence>
-		</bpel:flow>
 
-		<bpel:assign name="calculatePrice">
-			<bpel:copy>
-				<bpel:from
-					expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
-					$distanceOutput.outputParameters/Distance *
-					$pricingOutput.outputParameters/Price
-				</bpel:from>
-				<bpel:to>
-					$output.payload/result
-				</bpel:to>
-			</bpel:copy>
-		</bpel:assign>
+            <bpel:flow>
+                <bpel:sequence name="getDistance">
+                    <bpel:assign name="createDistanceInput">
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/StartLocation
+                            </bpel:from>
+                            <bpel:to>
+                                $distanceInput.inputParameters/CurrentLocation
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/EndLocation
+                            </bpel:from>
+                            <bpel:to>
+                                $distanceInput.inputParameters/EndLocation
+                            </bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
+                    <bpel:invoke name="Invoke-navigation-getDistance" partnerLink="navigationLink"
+                                 operation="GetDistance" portType="navigation:NavigationPortType"
+                                 inputVariable="distanceInput" outputVariable="distanceOutput"/>
+                </bpel:sequence>
+                <bpel:sequence name="getPricePerKM">
+                    <bpel:assign name="createPricingInput">
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/StartLocation
+                            </bpel:from>
+                            <bpel:to>
+                                $pricingInput.inputParameters/Location
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/Time
+                            </bpel:from>
+                            <bpel:to>
+                                $pricingInput.inputParameters/Time
+                            </bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
+                    <bpel:invoke name="Invoke-pricing-getPrice" partnerLink="pricingLink" operation="GetPrice"
+                                 portType="pricing:PricingPortType" inputVariable="pricingInput"
+                                 outputVariable="pricingOutput"/>
+                </bpel:sequence>
 
-		<bpel:reply name="replyPrice" partnerLink="requestRideLink"
-			portType="tns:requestRidePortType" operation="requestRide"
-			variable="output">
-		</bpel:reply>
+            </bpel:flow>
+            <bpel:assign name="calculatePrice">
+                <bpel:copy>
+                    <bpel:from
+                            expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        $distanceOutput.outputParameters/Distance *
+                        $pricingOutput.outputParameters/Price
+                    </bpel:from>
+                    <bpel:to>
+                        $output.payload/result
+                    </bpel:to>
+                </bpel:copy>
+            </bpel:assign>
 
-		<bpel:flow>
-			<bpel:links>
-				<bpel:link name="findDriver" />
-				<bpel:link name="assign-declined-message" />
-				<bpel:link name="end-yes" />
-				<bpel:link name="end-no" />
-			</bpel:links>
+            <bpel:reply name="replyPrice"
+                        partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                        operation="requestRide" variable="output">
+            </bpel:reply>
 
-			<bpel:receive name="AcceptingRide"
-				partnerLink="requestRideLink" portType="tns:requestRidePortType"
-				operation="acceptRide" variable="answerToRide" createInstance="no">
-				<bpel:correlations>
-					<bpel:correlation set="CustomerID" initiate="no" />
-				</bpel:correlations>
 
-				<bpel:sources>
-					<bpel:source linkName="findDriver">
-						<bpel:transitionCondition>
-							$answerToRide.customerAnswer/Answer="yes"
-						</bpel:transitionCondition>
-					</bpel:source>
-					<bpel:source linkName="assign-declined-message">
-						<bpel:transitionCondition>
-							$answerToRide.customerAnswer/Answer!="yes"
-						</bpel:transitionCondition>
-					</bpel:source>
-				</bpel:sources>
-			</bpel:receive>
+            <bpel:receive name="AcceptingRide"
+                          partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                          operation="acceptRide" variable="answerToRide" createInstance="no">
+                <bpel:correlations>
+                    <bpel:correlation set="CustomerID" initiate="no"/>
+                </bpel:correlations>
 
-			<bpel:sequence name="OrderAccepted">
-				<bpel:targets>
-					<bpel:target linkName="findDriver" />
-				</bpel:targets>
-				<bpel:sources>
-					<bpel:source linkName="end-yes" />
-				</bpel:sources>
+                <bpel:sources>
+                    <bpel:source linkName="findDriver">
+                        <bpel:transitionCondition>
+                            $answerToRide.customerAnswer/Answer="yes"
+                        </bpel:transitionCondition>
+                    </bpel:source>
+                    <bpel:source linkName="assign-declined-message">
+                        <bpel:transitionCondition>
+                            $answerToRide.customerAnswer/Answer!="yes"
+                        </bpel:transitionCondition>
+                    </bpel:source>
+                </bpel:sources>
+            </bpel:receive>
 
-				<bpel:assign name="Assign-input-findDriver">
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/StartLocation
-						</bpel:from>
-						<bpel:to>
-							$findDriverInput.inputParameters/StartLocation
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/EndLocation
-						</bpel:from>
-						<bpel:to>
-							$findDriverInput.inputParameters/EndLocation
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from
-							expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
-							$distanceOutput.outputParameters/Distance *
-							$pricingOutput.outputParameters/Price
-						</bpel:from>
-						<bpel:to>
-							$findDriverInput.inputParameters/Price
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$answerToRide.customerAnswer/UserId
-						</bpel:from>
-						<bpel:to>
-							$findDriverInput.inputParameters/CustomerId
-						</bpel:to>
-					</bpel:copy>
-				</bpel:assign>
+        </bpel:sequence>
+        <bpel:sequence name="OrderAccepted">
+            <bpel:sources>
+                <bpel:source linkName="end"/>
+            </bpel:sources>
+            <bpel:targets>
+                <bpel:target linkName="findDriver"/>
+            </bpel:targets>
+            <bpel:sequence name="OrderAccepted">
 
-				<bpel:invoke name="Invoke-notifier-findDriver"
-					partnerLink="notifierLink" operation="FindDriver"
-					portType="notifier:NotifierPortType"
-					inputVariable="findDriverInput" outputVariable="findDriverOutput">
-				</bpel:invoke>
 
-				<bpel:receive name="Receive-foundDriverCallback"
-					partnerLink="notifierLink" operation="receiveCallBack"
-					portType="notifierCB:NotifierCallbackPortType"
-					variable="foundDriverOutput">
-					<bpel:correlations>
-						<bpel:correlation set="CustomerID" initiate="no" />
-					</bpel:correlations>
-				</bpel:receive>
+                <bpel:assign name="Assign-input-findDriver">
+                    <bpel:copy>
+                        <bpel:from>
+                            $input.payload/StartLocation
+                        </bpel:from>
+                        <bpel:to>
+                            $findDriverInput.inputParameters/StartLocation
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from>
+                            $input.payload/EndLocation
+                        </bpel:from>
+                        <bpel:to>
+                            $findDriverInput.inputParameters/EndLocation
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from
+                                expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                            $distanceOutput.outputParameters/Distance *
+                            $pricingOutput.outputParameters/Price
+                        </bpel:from>
+                        <bpel:to>
+                            $findDriverInput.inputParameters/Price
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from>
+                            $answerToRide.customerAnswer/UserId
+                        </bpel:from>
+                        <bpel:to>
+                            $findDriverInput.inputParameters/CustomerId
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
 
-				<bpel:assign validate="no"
-					name="Assign-FoundDriverResponse">
-					<bpel:copy>
-						<bpel:from>
-							concat('Driver found: ',
-							$foundDriverOutput.parameters/Driver/Id, ' ',
-							$foundDriverOutput.parameters/Driver/Name)
-						</bpel:from>
+                <bpel:invoke name="Invoke-notifier-findDriver"
+                             partnerLink="notifierLink" operation="FindDriver"
+                             portType="notifier:NotifierPortType"
+                             inputVariable="findDriverInput" outputVariable="findDriverOutput">
+                </bpel:invoke>
 
-						<bpel:to> $lastOutput.info/result </bpel:to>
-					</bpel:copy>
-				</bpel:assign>
+                <bpel:receive name="Receive-foundDriverCallback"
+                              partnerLink="notifierLink" operation="receiveCallBack"
+                              portType="notifierCB:NotifierCallbackPortType"
+                              variable="foundDriverOutput">
+                    <bpel:correlations>
+                        <bpel:correlation set="CustomerID" initiate="no"/>
+                    </bpel:correlations>
+                </bpel:receive>
 
-			</bpel:sequence>
+                <bpel:assign validate="no"
+                             name="Assign-FoundDriverResponse">
+                    <bpel:copy>
+                        <bpel:from>
+                            concat('Driver found: ',
+                            $foundDriverOutput.parameters/Driver/Id, ' ',
+                            $foundDriverOutput.parameters/Driver/Name)
+                        </bpel:from>
 
-			<bpel:assign name="Assign-declined-message">
-				<bpel:targets>
-					<bpel:target linkName="assign-declined-message" />
-				</bpel:targets>
-				<bpel:sources>
-					<bpel:source linkName="end-no" />
-				</bpel:sources>
-				<bpel:copy>
-					<bpel:from> "Customer declined the order!" </bpel:from>
-					<bpel:to>
-						$lastOutput.info/result
-					</bpel:to>
-				</bpel:copy>
-			</bpel:assign>
+                        <bpel:to>$lastOutput.info/result</bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:reply name="AcceptingRideReply"
+                            partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                            operation="acceptRide" variable="lastOutput">
+                </bpel:reply>
 
-			<!-- Asynchronous callback to the requester. Note: the callback location 
-				and correlation id is transparently handled using WS-addressing. -->
-			<bpel:reply name="AcceptingRideReply"
-				partnerLink="requestRideLink" portType="tns:requestRidePortType"
-				operation="acceptRide" variable="lastOutput">
-				<bpel:targets>
-					<bpel:target linkName="end-yes" />
-					<bpel:target linkName="end-no" />
-				</bpel:targets>
-			</bpel:reply>
-		</bpel:flow>
+            </bpel:sequence>
+            <bpel:receive name="RideCompleted"
+                          partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                          operation="rideCompleted" variable="rideCompletedInput"
+                          createInstance="no">
+                <bpel:correlations>
+                    <bpel:correlation set="CustomerID" initiate="no"/>
+                </bpel:correlations>
+            </bpel:receive>
+            <bpel:flow>
+                <bpel:sequence name="GiveFeedback">
+                    <bpel:receive name="Receive-GiveFeedback"
+                                  partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                                  operation="giveFeedback" variable="giveFeedbackInput"
+                                  createInstance="no">
+                        <bpel:correlations>
+                            <bpel:correlation set="CustomerID" initiate="no"/>
+                        </bpel:correlations>
+                    </bpel:receive>
+                    <bpel:assign name="Assign-rating">
+                        <bpel:copy>
+                            <bpel:from>
+                                $giveFeedbackInput.payload/PersonId
+                            </bpel:from>
+                            <bpel:to>
+                                $ratePersonInput.inputParameters/Person/Id
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $giveFeedbackInput.payload/Rating
+                            </bpel:from>
+                            <bpel:to>
+                                $ratePersonInput.inputParameters/Rating
+                            </bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
 
-		<bpel:receive name="RideCompleted"
-			partnerLink="requestRideLink" portType="tns:requestRidePortType"
-			operation="rideCompleted" variable="rideCompletedInput"
-			createInstance="no">
-			<bpel:correlations>
-				<bpel:correlation set="CustomerID" initiate="no" />
-			</bpel:correlations>
-		</bpel:receive>
+                    <bpel:invoke name="Invoke-ratePerson"
+                                 partnerLink="feedbackLink" operation="RatePerson"
+                                 portType="feedback:FeedbackPortType"
+                                 inputVariable="ratePersonInput">
+                    </bpel:invoke>
 
-		<bpel:flow>
-			<bpel:sequence name="GiveFeedback">
-				<bpel:receive name="Receive-GiveFeedback"
-					partnerLink="requestRideLink" portType="tns:requestRidePortType"
-					operation="giveFeedback" variable="giveFeedbackInput"
-					createInstance="no">
-					<bpel:correlations>
-						<bpel:correlation set="CustomerID" initiate="no" />
-					</bpel:correlations>
-				</bpel:receive>
-				<bpel:assign name="Assign-rating">
-					<bpel:copy>
-						<bpel:from>
-							$giveFeedbackInput.payload/PersonId
-						</bpel:from>
-						<bpel:to>
-							$ratePersonInput.inputParameters/Person/Id
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$giveFeedbackInput.payload/Rating
-						</bpel:from>
-						<bpel:to>
-							$ratePersonInput.inputParameters/Rating
-						</bpel:to>
-					</bpel:copy>
-				</bpel:assign>
+                </bpel:sequence>
 
-				<bpel:invoke name="Invoke-ratePerson"
-					partnerLink="feedbackLink" operation="RatePerson"
-					portType="feedback:FeedbackPortType"
-					inputVariable="ratePersonInput">
-				</bpel:invoke>
+                <bpel:sequence name="SendInvoice">
+                    <bpel:assign name="Assign-invoicingData">
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/StartLocation
+                            </bpel:from>
+                            <bpel:to>
+                                $invoicingInput.inputParameters/CurrentLocation
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $input.payload/EndLocation
+                            </bpel:from>
+                            <bpel:to>
+                                $invoicingInput.inputParameters/EndLocation
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $output.payload/result
+                            </bpel:from>
+                            <bpel:to>
+                                $invoicingInput.inputParameters/Price
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $foundDriverOutput.parameters/Driver/Id
+                            </bpel:from>
+                            <bpel:to>
+                                $invoicingInput.inputParameters/DriverId
+                            </bpel:to>
+                        </bpel:copy>
+                        <bpel:copy>
+                            <bpel:from>
+                                $answerToRide.customerAnswer/UserId
+                            </bpel:from>
+                            <bpel:to>
+                                $invoicingInput.inputParameters/CustomerId
+                            </bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
 
-				<bpel:empty name="test">
-				</bpel:empty>
+                    <bpel:invoke name="Invoke-invoicing"
+                                 partnerLink="invoicingLink" operation="PayForRide"
+                                 portType="invoicing:InvoicingPortType"
+                                 inputVariable="invoicingInput" outputVariable="invoicingOutput">
+                    </bpel:invoke>
 
-			</bpel:sequence>
+                    <bpel:assign validate="no"
+                                 name="Assign-CompleteResponse">
+                        <bpel:copy>
+                            <bpel:from>$invoicingOutput.outputParameters</bpel:from>
+                            <bpel:to>$rideCompletedOutput.payload/Result</bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
 
-			<bpel:sequence name="SendInvoice">
-				<bpel:assign name="Assign-invoicingData">
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/StartLocation
-						</bpel:from>
-						<bpel:to>
-							$invoicingInput.inputParameters/CurrentLocation
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$input.payload/EndLocation
-						</bpel:from>
-						<bpel:to>
-							$invoicingInput.inputParameters/EndLocation
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$output.payload/result
-						</bpel:from>
-						<bpel:to>
-							$invoicingInput.inputParameters/Price
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$foundDriverOutput.parameters/Driver/Id
-						</bpel:from>
-						<bpel:to>
-							$invoicingInput.inputParameters/DriverId
-						</bpel:to>
-					</bpel:copy>
-					<bpel:copy>
-						<bpel:from>
-							$answerToRide.customerAnswer/UserId
-						</bpel:from>
-						<bpel:to>
-							$invoicingInput.inputParameters/CustomerId
-						</bpel:to>
-					</bpel:copy>
-				</bpel:assign>
+                    <bpel:reply name="InvoiceReply"
+                                partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                                operation="rideCompleted" variable="rideCompletedOutput"/>
+                </bpel:sequence>
+            </bpel:flow>
+        </bpel:sequence>
 
-				<bpel:invoke name="Invoke-invoicing"
-					partnerLink="invoicingLink" operation="PayForRide"
-					portType="invoicing:InvoicingPortType"
-					inputVariable="invoicingInput" outputVariable="invoicingOutput">
-				</bpel:invoke>
 
-				<bpel:assign validate="no"
-					name="Assign-CompleteResponse">
-					<bpel:copy>
-						<bpel:from> $invoicingOutput.outputParameters </bpel:from>
-						<bpel:to> $rideCompletedOutput.payload/Result </bpel:to>
-					</bpel:copy>
-				</bpel:assign>
+        <bpel:sequence name="OrderDenied">
+            <bpel:sources>
+                <bpel:source linkName="abort"/>
+            </bpel:sources>
+            <bpel:targets>
+                <bpel:target linkName="assign-declined-message"/>
+            </bpel:targets>
+            <bpel:assign name="Assign-declined-message">
 
-				<bpel:reply name="InvoiceReply"
-					partnerLink="requestRideLink" portType="tns:requestRidePortType"
-					operation="rideCompleted" variable="rideCompletedOutput" />
-			</bpel:sequence>
-		</bpel:flow>
-	</bpel:sequence>
+                <bpel:copy>
+                    <bpel:from>"Customer declined the order!"</bpel:from>
+                    <bpel:to>
+                        $lastOutput.info/result
+                    </bpel:to>
+                </bpel:copy>
+            </bpel:assign>
+            <bpel:reply name="AcceptingRideReply"
+                        partnerLink="requestRideLink" portType="tns:requestRidePortType"
+                        operation="acceptRide" variable="lastOutput">
+            </bpel:reply>
+        </bpel:sequence>
+
+
+        <bpel:empty name="end">
+            <bpel:targets>
+                <bpel:target linkName="end"/>
+                <bpel:target linkName="abort"/>
+            </bpel:targets>
+
+        </bpel:empty>
+
+
+    </bpel:flow>
+
 </bpel:process>
 

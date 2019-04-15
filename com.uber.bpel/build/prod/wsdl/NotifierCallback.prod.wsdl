@@ -10,7 +10,7 @@
 		<wsdl:port name="FoundDriverPort"
 			binding="ps:NotifierCallbackSOAPBinding">
 			<soap:address
-				location="http://ode:8080/ode/processes/NotifierCallbackService" />
+				location="http://ode:9763/ode/processes/NotifierCallbackService" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

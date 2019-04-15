@@ -36,7 +36,7 @@ services:
     - ./com.uber.notifier/build/lib:/usr/local/tomcat/webapps/axis2/WEB-INF/services
     environment:
     - DATABASE_SERVICE_URL=http://database:8080/axis2/services/DatabaseService
-    - NOTIFIER_CALLBACK_URL=http://ode:8080/ode/processes/NotifierCallbackService
+    - NOTIFIER_CALLBACK_URL=http://ode:9763/ode/processes/NotifierCallbackService
   pricing:
     build: ./docker/axis2
     ports:
