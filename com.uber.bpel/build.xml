@@ -6,14 +6,15 @@
     <property name="dev" value="${build}/dev"/>
     <property name="prod" value="${build}/prod"/>
     <target name="build.dev">
-        <deploy env="dev"/>
+        <deploy env="dev" ignore="prod"/>
     </target>
     <target name="build.prod">
-        <deploy env="prod"/>
+        <deploy env="prod" ignore="dev"/>
     </target>
     <target name="build.all" depends="build.dev, build.prod"/>
     <macrodef name="deploy">
         <attribute name="env"/>
+        <attribute name="ignore"/>
         <sequential>
             <delete dir="${build}/@{env}"/>
             <mkdir dir="${build}/@{env}"/>
@@ -21,6 +22,7 @@
                 <fileset dir="${src}/wsdl">
                     <include name="**/*.wsdl"/>
                     <include name="**/*.xsd"/>
+                    <exclude name="**/@{ignore}.wsld"/>
                 </fileset>
             </copy>
             <copy file="${src}/deploy.xml" todir="${build}/@{env}"/>
