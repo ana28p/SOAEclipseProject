@@ -126,10 +126,8 @@
     <bpel:flow name="wrapper">
 
         <bpel:links>
-            <bpel:link name="end"/>
             <bpel:link name="findDriver"/>
             <bpel:link name="assign-declined-message"/>
-            <bpel:link name="abort"/>
         </bpel:links>
         <bpel:sequence name="AcceptOrder">
             <!-- Receive input from requestor. Note: This maps to operation defined
@@ -386,13 +384,10 @@
 
         </bpel:sequence>
         <bpel:sequence name="OrderAccepted">
-            <bpel:sources>
-                <bpel:source linkName="end"/>
-            </bpel:sources>
             <bpel:targets>
                 <bpel:target linkName="findDriver"/>
             </bpel:targets>
-            <bpel:sequence name="OrderAccepted">
+            <bpel:sequence name="FindDriver">
 
 
                 <bpel:assign name="Assign-input-findDriver">
@@ -577,9 +572,6 @@
 
 
         <bpel:sequence name="OrderDenied">
-            <bpel:sources>
-                <bpel:source linkName="abort"/>
-            </bpel:sources>
             <bpel:targets>
                 <bpel:target linkName="assign-declined-message"/>
             </bpel:targets>
@@ -597,15 +589,6 @@
                         operation="acceptRide" variable="lastOutput">
             </bpel:reply>
         </bpel:sequence>
-
-
-        <bpel:empty name="end">
-            <bpel:targets>
-                <bpel:target linkName="end"/>
-                <bpel:target linkName="abort"/>
-            </bpel:targets>
-
-        </bpel:empty>
 
 
     </bpel:flow>
