@@ -10,7 +10,8 @@ import java.util.List;
 
 public class DBCreator {
 
-	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:uber.db"; // the file is created in the project root
+	private static final String FILE_NAME = "uber.db"; // the file is created in the project root
+	private static final String JDBC_SQLITE_DB = "jdbc:sqlite:" + FILE_NAME;
 
 	public static void initializeDB() {
 		createNewDatabase();
@@ -24,7 +25,7 @@ public class DBCreator {
 	}
 	
 	public static boolean databaseExists(){
-		File file = new File(JDBC_SQLITE_DB);
+		File file = new File(FILE_NAME);
 		return file.exists();
 	}
 
