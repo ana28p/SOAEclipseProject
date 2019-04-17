@@ -57,7 +57,7 @@
   </wsdl:binding>
   <wsdl:service name="NavigationService">
     <wsdl:port name="GetDistancePort" binding="ps:NavigationSOAPBinding">
-      <soap:address location="http://localhost:8080/SOAProject/services/NavigationService"/>
+      <soap:address location="http://localhost:9080/com.uber.navigation/services/NavigationService"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
