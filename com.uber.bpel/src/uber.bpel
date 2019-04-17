@@ -279,7 +279,12 @@
                         <bpel:literal>
                             <elements:RatePersonRequest>
                                 <Rating>0.0</Rating>
-                                <PersonId>0</PersonId>
+                                <Person>
+                                    <Id>0</Id>
+                                    <Name>""</Name>
+                                    <Age>0</Age>
+                                    <Rating>0.0</Rating>
+                                </Person>
                             </elements:RatePersonRequest>
                         </bpel:literal>
                     </bpel:from>
@@ -479,7 +484,7 @@
                                 $giveFeedbackInput.payload/PersonId
                             </bpel:from>
                             <bpel:to>
-                                $ratePersonInput.inputParameters/PersonId
+                                $ratePersonInput.inputParameters/Person/Id
                             </bpel:to>
                         </bpel:copy>
                         <bpel:copy>

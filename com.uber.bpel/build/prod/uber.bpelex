@@ -6,7 +6,7 @@
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1555418492978"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1555362429000"/>
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#//@variables/@children.1"/>
@@ -75,6 +75,10 @@
   <extensions>
     <extendedObject href="uber.bpel#//@activity"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="uber.bpel#//@activity/@links/@children.0"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:LinkExtension"/>
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#//@activity/@activities.0"/>
@@ -189,11 +193,15 @@
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="624" y="507"/>
   </extensions>
   <extensions>
-    <extendedObject href="uber.bpel#//@activity/@links/@children.0"/>
+    <extendedObject href="uber.bpel#//@activity/@links/@children.1"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:LinkExtension"/>
   </extensions>
   <extensions>
-    <extendedObject href="uber.bpel#//@activity/@links/@children.1"/>
+    <extendedObject href="uber.bpel#//@activity/@links/@children.2"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:LinkExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="uber.bpel#//@activity/@links/@children.3"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:LinkExtension"/>
   </extensions>
   <extensions>
@@ -274,7 +282,7 @@
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#//@activity/@activities.1/@activities.2/@activities.1"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="254" y="8"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="257" y="8"/>
   </extensions>
   <extensions>
     <extendedObject href="uber.bpel#//@activity/@activities.1/@activities.2/@activities.1/@activities.0"/>
@@ -331,5 +339,9 @@
   <extensions>
     <extendedObject href="uber.bpel#//@activity/@activities.2/@activities.1"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="uber.bpel#//@activity/@activities.3"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="358" y="1045"/>
   </extensions>
 </extensionmodel:ExtensionMap>
