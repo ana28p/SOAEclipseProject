@@ -39,7 +39,7 @@ public class FeedbackOrderServiceSkeletonTest {
 		customer.setRating(5.0);
 
 		request = new RatePersonRequest();
-		request.setPerson(customer);
+		request.setPersonId(customer.getId());
 		request.setRating(3);
 
 		skeleton.ratePerson(request);
@@ -55,7 +55,7 @@ public class FeedbackOrderServiceSkeletonTest {
 		driver.setRating(4.50);
 
 		request = new RatePersonRequest();
-		request.setPerson(driver);
+		request.setPersonId(driver.getId());
 		request.setRating(4);
 
 		skeleton.ratePerson(request);

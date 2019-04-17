@@ -26,30 +26,30 @@
             
 
                         /**
-                        * field for Person
+                        * field for PersonId
                         */
 
                         
-                                    protected com.uber.datatypes.Person localPerson ;
+                                    protected int localPersonId ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.uber.datatypes.Person
+                           * @return int
                            */
-                           public  com.uber.datatypes.Person getPerson(){
-                               return localPerson;
+                           public  int getPersonId(){
+                               return localPersonId;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Person
+                               * @param param PersonId
                                */
-                               public void setPerson(com.uber.datatypes.Person param){
+                               public void setPersonId(int param){
                             
-                                            this.localPerson=param;
+                                            this.localPersonId=param;
                                        
 
                                }
@@ -144,12 +144,19 @@
                
                    }
                
-                                            if (localPerson==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Person cannot be null!!");
-                                            }
-                                           localPerson.serialize(new javax.xml.namespace.QName("","Person"),
-                                               xmlWriter);
-                                        
+                                    namespace = "";
+                                    writeStartElement(null, namespace, "PersonId", xmlWriter);
+                             
+                                               if (localPersonId==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("PersonId cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPersonId));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
                                     namespace = "";
                                     writeStartElement(null, namespace, "Rating", xmlWriter);
                              
@@ -348,15 +355,12 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                 
-                            elementList.add(new javax.xml.namespace.QName("",
-                                                                      "Person"));
+                                      elementList.add(new javax.xml.namespace.QName("",
+                                                                      "PersonId"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPersonId));
                             
-                            
-                                    if (localPerson==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Person cannot be null!!");
-                                    }
-                                    elementList.add(localPerson);
-                                
                                       elementList.add(new javax.xml.namespace.QName("",
                                                                       "Rating"));
                                  
@@ -441,9 +445,18 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","Person").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("","PersonId").equals(reader.getName())){
                                 
-                                                object.setPerson(com.uber.datatypes.Person.Factory.parse(reader));
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PersonId" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setPersonId(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
                                               
                                         reader.next();
                                     
