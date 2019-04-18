@@ -1,0 +1,1352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="com.uber.soapui.test" soapui-version="5.5.0" id="a5615e9f-0fc2-4ad8-9a50-2f6e1494372c" activeEnvironment="Default" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="TestSuite" value="requestRideDeclined TestSuite"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="Select Report Type" value=""/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Export JUnit Results with test properties" value="false"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="TestCase" value="&lt;all>"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="user-settings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Save Project" value="true"/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="fba58503-e309-4e37-a715-1ce69aa93055" wsaVersion="NONE" name="PricingSOAPBinding" type="wsdl" bindingName="{http://uber.com/PricingService}PricingSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/server/com.uber.pricing/wsdl/Pricing.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/server/com.uber.pricing/wsdl/Pricing.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/server/com.uber.pricing/wsdl/Pricing.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingService" targetNamespace="http://uber.com/PricingService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ps="http://uber.com/PricingService">
+  <wsdl:import namespace="http://uber.com/PricingService" location="Pricing.wsdl"/>
+  <wsdl:service name="PricingService">
+    <wsdl:port name="PricingPort" binding="ps:PricingSOAPBinding">
+      <soap:address location="http://pricing:8080/axis2/services/PricingService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.pricing\wsdl\Pricing.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingService" targetNamespace="http://uber.com/PricingService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ps="http://uber.com/PricingService" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:messages="http://uber.com/Messages">
+  <wsdl:import namespace="http://uber.com/Messages" location="../../com.uber/wsdl/Messages.wsdl"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="GetPriceRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Location" type="types:Location"/>
+            <xsd:element name="Time" type="xsd:dateTime"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPriceResponse">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Price" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetPriceRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:GetPriceRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetPriceResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:GetPriceResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="PricingPortType">
+    <wsdl:operation name="GetPrice">
+      <wsdl:input message="ps:GetPriceRequestMessage"/>
+      <wsdl:output message="ps:GetPriceResponseMessage"/>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage"/>
+      <wsdl:fault name="InvalidLocation" message="messages:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidTime" message="messages:InvalidTimeMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PricingSOAPBinding" type="ps:PricingPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetPrice">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTime">
+        <soap:fault name="InvalidTime"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\Messages.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingOrderService" targetNamespace="http://uber.com/Messages" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:types="http://uber.com/DataTypes">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTimeMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://pricing:8080/axis2/services/PricingService</con:endpoint></con:endpoints><con:operation id="3e89a711-10d7-4fbc-98bb-369d6bc4fd77" isOneWay="false" action="" name="GetPrice" bindingOperationName="GetPrice" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5d148ec2-9e91-4c2c-b9c5-a7dfb95ffc07" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://pricing:8080/axis2/services/PricingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:GetPriceRequest>\r
+         <!--You may enter the following 2 items in any order-->\r
+         <Location>\r
+            <Longitude>?</Longitude>\r
+            <Latitude>?</Latitude>\r
+         </Location>\r
+         <Time>?</Time>\r
+      </elem:GetPriceRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/PricingService/PricingPortType/GetPriceRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="83e93c5a-d066-4516-8448-3d6f2e730751" wsaVersion="NONE" name="NotifierSOAPBinding" type="wsdl" bindingName="{http://uber.com/NotifierService}NotifierSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/server/com.uber.notifier/wsdl/Notifier.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/server/com.uber.notifier/wsdl/Notifier.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/server/com.uber.notifier/wsdl/Notifier.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierService" targetNamespace="http://uber.com/NotifierService" xmlns:ps="http://uber.com/NotifierService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://uber.com/NotifierService" location="Notifier.wsdl"/>
+  <wsdl:service name="NotifierService">
+    <wsdl:port name="FindDriverPort" binding="ps:NotifierSOAPBinding">
+      <soap:address location="http://notifier:8080/axis2/services/NotifierService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.notifier\wsdl\Notifier.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierService" targetNamespace="http://uber.com/NotifierService" xmlns:ps="http://uber.com/NotifierService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="FindDriverRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="StartLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+            <xsd:element name="Price" type="xsd:double"/>
+            <xsd:element name="CustomerId" type="xsd:int"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="FindDriverRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:FindDriverRequest"/>
+  </wsdl:message>
+  <wsdl:message name="FindDriverResponseMessage">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidPriceMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="NotifierPortType">
+    <wsdl:operation name="FindDriver">
+      <wsdl:input message="ps:FindDriverRequestMessage"/>
+      <wsdl:output message="ps:FindDriverResponseMessage"/>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidPrice" message="ps:InvalidPriceMessage"/>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotifierSOAPBinding" type="ps:NotifierPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FindDriver">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidPrice">
+        <soap:fault name="InvalidPrice"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://notifier:8080/axis2/services/NotifierService</con:endpoint></con:endpoints><con:operation id="38812834-ba48-45ff-8522-c788fc62eaaf" isOneWay="false" action="" name="FindDriver" bindingOperationName="FindDriver" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2f22ceeb-c253-424e-97e3-42b0b7fc8551" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://notifier:8080/axis2/services/NotifierService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:FindDriverRequest>\r
+         <!--You may enter the following 4 items in any order-->\r
+         <StartLocation>\r
+            <Longitude>?</Longitude>\r
+            <Latitude>?</Latitude>\r
+         </StartLocation>\r
+         <EndLocation>\r
+            <Longitude>?</Longitude>\r
+            <Latitude>?</Latitude>\r
+         </EndLocation>\r
+         <Price>?</Price>\r
+         <CustomerId>?</CustomerId>\r
+      </elem:FindDriverRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/NotifierService/NotifierPortType/FindDriverRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="8226fb1d-c57d-4f93-bdc6-66e2bbf5da14" wsaVersion="NONE" name="NavigationSOAPBinding" type="wsdl" bindingName="{http://uber.com/NavigationService}NavigationSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/server/com.uber.navigation/wsdl/Navigation.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/server/com.uber.navigation/wsdl/Navigation.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/server/com.uber.navigation/wsdl/Navigation.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NavigationService" targetNamespace="http://uber.com/NavigationService" xmlns:ps="http://uber.com/NavigationService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://uber.com/NavigationService" location="Navigation.wsdl"/>
+  <wsdl:service name="NavigationService">
+    <wsdl:port name="GetDistancePort" binding="ps:NavigationSOAPBinding">
+      <soap:address location="http://navigation:8080/axis2/services/NavigationService/GetDistance"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.navigation\wsdl\Navigation.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NavigationService" targetNamespace="http://uber.com/NavigationService" xmlns:ps="http://uber.com/NavigationService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:messages="http://uber.com/Messages">
+  <wsdl:import namespace="http://uber.com/Messages" location="../../com.uber/wsdl/Messages.wsdl"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="GetDistanceRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="CurrentLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetDistanceResponse">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Distance" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDistanceRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:GetDistanceRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetDistanceResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:GetDistanceResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="NavigationPortType">
+    <wsdl:operation name="GetDistance">
+      <wsdl:input message="ps:GetDistanceRequestMessage"/>
+      <wsdl:output message="ps:GetDistanceResponseMessage"/>
+      <wsdl:fault name="InvalidLocation" message="messages:InvalidLocationMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NavigationSOAPBinding" type="ps:NavigationPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDistance">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\Messages.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingOrderService" targetNamespace="http://uber.com/Messages" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:types="http://uber.com/DataTypes">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTimeMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://navigation:8080/axis2/services/NavigationService/GetDistance</con:endpoint></con:endpoints><con:operation id="f23c1ce7-c4aa-4fa4-9edf-75047c3774fd" isOneWay="false" action="" name="GetDistance" bindingOperationName="GetDistance" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1a6d4453-3cc3-44e7-a539-39dd3b993728" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://navigation:8080/axis2/services/NavigationService/GetDistance</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:GetDistanceRequest>\r
+         <!--You may enter the following 2 items in any order-->\r
+         <CurrentLocation>\r
+            <Longitude>-8</Longitude>\r
+            <Latitude>0</Latitude>\r
+         </CurrentLocation>\r
+         <EndLocation>\r
+            <Longitude>0</Longitude>\r
+            <Latitude>0</Latitude>\r
+         </EndLocation>\r
+      </elem:GetDistanceRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/NavigationService/NavigationPortType/GetDistanceRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="6a93bee8-6600-4eb3-975b-7005fc1730ed" wsaVersion="NONE" name="InvoicingSOAPBinding" type="wsdl" bindingName="{http://uber.com/InvoicingService}InvoicingSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/server/com.uber.invoicing/wsdl/Invoicing.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/server/com.uber.invoicing/wsdl/Invoicing.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/server/com.uber.invoicing/wsdl/Invoicing.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="InvoicingOrderService" targetNamespace="http://uber.com/InvoicingService" xmlns:ps="http://uber.com/InvoicingService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://uber.com/InvoicingService" location="Invoicing.wsdl"/>
+  <wsdl:service name="InvoicingOrderService">
+    <wsdl:port name="InvoicingPort" binding="ps:InvoicingSOAPBinding">
+      <soap:address location="http://invoicing:8080/axis2/services/InvoicingOrderService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.invoicing\wsdl\Invoicing.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="InvoicingOrderService" targetNamespace="http://uber.com/InvoicingService" xmlns:ps="http://uber.com/InvoicingService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="PayForRideRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="CurrentLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+            <xsd:element name="Price" type="xsd:double"/>
+            <xsd:element name="CustomerId" type="xsd:int"/>
+            <xsd:element name="DriverId" type="xsd:int"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PayForRideRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:PayForRideRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PayForRideResponseMessage">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage"/>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidDriverMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="PaymentFailedMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="InvoicingPortType">
+    <wsdl:operation name="PayForRide">
+      <wsdl:input message="ps:PayForRideRequestMessage"/>
+      <wsdl:output message="ps:PayForRideResponseMessage"/>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage"/>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage"/>
+      <wsdl:fault name="InvalidDriver" message="ps:InvalidDriverMessage"/>
+      <wsdl:fault name="PaymentFailed" message="ps:PaymentFailedMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InvoicingSOAPBinding" type="ps:InvoicingPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="PayForRide">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidDriver">
+        <soap:fault name="InvalidDriver"/>
+      </wsdl:fault>
+      <wsdl:fault name="PaymentFailed">
+        <soap:fault name="PaymentFailed"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://invoicing:8080/axis2/services/InvoicingOrderService</con:endpoint></con:endpoints><con:operation id="b504cbc3-6483-416e-8e94-d5521ee518de" isOneWay="false" action="" name="PayForRide" bindingOperationName="PayForRide" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1804e847-bcf9-4865-9cf2-9c13b6ece69f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://invoicing:8080/axis2/services/InvoicingOrderService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:PayForRideRequest>\r
+         <!--You may enter the following 5 items in any order-->\r
+         <CurrentLocation>\r
+            <Longitude>?</Longitude>\r
+            <Latitude>?</Latitude>\r
+         </CurrentLocation>\r
+         <EndLocation>\r
+            <Longitude>?</Longitude>\r
+            <Latitude>?</Latitude>\r
+         </EndLocation>\r
+         <Price>?</Price>\r
+         <CustomerId>?</CustomerId>\r
+         <DriverId>?</DriverId>\r
+      </elem:PayForRideRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/InvoicingService/InvoicingPortType/PayForRideRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="c2f689e6-c7d1-4134-9dce-422d0fdea18a" wsaVersion="NONE" name="FeedbackSOAPBinding" type="wsdl" bindingName="{http://uber.com/FeedbackService}FeedbackSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/server/com.uber.feedback/wsdl/Feedback.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/server/com.uber.feedback/wsdl/Feedback.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/server/com.uber.feedback/wsdl/Feedback.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FeedbackService" targetNamespace="http://uber.com/FeedbackService" xmlns:ps="http://uber.com/FeedbackService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://uber.com/FeedbackService" location="Feedback.wsdl"/>
+  <wsdl:service name="FeedbackService">
+    <wsdl:port name="RatePersonPort" binding="ps:FeedbackSOAPBinding">
+      <soap:address location="http://feedback:8080/axis2/services/FeedbackService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.feedback\wsdl\Feedback.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FeedbackService" targetNamespace="http://uber.com/FeedbackService" xmlns:ps="http://uber.com/FeedbackService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:element name="RatePersonRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="PersonId" type="xsd:int"/>
+            <xsd:element name="Rating" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RatePersonRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:RatePersonRequest"/>
+  </wsdl:message>
+  <wsdl:portType name="FeedbackPortType">
+    <wsdl:operation name="RatePerson">
+      <wsdl:input message="ps:RatePersonRequestMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FeedbackSOAPBinding" type="ps:FeedbackPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RatePerson">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://feedback:8080/axis2/services/FeedbackService</con:endpoint></con:endpoints><con:operation id="73c72362-f996-47a9-bf6a-8a6cde3c2b9b" isOneWay="false" action="" name="RatePerson" bindingOperationName="RatePerson" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="65f1e461-db15-474b-a39e-1909c7bdce9c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://feedback:8080/axis2/services/FeedbackService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:RatePersonRequest>\r
+         <!--You may enter the following 2 items in any order-->\r
+         <PersonId>?</PersonId>\r
+         <Rating>?</Rating>\r
+      </elem:RatePersonRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/FeedbackService/FeedbackPortType/RatePersonRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="714adbb7-ea24-480e-94e1-cf3c2fc4a501" wsaVersion="NONE" name="NotifierCallbackSOAPBinding" type="wsdl" bindingName="{http://uber.com/NotifierCallbackService}NotifierCallbackSOAPBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/NotifierCallback.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/NotifierCallback.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/NotifierCallback.prod.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierCallbackService" targetNamespace="http://uber.com/NotifierCallbackService" xmlns:ps="http://uber.com/NotifierCallbackService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://uber.com/NotifierCallbackService" location="NotifierCallback.wsdl"/>
+  <wsdl:service name="NotifierCallbackService">
+    <wsdl:port name="FoundDriverPort" binding="ps:NotifierCallbackSOAPBinding">
+      <soap:address location="http://ode:9763/ode/processes/NotifierCallbackService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\NotifierCallback.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierCallbackService" targetNamespace="http://uber.com/NotifierCallbackService" xmlns:ps="http://uber.com/NotifierCallbackService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="server/com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="DriverFoundRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Driver" type="types:Driver"/>
+            <xsd:element name="Customer" type="types:Customer"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DriverFoundRequestMessage">
+    <wsdl:part name="parameters" element="elements:DriverFoundRequest"/>
+  </wsdl:message>
+  <wsdl:portType name="NotifierCallbackPortType">
+    <wsdl:operation name="receiveCallBack">
+      <wsdl:input message="ps:DriverFoundRequestMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotifierCallbackSOAPBinding" type="ps:NotifierCallbackPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="receiveCallBack">
+      <soap:operation style="document" soapAction="http://uber.com/NotifierCallbackService/NotifierCallbackPortType/receiveCallBack"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://ode:9763/ode/processes/NotifierCallbackService</con:endpoint></con:endpoints><con:operation id="f756e73b-499a-48ee-862d-b9ec2d5c5bab" isOneWay="false" action="http://uber.com/NotifierCallbackService/NotifierCallbackPortType/receiveCallBack" name="receiveCallBack" bindingOperationName="receiveCallBack" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1eaeb9ac-8bf3-4fa8-83b6-2667a9e31bfd" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://ode:9763/ode/processes/NotifierCallbackService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:DriverFoundRequest>\r
+         <!--You may enter the following 2 items in any order-->\r
+         <Driver>\r
+            <Id>?</Id>\r
+            <Name>?</Name>\r
+            <Age>?</Age>\r
+            <Rating>?</Rating>\r
+            <CarNumber>?</CarNumber>\r
+         </Driver>\r
+         <Customer>\r
+            <Id>?</Id>\r
+            <Name>?</Name>\r
+            <Age>?</Age>\r
+            <Rating>?</Rating>\r
+            <CardNumber>?</CardNumber>\r
+         </Customer>\r
+      </elem:DriverFoundRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uber.com/NotifierCallbackService/NotifierCallbackPortType/receiveCallBack"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="b7e8853e-8fa1-4675-849d-76d2b0ea016f" wsaVersion="NONE" name="requestRideBinding" type="wsdl" bindingName="{http://www.uber.com/bpel/uber}requestRideBinding" soapVersion="1_1" anonymous="optional" definition="file:/../com.uber.bpel/src/wsdl/uberArtifacts.prod.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/../com.uber.bpel/src/wsdl/uberArtifacts.prod.wsdl"><con:part><con:url>file:/../com.uber.bpel/src/wsdl/uberArtifacts.prod.wsdl</con:url><con:content><![CDATA[<definitions name="uber" targetNamespace="http://www.uber.com/bpel/uber" xmlns:tns="http://www.uber.com/bpel/uber" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <import namespace="http://www.uber.com/bpel/uber" location="uberArtifacts.wsdl"/>
+  <service name="uberService">
+    <port name="requestRidePort" binding="tns:requestRideBinding">
+      <soap:address location="http://localhost/ode/processes/com.uber.bpel"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\uberArtifacts.wsdl</con:url><con:content><![CDATA[<definitions name="uber" targetNamespace="http://www.uber.com/bpel/uber" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.uber.com/bpel/uber" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:types="http://uber.com/DataTypes" xmlns:feedback="http://uber.com/FeedbackService" xmlns:invoicing="http://uber.com/InvoicingService" xmlns:navigation="http://uber.com/NavigationService" xmlns:notifier="http://uber.com/NotifierService" xmlns:notifierCB="http://uber.com/NotifierCallbackService" xmlns:pricing="http://uber.com/PricingService" xmlns:elements="http://uber.com/Elements" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop">
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         TYPE DEFINITION - List of services participating in this BPEL process
+         The default output of the BPEL designer uses strings as input and
+         output to the BPEL Process. But you can define or import any XML
+         Schema type and us them as part of the message types.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <import namespace="http://uber.com/FeedbackService" location="server/com.uber.feedback/wsdl/Feedback.wsdl"/>
+  <import namespace="http://uber.com/InvoicingService" location="server/com.uber.invoicing/wsdl/Invoicing.wsdl"/>
+  <import namespace="http://uber.com/NavigationService" location="server/com.uber.navigation/wsdl/Navigation.wsdl"/>
+  <import namespace="http://uber.com/NotifierService" location="server/com.uber.notifier/wsdl/Notifier.wsdl"/>
+  <import namespace="http://uber.com/PricingService" location="server/com.uber.pricing/wsdl/Pricing.wsdl"/>
+  <import namespace="http://uber.com/NotifierCallbackService" location="NotifierCallback.wsdl"/>
+  <types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="server/com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="requestRideRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="StartLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+            <xsd:element name="Time" type="xsd:dateTime"/>
+            <xsd:element name="UserId" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="requestRideResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="customerAnswer">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Answer" type="xsd:string"/>
+            <xsd:element name="UserId" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="answerRideResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="rideCompleted">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="UserId" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="rideCompletedResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Result" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="giveFeedbackRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="From" type="xsd:int"/>
+            <xsd:element name="PersonId" type="xsd:int"/>
+            <xsd:element name="Rating" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         MESSAGE TYPE DEFINITION - Definition of the message types used as
+         part of the port type defintions
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <message name="requestRideRequestMessage">
+    <part name="payload" element="elements:requestRideRequest"/>
+  </message>
+  <message name="requestRideResponseMessage">
+    <part name="payload" element="elements:requestRideResponse"/>
+  </message>
+  <message name="aswerToRideMessage">
+    <part name="customerAnswer" element="elements:customerAnswer"/>
+  </message>
+  <message name="aswerToRideResponseMessage">
+    <part name="info" element="elements:answerRideResponse"/>
+  </message>
+  <message name="rideCompletedMessage">
+    <part name="payload" element="elements:rideCompleted"/>
+  </message>
+  <message name="rideCompletedResponseMessage">
+    <part name="payload" element="elements:rideCompletedResponse"/>
+  </message>
+  <message name="giveFeedbackRequestMessage">
+    <part name="payload" element="elements:giveFeedbackRequest"/>
+  </message>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PORT TYPE DEFINITION - A port type groups a set of operations into
+         a logical service unit.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <!--portType implemented by the uber BPEL process-->
+  <portType name="requestRidePortType">
+    <operation name="requestRide">
+      <input message="tns:requestRideRequestMessage"/>
+      <output message="tns:requestRideResponseMessage"/>
+    </operation>
+    <operation name="acceptRide">
+      <input message="tns:aswerToRideMessage"/>
+      <output message="tns:aswerToRideResponseMessage"/>
+    </operation>
+    <operation name="rideCompleted">
+      <input message="tns:rideCompletedMessage"/>
+      <output message="tns:rideCompletedResponseMessage"/>
+    </operation>
+    <operation name="giveFeedback">
+      <input message="tns:giveFeedbackRequestMessage"/>
+    </operation>
+  </portType>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PARTNER LINK TYPE DEFINITION
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <plnk:partnerLinkType name="requestRideLink">
+    <plnk:role name="uberProvider" portType="tns:requestRidePortType"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="navigationLink">
+    <plnk:role name="navigator" portType="navigation:NavigationPortType"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="pricingLink">
+    <plnk:role name="assessor" portType="pricing:PricingPortType"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="notifierLink">
+    <plnk:role name="notifier" portType="notifier:NotifierPortType"/>
+    <plnk:role name="uberAcceptor" portType="notifierCB:NotifierCallbackPortType"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="feedbackLink">
+    <plnk:role name="reviewer" portType="feedback:FeedbackPortType"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="invoicingLink">
+    <plnk:role name="payer" portType="invoicing:InvoicingPortType"/>
+  </plnk:partnerLinkType>
+  <vprop:property name="customerID" type="xsd:int"/>
+  <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:requestRideRequestMessage" part="payload">
+    <vprop:query>UserId</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:aswerToRideMessage" part="customerAnswer">
+    <vprop:query>UserId</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias propertyName="tns:customerID" messageType="notifierCB:DriverFoundRequestMessage" part="parameters">
+    <vprop:query>Customer/Id</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:rideCompletedMessage" part="payload">
+    <vprop:query>UserId</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias propertyName="tns:customerID" messageType="tns:giveFeedbackRequestMessage" part="payload">
+    <vprop:query>From</vprop:query>
+  </vprop:propertyAlias>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         BINDING DEFINITION - Defines the message format and protocol details
+         for a web service.
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <binding name="requestRideBinding" type="tns:requestRidePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="requestRide">
+      <soap:operation soapAction="http://www.uber.com/bpel/uber/initiate"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="acceptRide">
+      <soap:operation soapAction="http://www.uber.com/bpel/uber/acceptRide"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="rideCompleted">
+      <soap:operation soapAction="http://www.uber.com/bpel/uber/rideCompleted"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="giveFeedback">
+      <soap:operation soapAction="http://www.uber.com/bpel/uber/giveFeedback"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.feedback\wsdl\Feedback.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FeedbackService" targetNamespace="http://uber.com/FeedbackService" xmlns:ps="http://uber.com/FeedbackService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:element name="RatePersonRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="PersonId" type="xsd:int"/>
+            <xsd:element name="Rating" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RatePersonRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:RatePersonRequest"/>
+  </wsdl:message>
+  <wsdl:portType name="FeedbackPortType">
+    <wsdl:operation name="RatePerson">
+      <wsdl:input message="ps:RatePersonRequestMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FeedbackSOAPBinding" type="ps:FeedbackPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RatePerson">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.invoicing\wsdl\Invoicing.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="InvoicingOrderService" targetNamespace="http://uber.com/InvoicingService" xmlns:ps="http://uber.com/InvoicingService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="PayForRideRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="CurrentLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+            <xsd:element name="Price" type="xsd:double"/>
+            <xsd:element name="CustomerId" type="xsd:int"/>
+            <xsd:element name="DriverId" type="xsd:int"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PayForRideRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:PayForRideRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PayForRideResponseMessage">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage"/>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidDriverMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="PaymentFailedMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="InvoicingPortType">
+    <wsdl:operation name="PayForRide">
+      <wsdl:input message="ps:PayForRideRequestMessage"/>
+      <wsdl:output message="ps:PayForRideResponseMessage"/>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage"/>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage"/>
+      <wsdl:fault name="InvalidDriver" message="ps:InvalidDriverMessage"/>
+      <wsdl:fault name="PaymentFailed" message="ps:PaymentFailedMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InvoicingSOAPBinding" type="ps:InvoicingPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="PayForRide">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidDriver">
+        <soap:fault name="InvalidDriver"/>
+      </wsdl:fault>
+      <wsdl:fault name="PaymentFailed">
+        <soap:fault name="PaymentFailed"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\DataTypes.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uber.com/DataTypes" xmlns:dt="http://uber.com/DataTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="FaultMessage" type="xsd:string"/>
+  <xsd:element name="SuccessMessage" type="xsd:string"/>
+  <xsd:element name="DriverElement" type="dt:Driver"/>
+  <xsd:element name="CustomerElement" type="dt:Customer"/>
+  <xsd:complexType name="Person">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Age" type="xsd:int"/>
+      <xsd:element name="Rating" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CardNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Driver">
+    <xsd:complexContent>
+      <xsd:extension base="dt:Person">
+        <xsd:sequence>
+          <xsd:element name="CarNumber" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Location">
+    <xsd:sequence>
+      <xsd:element name="Longitude" type="xsd:double"/>
+      <xsd:element name="Latitude" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.navigation\wsdl\Navigation.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NavigationService" targetNamespace="http://uber.com/NavigationService" xmlns:ps="http://uber.com/NavigationService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:messages="http://uber.com/Messages">
+  <wsdl:import namespace="http://uber.com/Messages" location="../../com.uber/wsdl/Messages.wsdl"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="GetDistanceRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="CurrentLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetDistanceResponse">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Distance" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDistanceRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:GetDistanceRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetDistanceResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:GetDistanceResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="NavigationPortType">
+    <wsdl:operation name="GetDistance">
+      <wsdl:input message="ps:GetDistanceRequestMessage"/>
+      <wsdl:output message="ps:GetDistanceResponseMessage"/>
+      <wsdl:fault name="InvalidLocation" message="messages:InvalidLocationMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NavigationSOAPBinding" type="ps:NavigationPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDistance">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber\wsdl\Messages.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingOrderService" targetNamespace="http://uber.com/Messages" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:types="http://uber.com/DataTypes">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="DataTypes.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTimeMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.notifier\wsdl\Notifier.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierService" targetNamespace="http://uber.com/NotifierService" xmlns:ps="http://uber.com/NotifierService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="FindDriverRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="StartLocation" type="types:Location"/>
+            <xsd:element name="EndLocation" type="types:Location"/>
+            <xsd:element name="Price" type="xsd:double"/>
+            <xsd:element name="CustomerId" type="xsd:int"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="FindDriverRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:FindDriverRequest"/>
+  </wsdl:message>
+  <wsdl:message name="FindDriverResponseMessage">
+    <wsdl:part name="outputParameters" element="types:SuccessMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidLocationMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidPriceMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidCustomerMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="NotifierPortType">
+    <wsdl:operation name="FindDriver">
+      <wsdl:input message="ps:FindDriverRequestMessage"/>
+      <wsdl:output message="ps:FindDriverResponseMessage"/>
+      <wsdl:fault name="InvalidLocation" message="ps:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidPrice" message="ps:InvalidPriceMessage"/>
+      <wsdl:fault name="InvalidCustomer" message="ps:InvalidCustomerMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotifierSOAPBinding" type="ps:NotifierPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FindDriver">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidPrice">
+        <soap:fault name="InvalidPrice"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidCustomer">
+        <soap:fault name="InvalidCustomer"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\server\com.uber.pricing\wsdl\Pricing.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PricingService" targetNamespace="http://uber.com/PricingService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ps="http://uber.com/PricingService" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements" xmlns:messages="http://uber.com/Messages">
+  <wsdl:import namespace="http://uber.com/Messages" location="../../com.uber/wsdl/Messages.wsdl"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="../../com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="GetPriceRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Location" type="types:Location"/>
+            <xsd:element name="Time" type="xsd:dateTime"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPriceResponse">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Price" type="xsd:double"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetPriceRequestMessage">
+    <wsdl:part name="inputParameters" element="elements:GetPriceRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetPriceResponseMessage">
+    <wsdl:part name="outputParameters" element="elements:GetPriceResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundMessage">
+    <wsdl:part name="fault" element="types:FaultMessage"/>
+  </wsdl:message>
+  <wsdl:portType name="PricingPortType">
+    <wsdl:operation name="GetPrice">
+      <wsdl:input message="ps:GetPriceRequestMessage"/>
+      <wsdl:output message="ps:GetPriceResponseMessage"/>
+      <wsdl:fault name="PriceNotFound" message="ps:PriceNotFoundMessage"/>
+      <wsdl:fault name="InvalidLocation" message="messages:InvalidLocationMessage"/>
+      <wsdl:fault name="InvalidTime" message="messages:InvalidTimeMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PricingSOAPBinding" type="ps:PricingPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetPrice">
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PriceNotFound">
+        <soap:fault name="PriceNotFound"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidLocation">
+        <soap:fault name="InvalidLocation"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTime">
+        <soap:fault name="InvalidTime"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\..\com.uber.bpel\src\wsdl\NotifierCallback.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="NotifierCallbackService" targetNamespace="http://uber.com/NotifierCallbackService" xmlns:ps="http://uber.com/NotifierCallbackService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://uber.com/DataTypes" xmlns:elements="http://uber.com/Elements">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uber.com/Elements">
+      <xsd:import namespace="http://uber.com/DataTypes" schemaLocation="server/com.uber/wsdl/DataTypes.xsd"/>
+      <xsd:element name="DriverFoundRequest">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="Driver" type="types:Driver"/>
+            <xsd:element name="Customer" type="types:Customer"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DriverFoundRequestMessage">
+    <wsdl:part name="parameters" element="elements:DriverFoundRequest"/>
+  </wsdl:message>
+  <wsdl:portType name="NotifierCallbackPortType">
+    <wsdl:operation name="receiveCallBack">
+      <wsdl:input message="ps:DriverFoundRequestMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotifierCallbackSOAPBinding" type="ps:NotifierCallbackPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="receiveCallBack">
+      <soap:operation style="document" soapAction="http://uber.com/NotifierCallbackService/NotifierCallbackPortType/receiveCallBack"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint></con:endpoints><con:operation id="4a0457ca-6c46-46e0-88bd-eeb787a7b6c9" isOneWay="false" action="http://www.uber.com/bpel/uber/acceptRide" name="acceptRide" bindingOperationName="acceptRide" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="75de15a3-4a8d-4c12-b066-91e62b72873e" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:customerAnswer>\r
+         <Answer>no</Answer>\r
+         <UserId>2</UserId>\r
+      </elem:customerAnswer>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.uber.com/bpel/uber/acceptRide"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="f3f14100-0cad-477f-b0fd-255b5d954ef0" isOneWay="false" action="http://www.uber.com/bpel/uber/giveFeedback" name="giveFeedback" bindingOperationName="giveFeedback" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="72486b0d-48eb-41ab-a108-dc4a6cb8ac85" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:giveFeedbackRequest>\r
+         <From>?</From>\r
+         <PersonId>?</PersonId>\r
+         <Rating>?</Rating>\r
+      </elem:giveFeedbackRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.uber.com/bpel/uber/giveFeedback"/></con:call></con:operation><con:operation id="e087f1b1-474e-47c4-a5b0-824060a35d11" isOneWay="false" action="http://www.uber.com/bpel/uber/initiate" name="requestRide" bindingOperationName="requestRide" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d6c8770c-bb46-46f2-a277-ef4bc1c7ea11" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:requestRideRequest>\r
+         <StartLocation>\r
+            <Longitude>0</Longitude>\r
+            <Latitude>0</Latitude>\r
+         </StartLocation>\r
+         <EndLocation>\r
+            <Longitude></Longitude>\r
+            <Latitude></Latitude>\r
+         </EndLocation>\r
+         <Time>2019-04-18T13:07:58.089Z</Time>\r
+         <UserId>10</UserId>\r
+      </elem:requestRideRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.uber.com/bpel/uber/initiate"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b32291a0-5e6e-4815-b5c5-820d5fcbca98" isOneWay="false" action="http://www.uber.com/bpel/uber/rideCompleted" name="rideCompleted" bindingOperationName="rideCompleted" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2f73483b-aedc-4370-9c8b-5da2d61f768d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:rideCompleted>\r
+         <UserId>?</UserId>\r
+      </elem:rideCompleted>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.uber.com/bpel/uber/rideCompleted"/></con:call></con:operation></con:interface><con:testSuite id="92d35147-91a4-4106-aab1-0264ec628869" name="requestRide TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="cbe1227f-4ea7-440e-b38b-72c97d2bd067" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="requestRideAccepted TestCase" searchProperties="true"><con:description>Request for ride and accept it. Mark ride completed and send feedback.</con:description><con:settings/><con:testStep type="request" id="74f7c6e6-1ee6-4403-b499-4d7f95174ca9" name="requestRide"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>requestRide</con:operation><con:request name="requestRide" id="803f3aff-f0b9-4805-88a8-9e61046dda6f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:requestRideRequest>
+         <StartLocation>
+            <Longitude>0</Longitude>
+            <Latitude>0</Latitude>
+         </StartLocation>
+         <EndLocation>
+            <Longitude>0</Longitude>
+            <Latitude>1</Latitude>
+         </EndLocation>
+         <Time>2019-04-18T13:07:58.089Z</Time>
+         <UserId>4</UserId>
+      </elem:requestRideRequest>
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="a002f3f3-394a-4e49-bb05-5c5398527f67" name="Contains"><con:configuration><token>111.2298</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/initiate" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="13b05509-5fa7-4ed7-b8d0-85e4507f3802" name="acceptRide"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>acceptRide</con:operation><con:request name="acceptRide" id="108e07bd-d664-47d2-9540-429994171997"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:customerAnswer>\r
+         <Answer>yes</Answer>\r
+         <UserId>4</UserId>\r
+      </elem:customerAnswer>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="030f3206-deeb-4187-9b03-dd91a465c836" name="Contains"><con:configuration><token>Driver found</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/acceptRide" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="3ac6dcb8-a9e5-4371-b20e-2bd978320bdd" name="rideCompleted"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>rideCompleted</con:operation><con:request name="rideCompleted" id="5228c55b-16c0-43bc-a2de-1179e5df6662"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:rideCompleted>\r
+         <UserId>4</UserId>\r
+      </elem:rideCompleted>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="c922d9a1-100d-45d4-9776-d64ffb7ce1c8" name="Contains"><con:configuration><token>Invoicing created. Done!</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/rideCompleted" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="6af28d88-fe2b-457a-9cb6-d893456441d1" name="giveFeedback"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>giveFeedback</con:operation><con:request name="giveFeedback" id="581b47cc-d016-406a-8326-a3b42cd1d164"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:giveFeedbackRequest>\r
+         <From>4</From>\r
+         <PersonId>1</PersonId>\r
+         <Rating>5</Rating>\r
+      </elem:giveFeedbackRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="GroovyScriptAssertion" id="659f38ef-7f2d-4ffc-be6c-9c2da9c6de5c" name="Script Assertion"><con:configuration><scriptText>assert messageExchange.hasResponse() == false</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/giveFeedback" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="31b5ee13-78ad-4204-9a94-b7539d8e9ed2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="requestRideDeclined TestCase" searchProperties="true"><con:description>Request for ride and decline it.</con:description><con:settings/><con:testStep type="request" id="6d6361e9-2e4c-45df-8dac-50e20b49c00d" name="requestRide"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>requestRide</con:operation><con:request name="requestRide" id="dda91f06-50a1-4c8a-9045-d88cf4b4ed3e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:requestRideRequest>\r
+         <StartLocation>\r
+            <Longitude>0</Longitude>\r
+            <Latitude>0</Latitude>\r
+         </StartLocation>\r
+         <EndLocation>\r
+            <Longitude>0</Longitude>\r
+            <Latitude>1</Latitude>\r
+         </EndLocation>\r
+         <Time>2019-04-18T13:07:58.089Z</Time>\r
+         <UserId>2</UserId>\r
+      </elem:requestRideRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="8fb1af9d-eb73-4400-9cec-d6e84da83552" name="Contains"><con:configuration><token>111.229</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/initiate" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="4e423aea-4ac9-4c5d-a85a-74d0c8b085e5" name="acceptRide"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>requestRideBinding</con:interface><con:operation>acceptRide</con:operation><con:request name="acceptRide" id="b4671ef7-44f4-4fd0-be0e-89ffc149b739"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/ode/processes/com.uber.bpel</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elem="http://uber.com/Elements">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <elem:customerAnswer>\r
+         <Answer>no</Answer>\r
+         <UserId>2</UserId>\r
+      </elem:customerAnswer>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="87319e26-7151-4873-9239-832d3731f79b" name="Contains"><con:configuration><token>Customer declined the order!</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.uber.com/bpel/uber/acceptRide" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
