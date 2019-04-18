@@ -45,7 +45,7 @@ public class FeedbackServiceSkeleton implements FeedbackServiceSkeletonInterface
 			) throws RemoteException, PersonNotFoundMessage
 	{
 		GiveFeedbackRequest request = new GiveFeedbackRequest();
-		request.setId(ratePersonRequest0.getPerson().getId());
+		request.setId(ratePersonRequest0.getPersonId());
 		request.setRating(ratePersonRequest0.getRating());
 
 		this.databaseServiceStub.giveFeedback(request);
