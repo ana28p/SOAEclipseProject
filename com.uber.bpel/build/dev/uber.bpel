@@ -16,29 +16,29 @@
               xmlns:elements="http://uber.com/Elements">
 
     <!-- Import the client WSDL -->
-    <bpel:import location="wsdl/uberArtifacts.dev.wsdl"
+    <bpel:import location="wsdl/uberArtifacts.wsdl"
                  namespace="http://www.uber.com/bpel/uber"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
 
     <!-- Import the server WSDLs -->
     <bpel:import namespace="http://uber.com/FeedbackService"
-                 location="wsdl/server/com.uber.feedback/wsdl/Feedback.dev.wsdl"
+                 location="wsdl/server/com.uber.feedback/wsdl/Feedback.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/InvoicingService"
-                 location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.dev.wsdl"
+                 location="wsdl/server/com.uber.invoicing/wsdl/Invoicing.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/NavigationService"
-                 location="wsdl/server/com.uber.navigation/wsdl/Navigation.dev.wsdl"
+                 location="wsdl/server/com.uber.navigation/wsdl/Navigation.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/NotifierService"
-                 location="wsdl/server/com.uber.notifier/wsdl/Notifier.dev.wsdl"
+                 location="wsdl/server/com.uber.notifier/wsdl/Notifier.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import namespace="http://uber.com/PricingService"
-                 location="wsdl/server/com.uber.pricing/wsdl/Pricing.dev.wsdl"
+                 location="wsdl/server/com.uber.pricing/wsdl/Pricing.wsdl"
                  importType="http://schemas.xmlsoap.org/wsdl/"/>
     <bpel:import
             namespace="http://uber.com/NotifierCallbackService"
-            location="wsdl/NotifierCallback.dev.wsdl"
+            location="wsdl/NotifierCallback.wsdl"
             importType="http://schemas.xmlsoap.org/wsdl/"/>
 
 
@@ -126,16 +126,14 @@
     <bpel:flow name="wrapper">
 
         <bpel:links>
-            <bpel:link name="end"/>
             <bpel:link name="findDriver"/>
             <bpel:link name="assign-declined-message"/>
-            <bpel:link name="abort"/>
         </bpel:links>
-        <bpel:sequence name="AcceptOrder">
+        <bpel:sequence name="Order">
             <!-- Receive input from requestor. Note: This maps to operation defined
                 in uber.wsdl -->
 
-            <bpel:receive name="receiveInput"
+            <bpel:receive name="RequestRide"
                           partnerLink="requestRideLink" portType="tns:requestRidePortType"
                           operation="requestRide" variable="input" createInstance="yes">
 
@@ -281,12 +279,7 @@
                         <bpel:literal>
                             <elements:RatePersonRequest>
                                 <Rating>0.0</Rating>
-                                <Person>
-                                    <Id>0</Id>
-                                    <Name>""</Name>
-                                    <Age>0</Age>
-                                    <Rating>0.0</Rating>
-                                </Person>
+                                <PersonId>0</PersonId>
                             </elements:RatePersonRequest>
                         </bpel:literal>
                     </bpel:from>
@@ -386,13 +379,10 @@
 
         </bpel:sequence>
         <bpel:sequence name="OrderAccepted">
-            <bpel:sources>
-                <bpel:source linkName="end"/>
-            </bpel:sources>
             <bpel:targets>
                 <bpel:target linkName="findDriver"/>
             </bpel:targets>
-            <bpel:sequence name="OrderAccepted">
+            <bpel:sequence name="FindDriver">
 
 
                 <bpel:assign name="Assign-input-findDriver">
@@ -489,7 +479,7 @@
                                 $giveFeedbackInput.payload/PersonId
                             </bpel:from>
                             <bpel:to>
-                                $ratePersonInput.inputParameters/Person/Id
+                                $ratePersonInput.inputParameters/PersonId
                             </bpel:to>
                         </bpel:copy>
                         <bpel:copy>
@@ -577,9 +567,6 @@
 
 
         <bpel:sequence name="OrderDenied">
-            <bpel:sources>
-                <bpel:source linkName="abort"/>
-            </bpel:sources>
             <bpel:targets>
                 <bpel:target linkName="assign-declined-message"/>
             </bpel:targets>
@@ -597,15 +584,6 @@
                         operation="acceptRide" variable="lastOutput">
             </bpel:reply>
         </bpel:sequence>
-
-
-        <bpel:empty name="end">
-            <bpel:targets>
-                <bpel:target linkName="end"/>
-                <bpel:target linkName="abort"/>
-            </bpel:targets>
-
-        </bpel:empty>
 
 
     </bpel:flow>

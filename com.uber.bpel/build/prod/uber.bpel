@@ -129,11 +129,11 @@
             <bpel:link name="findDriver"/>
             <bpel:link name="assign-declined-message"/>
         </bpel:links>
-        <bpel:sequence name="AcceptOrder">
+        <bpel:sequence name="Order">
             <!-- Receive input from requestor. Note: This maps to operation defined
                 in uber.wsdl -->
 
-            <bpel:receive name="receiveInput"
+            <bpel:receive name="RequestRide"
                           partnerLink="requestRideLink" portType="tns:requestRidePortType"
                           operation="requestRide" variable="input" createInstance="yes">
 
@@ -279,12 +279,7 @@
                         <bpel:literal>
                             <elements:RatePersonRequest>
                                 <Rating>0.0</Rating>
-                                <Person>
-                                    <Id>0</Id>
-                                    <Name>""</Name>
-                                    <Age>0</Age>
-                                    <Rating>0.0</Rating>
-                                </Person>
+                                <PersonId>0</PersonId>
                             </elements:RatePersonRequest>
                         </bpel:literal>
                     </bpel:from>
@@ -484,7 +479,7 @@
                                 $giveFeedbackInput.payload/PersonId
                             </bpel:from>
                             <bpel:to>
-                                $ratePersonInput.inputParameters/Person/Id
+                                $ratePersonInput.inputParameters/PersonId
                             </bpel:to>
                         </bpel:copy>
                         <bpel:copy>

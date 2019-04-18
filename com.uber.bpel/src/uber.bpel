@@ -129,11 +129,11 @@
             <bpel:link name="findDriver"/>
             <bpel:link name="assign-declined-message"/>
         </bpel:links>
-        <bpel:sequence name="AcceptOrder">
+        <bpel:sequence name="Order">
             <!-- Receive input from requestor. Note: This maps to operation defined
                 in uber.wsdl -->
 
-            <bpel:receive name="receiveInput"
+            <bpel:receive name="RequestRide"
                           partnerLink="requestRideLink" portType="tns:requestRidePortType"
                           operation="requestRide" variable="input" createInstance="yes">
 
